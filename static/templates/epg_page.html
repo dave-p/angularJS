@@ -1,0 +1,49 @@
+<div id='epg_main'>
+
+	<div id='epg_channels'>
+		<div class='epg_unit channel' ng-repeat="entry in channelList">
+			<img class="channelLogo" src="{{entry['icon']}}" />
+			<p class="mb-0 text-truncate">{{entry['name']}}</p>
+		</div>
+	</div>
+	<div id='epg_data'>
+		<li class='epg_row'>
+			<div class='epg_unit time' ng-repeat='time in timeLine'><p>{{time}}</p></div>
+			<div class='epg_unit time' ng-repeat='time in timeLine | limitTo : 29'><p>{{time}}</p></div>
+		</li>
+		<li class='epg_row epg_hr_row'>	
+			<hr />
+		</li>
+
+
+
+
+
+		<div ng-repeat="program in epgArray"> 
+			<li class='epg_row'>
+				<div id={{entry.id}} class='epg_unit selectable' ng-click="selectContainer(entry.id)" ng-repeat="entry in program" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
+					<p class=" text-truncate">{{entry.name}}</p>
+				</div>
+			</li>
+		</div>
+
+
+
+
+	</div>
+	<div id='epg_bottom'>
+		<img id="epg_bottom_image" src="http://192.168.1.8/images/logos/tv2charlie.jpg" />
+		<h2 id="epg_bottom_title">{{selectedTitle}}</h2>
+		<div id="epg_bottom_placeholder">
+			<h4 id="epg_bottom_time">{{selectedTime}}</h4>
+			<p class="dot"></p>
+			<h4 id="epg_bottom_genre">{{selectedGenre}}</h4>
+		</div>
+		<div id="epg_summary">
+			{{selectedText}}
+		</div>
+	</div>
+
+
+</div>
+

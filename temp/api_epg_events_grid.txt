@@ -1,0 +1,852 @@
+{
+   "totalCount":2371,
+   "entries":[
+      {
+         "eventId":191772,
+         "serieslinkUri":"crid://onid-65024/1B6021B12Morgennyhederne",
+         "channelName":"TV 2 Danmark",
+         "channelUuid":"4d3f19fafca1e99f89fa588ee58299ec",
+         "channelNumber":"3",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2.jpg",
+         "start":1586581200,
+         "stop":1586599200,
+         "title":"Morgennyhederne",
+         "genre":[ 32 ],
+         "nextEventId":191773
+      },
+
+      {
+         "eventId":194633,
+         "serieslinkUri":"crid://onid-65024/134085478Tom & Jerry: Spion Mission",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586592000,
+         "stop":1586597400,
+         "title":"Tom & Jerry: Spion Mission",
+         "description":"Børn og unge Det starter som en helt almindelig dag for Tom og Jerry, lige indtil de møder de unge spioner Jonny Quest, Hadji og Bandit.",
+         "genre":[ 80 ],
+         "nextEventId":192251
+      },
+
+       {
+         "eventId":191700,
+         "serieslinkUri":"crid://onid-65024/02903371DTaggart: Blomsten af landets ungdom",
+         "channelName":"DR1",
+         "channelUuid":"bc3288052208ba12763fdb96ffd63236",
+         "channelNumber":"1",
+         "channelIcon":"http://192.168.1.8/images/logos/dr1.jpg",
+         "start":1586593200,
+         "stop":1586597400,
+         "title":"Taggart: Blomsten af landets ungdom (2:2)",
+         "description":"Krimiserie (Taggart: The Best and the Brightest). Skotsk krimi fra 2006. Taggart-holdet må i arbejdstøjet, da en studerende findes død på universitetet. Den unge kvinde er blevet forgiftet, men Burke og co. står uden motiv eller mistænkte, for den afdøde brugte det meste af sin tid på sine studier og havde tilsyneladende ikke nogen fjender. For Jackie Reid fører sagen til et gensyn med en gammel ven, der gerne vil være mere end blot end ven.Jackie Reid: Blythe Duff.Robbie Ross: John Michie.Matt Burke: Alex Norton.Instruktion: James Henry. Features: (G), 16:9",
+         "nextEventId":191701
+      
+},
+      {
+         "eventId":192844,
+         "serieslinkUri":"crid://onid-65024/124031CC3Death in Paradise",
+         "channelName":"TV 2 Charlie",
+         "channelUuid":"119930eac893df26f9f5ec64be1f2704",
+         "channelNumber":"5",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2charlie.jpg",
+         "start":1586594700,
+         "stop":1586598000,
+         "title":"Death in Paradise (3:8)",
+         "description":"Krimiserie Engelsk krimiserie fra 2012.  Liget af en kvinde findes flydende i svømmebassinet ved en eksklusiv kosmetisk klinik, og den sag giver vicekriminalkommissær Richard Poole dybe rynker i panden. Alt tyder på selvmord - kvinden var midt i en vanskelig skilsmisse, og der ligger et tømt pilleglas i hendes værelse. Poole er imidlertid ikke tilfreds med den mest oplagte hypotese, for hvorfor ville offeret lave en kop af verdens dyreste te for blot at drikke halvdelen?! Features: (G)",
+         "nextEventId":192845
+      
+},
+      {
+         "eventId":191671,
+         "channelName":"Xee",
+         "channelUuid":"381ad197129781b226c8f776d1f9badb",
+         "channelNumber":"8",
+         "channelIcon":"http://192.168.1.8/images/logos/xee.jpg",
+         "start":1586595600,
+         "stop":1586599200,
+         "title":"The Spanish Princess (3:8)",
+         "description":"Serie Sæson 1. Afsnit 3. USA, 2019. An Audacious Dream. Katarina nægter at opgive håbet om en dag at blive Englands dronning og brygger på en plan om at gifte sig med prins Harry. Grundet en kompliceret fødsel får Elisabet får et ildevarslende syn.",
+         "nextEventId":191672
+         },
+      {
+         "eventId":191740,
+         "serieslinkUri":"crid://onid-65024/08E034796Kung Fu Panda 2",
+         "channelName":"TV3",
+         "channelUuid":"20ffe8c2b94dff78c137fa9bf6c7838c",
+         "channelNumber":"4",
+         "channelIcon":"http://192.168.1.8/images/logos/tv3.jpg",
+         "start":1586595600,
+         "stop":1586602500,
+         "title":"Kung Fu Panda 2",
+         "description":"Børne-, ungdoms- og familiefilm  Amerikansk animeret film fra 2011. Po og vennerne må rejse tværs over Kina for at tage kampen op. Men hvordan kan Po bekæmpe et våben, der kan neutralisere kung fu? Han må finde svaret i sin fortid og lære hemmeligheden om sin mystiske herkomst. Instr.: Jennifer Yuh.",
+         "genre": [ 31 ],
+         "nextEventId":191741
+      },
+      {
+         "eventId":191812,
+         "serieslinkUri":"crid://onid-65024/0290188D1Pippi Langstrømpe",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586595600,
+         "stop":1586597400,
+         "title":"Pippi Langstrømpe (5:13)",
+         "description":" Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191813
+      
+},
+      {
+         "eventId":191757,
+         "serieslinkUri":"crid://onid-65024/0290361A924 timer vi aldrig glemmer - Murens fald 1989",
+         "channelName":"DR2",
+         "channelUuid":"85656fe35b57c3b04d8caa0ccf4f121e",
+         "channelNumber":"2",
+         "channelIcon":"http://192.168.1.8/images/logos/dr2.jpg",
+         "start":1586596200,
+         "stop":1586599200,
+         "title":"24 timer vi aldrig glemmer - Murens fald 1989",
+         "description":"Fakta/videnskab/natur Der er dage vi aldrig glemmer. Dage hvor vi husker, hvor vi var og hvad vi lavede. Dage hvor verden bogstavelig talt vælter om ørerne på os. En af dem er 9. november 1989. Den dag Berlinmuren faldt.Hør en række journalister, fotografer, helt almindelige danskere og en tysker med dansk baggrund fortælle om døgnet, hvor Europa ændrede sig og den jerntæppet mellem øst og vest smuldrede. Et døgn, der kun blev som det blev på grund af en tilfældig fejlkommunikation mellem nogle Østtyske politikere. Tilrettelæggelse: Jakob Kronborg Heick.Sendt første gang 08.11.09 Features: TTV, 16:9",
+         "genre":[
+            144
+         
+],
+         "nextEventId":191758
+      
+},
+      {
+         "eventId":191701,
+         "serieslinkUri":"crid://onid-65024/029083C63Scandinavian Star",
+         "channelName":"DR1",
+         "channelUuid":"bc3288052208ba12763fdb96ffd63236",
+         "channelNumber":"1",
+         "channelIcon":"http://192.168.1.8/images/logos/dr1.jpg",
+         "start":1586597400,
+         "stop":1586601000,
+         "title":"Scandinavian Star (5:6)",
+         "description":"Fakta/videnskab/natur Dansk dokumentar fra 2020Efter at skibet har ligget og ventet på en ny ejer i havnen i England bliver det sendt på tvangsauktion og købes for et mindre beløb af et ukendt Bahamas-selskab. En norsk journalist indleder en nærmere granskning og opdager, at flere spor fører til USA og den internationale skibsfart, hvor penge og papirer skifter hænder og ejere. Features: TTV, HD",
+         "genre":[
+            144
+         
+],
+         "dvrUuid":"1ab1a3dd6e04b8e7fe2895de760e7050",
+         "dvrState":"scheduled",
+         "nextEventId":191702
+      
+},
+      {
+         "eventId":192251,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586597400,
+         "stop":1586597700,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192252
+      
+},
+      {
+         "eventId":191813,
+         "serieslinkUri":"crid://onid-65024/0290188D1Pippi Langstrømpe",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586597400,
+         "stop":1586598900,
+         "title":"Pippi Langstrømpe (6:13)",
+         "description":" Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":193180
+      
+},
+      {
+         "eventId":192252,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586597700,
+         "stop":1586598300,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192253
+      
+},
+      {
+         "eventId":192845,
+         "serieslinkUri":"crid://onid-65024/124031CC3Death in Paradise",
+         "channelName":"TV 2 Charlie",
+         "channelUuid":"119930eac893df26f9f5ec64be1f2704",
+         "channelNumber":"5",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2charlie.jpg",
+         "start":1586598000,
+         "stop":1586601600,
+         "title":"Death in Paradise (4:8)",
+         "description":"Krimiserie Engelsk krimiserie fra 2012.  En flok tilsyneladende harmløse skattejægere ankommer til Saint Marie i håbet om at finde den legendariske pirat Le Clercs skjulte skat. De får sig imidlertid et chok, da geologen Ian Parks bliver skudt og dræbt med en 300 år gammel pistol i ekspeditionslederens telt. Inden længe er samtlige skattejægere under mistanke for at have begået forbrydelsen, så vicekriminalkommissær Richard Pool og hans team her mere end rigeligt at se til.  Features: (G)",
+         "nextEventId":192846
+      
+},
+      {
+         "eventId":192253,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586598300,
+         "stop":1586599200,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192254
+      
+},
+      {
+         "eventId":193180,
+         "serieslinkUri":"crid://onid-65024/0290707A2Morten Skildpadde II",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586598900,
+         "stop":1586600400,
+         "title":"Morten Skildpadde II (4:26)",
+         "description":" Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191815
+      
+},
+      {
+         "eventId":191672,
+         "channelName":"Xee",
+         "channelUuid":"381ad197129781b226c8f776d1f9badb",
+         "channelNumber":"8",
+         "channelIcon":"http://192.168.1.8/images/logos/xee.jpg",
+         "start":1586599200,
+         "stop":1586602800,
+         "title":"The Spanish Princess (4:8)",
+         "description":"Serie Sæson 1. Afsnit 4. USA, 2019. The Battle For Harry. Nationen sørger over Elisabets bortgang og Katarina arbejder på at sikre ægteskabet med Harry. Henrik VII chokerer familien, da han offentliggør sine uventede hensigter med at hædre hustruens sidste ønske.",
+         "nextEventId":191673
+      
+},
+      {
+         "eventId":192254,
+         "serieslinkUri":"crid://onid-65024/13401A1C2Mr. Bean",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586599200,
+         "stop":1586600100,
+         "title":"Mr. Bean",
+         "description":"Børn og unge Denne serie følger alles yndlingskluddermikkels eventyr. Mr. Bean deler lejlighed med den elskelige Teddy, hvor han træffer tossede beslutninger og kommer op med geniale løsninger.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192255
+      
+},
+      {
+         "eventId":191758,
+         "serieslinkUri":"crid://onid-65024/02908508EVM-minder: 1998 Brasilien - Danmark",
+         "channelName":"DR2",
+         "channelUuid":"85656fe35b57c3b04d8caa0ccf4f121e",
+         "channelNumber":"2",
+         "channelIcon":"http://192.168.1.8/images/logos/dr2.jpg",
+         "start":1586599200,
+         "stop":1586605800,
+         "title":"VM-minder: 1998 Brasilien - Danmark",
+         "description":"Sport Kun en enkelt gang har herrelandsholdet i fodbold stået i en kvartfinale ved et VM i fodbold. Det var i Frankrig i 1998, og modstanderne var ingen ringere end de dengang forsvarende verdensmestre fra Brasilien med både Ronaldo og Rivaldo på holdkortet. Danmark havde imidlertid to gange Laudrup og en helt ung Martin Jørgensen. Gense en af de bedste kampe overhovedet fra slutrunden den sommer.Kommentatorer: Carsten Werge og Per Frimann. Præsentation: Andreas Kraul og Henrik Liniger. Features: TTV, HD",
+         "genre":[
+            64
+         
+],
+         "nextEventId":192969
+      
+},
+      {
+         "eventId":191773,
+         "serieslinkUri":"crid://onid-65024/1B6019077Nyhederne",
+         "channelName":"TV 2 Danmark",
+         "channelUuid":"4d3f19fafca1e99f89fa588ee58299ec",
+         "channelNumber":"3",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2.jpg",
+         "start":1586599200,
+         "stop":1586601000,
+         "title":"Nyhederne (473:500)",
+         "description":" Features: TTV",
+         "genre":[
+            32
+         
+],
+         "nextEventId":194162
+      
+},
+      {
+         "eventId":192255,
+         "serieslinkUri":"crid://onid-65024/13401A1C2Mr. Bean",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586600100,
+         "stop":1586601000,
+         "title":"Mr. Bean",
+         "description":"Børn og unge Denne serie følger alles yndlingskluddermikkels eventyr. Mr. Bean deler lejlighed med den elskelige Teddy, hvor han træffer tossede beslutninger og kommer op med geniale løsninger.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192256
+      
+},
+      {
+         "eventId":191815,
+         "serieslinkUri":"crid://onid-65024/0290707A2Morten Skildpadde II",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586600400,
+         "stop":1586601600,
+         "title":"Morten Skildpadde II (5:26)",
+         "description":" Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":193181
+      
+},
+      {
+         "eventId":191702,
+         "serieslinkUri":"crid://onid-65024/029084E27Maddysten II - Bæredygtig mad",
+         "channelName":"DR1",
+         "channelUuid":"bc3288052208ba12763fdb96ffd63236",
+         "channelNumber":"1",
+         "channelIcon":"http://192.168.1.8/images/logos/dr1.jpg",
+         "start":1586601000,
+         "stop":1586604600,
+         "title":"Maddysten II - Bæredygtig mad (5:8)",
+         "description":"Gastronomi Der er 5 familier tilbage i Maddysten, som denne gang bliver udfordret til at tænke bæredygtigt. De skal lave vegansk mad til 4 skarpe madanmeldere og lave så mange kartoffelretter som muligt på blot 40 minutter. Til sidst bliver de sluppet løs i et supermarked, hvor de får blot 100 kr. at handle for til lækker mad til de tre dommere. Maddystens dommertrio består af Michelin-kok Dak Wichangoen, kok og kogebogsforfatter Louisa Lorang og den karismatiske kok og pizzakonge Gorm Wisweh. Features: TTV, HD, (G)",
+         "genre":[
+            165
+         
+],
+         "nextEventId":193476
+      
+},
+      {
+         "eventId":192256,
+         "serieslinkUri":"crid://onid-65024/13401A1C2Mr. Bean",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586601000,
+         "stop":1586601900,
+         "title":"Mr. Bean",
+         "description":"Børn og unge Denne serie følger alles yndlingskluddermikkels eventyr. Mr. Bean deler lejlighed med den elskelige Teddy, hvor han træffer tossede beslutninger og kommer op med geniale løsninger.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192257
+      
+},
+      {
+         "eventId":194162,
+         "serieslinkUri":"crid://onid-65024/1B60198DFHvem vil være millionær?",
+         "channelName":"TV 2 Danmark",
+         "channelUuid":"4d3f19fafca1e99f89fa588ee58299ec",
+         "channelNumber":"3",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2.jpg",
+         "start":1586601000,
+         "stop":1586604600,
+         "title":"Hvem vil være millionær? (17:23)",
+         "description":"Quiz/Gætteleg (Mig og min nabo: Joachim og Morten). Mig og min nabo.  Gode naboer er guld værd, og det er de forhåbentlig også, når det gælder paratviden. Fem nabopar dyster om at være hurtigst på aftrækkeren og opnå plads i Hans Pilgaards varme stole. Alle går benhårdt efter millionen - og tror på, at naboskabet holder undervejs! Features: TTV, (G)",
+         "genre":[
+            49
+         
+],
+         "nextEventId":194163
+      
+},
+      {
+         "eventId":193181,
+         "serieslinkUri":"crid://onid-65024/029020187Kika og Bob",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586601600,
+         "stop":1586602500,
+         "title":"Kika og Bob (22:26)",
+         "description":"Tegnefilm/dukketeater Safari. Pigen Kika og brandmanden Bob drager på fantastiske eventyr. Features: 16:9",
+         "genre":[
+            85
+         
+],
+         "nextEventId":193182
+      
+},
+      {
+         "eventId":192846,
+         "serieslinkUri":"crid://onid-65024/124031CC3Death in Paradise",
+         "channelName":"TV 2 Charlie",
+         "channelUuid":"119930eac893df26f9f5ec64be1f2704",
+         "channelNumber":"5",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2charlie.jpg",
+         "start":1586601600,
+         "stop":1586605200,
+         "title":"Death in Paradise (5:8)",
+         "description":"Krimiserie Engelsk krimiserie fra 2012.  Camille er dybt ulykkelig, fordi hendes bedste veninde, Aimee, er død. Veninden arbejdede som sanger på et caribisk party-skib, og styrter om på scenen efter en aften med musik og cocktails. Aimee kæmper for at få vejret, og hun dør i Camilles arme. Meget tyder på, at Aimee blev forgiftet - men af hvem og hvorfor? Features: (G)",
+         "nextEventId":191723
+      
+},
+      {
+         "eventId":192257,
+         "serieslinkUri":"crid://onid-65024/13401A1C2Mr. Bean",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586601900,
+         "stop":1586602800,
+         "title":"Mr. Bean",
+         "description":"Børn og unge Denne serie følger alles yndlingskluddermikkels eventyr. Mr. Bean deler lejlighed med den elskelige Teddy, hvor han træffer tossede beslutninger og kommer op med geniale løsninger.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192258
+      
+},
+      {
+         "eventId":191741,
+         "serieslinkUri":"crid://onid-65024/08E01BD13Ice Age",
+         "channelName":"TV3",
+         "channelUuid":"20ffe8c2b94dff78c137fa9bf6c7838c",
+         "channelNumber":"4",
+         "channelIcon":"http://192.168.1.8/images/logos/tv3.jpg",
+         "start":1586602500,
+         "stop":1586608800,
+         "title":"Ice Age",
+         "description":"Børne-, ungdoms- og familiefilm  Amerikansk animeret film fra 2002. Det er 20.000 år siden. Mens istiden faretruende nærmer sig, drager 3 vidt forskellige dyr ud på en halsbrækkende mission. Instr.: Carlos Saldanha. Chris Wedge.",
+         "genre":[
+            31
+         
+],
+         "nextEventId":191742
+      
+},
+      {
+         "eventId":193182,
+         "serieslinkUri":"crid://onid-65024/029048A6ETree Fu Tom",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586602500,
+         "stop":1586604000,
+         "title":"Tree Fu Tom (17:20)",
+         "description":" Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191818
+      
+},
+      {
+         "eventId":191673,
+         "channelName":"Xee",
+         "channelUuid":"381ad197129781b226c8f776d1f9badb",
+         "channelNumber":"8",
+         "channelIcon":"http://192.168.1.8/images/logos/xee.jpg",
+         "start":1586602800,
+         "stop":1586606400,
+         "title":"The Spanish Princess (5:8)",
+         "description":"Serie Sæson 1. Afsnit 5. USA, 2019. Heart Versus Duty. Katarina står foran et svært valg: Skal hun gifte sig med kong Henrik og straks blive Englands dronning eller finde på en undskyldning for at undgå det og i stedet vente på Harry.",
+         "nextEventId":191674
+      
+},
+      {
+         "eventId":192258,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586602800,
+         "stop":1586603100,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192259
+      
+},
+      {
+         "eventId":192259,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586603100,
+         "stop":1586603700,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192260
+      
+},
+      {
+         "eventId":192260,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586603700,
+         "stop":1586604000,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192261
+      
+},
+      {
+         "eventId":192261,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586604000,
+         "stop":1586604900,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":194634
+      
+},
+      {
+         "eventId":191818,
+         "serieslinkUri":"crid://onid-65024/029048A6ETree Fu Tom",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586604000,
+         "stop":1586605200,
+         "title":"Tree Fu Tom (18:20)",
+         "description":" Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191819
+      
+},
+      {
+         "eventId":193476,
+         "serieslinkUri":"crid://onid-65024/029084E60Bonderøven - Båd",
+         "channelName":"DR1",
+         "channelUuid":"bc3288052208ba12763fdb96ffd63236",
+         "channelNumber":"1",
+         "channelIcon":"http://192.168.1.8/images/logos/dr1.jpg",
+         "start":1586604600,
+         "stop":1586604900,
+         "title":"Bonderøven - Båd",
+         "description":"Fritid og hobby Et kort udklip - hvor Bonderøven færdiggør sin hjemmelavede båd. Features: TTV, HD, (G)",
+         "genre":[
+            160
+         
+],
+         "nextEventId":191703
+      
+},
+      {
+         "eventId":194163,
+         "serieslinkUri":"crid://onid-65024/1B60198DFHvem vil være millionær?",
+         "channelName":"TV 2 Danmark",
+         "channelUuid":"4d3f19fafca1e99f89fa588ee58299ec",
+         "channelNumber":"3",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2.jpg",
+         "start":1586604600,
+         "stop":1586607900,
+         "title":"Hvem vil være millionær? (18:23)",
+         "description":"Quiz/Gætteleg (Mig og min nabo: Anders og Maja). Mig og min nabo.  Hans Pilgaard har inviteret fem nye nabopar til at kæmpe om den eftertragtede million. Hvem er hurtigst på aftrækkeren, hvem får drømmene opfyldt, og er der mon nabohjælp at hente undervejs? Features: TTV, (G)",
+         "genre":[
+            49
+         
+],
+         "nextEventId":194164
+      
+},
+      {
+         "eventId":191703,
+         "serieslinkUri":"crid://onid-65024/02901B9A4Stolthed og fordom",
+         "channelName":"DR1",
+         "channelUuid":"bc3288052208ba12763fdb96ffd63236",
+         "channelNumber":"1",
+         "channelIcon":"http://192.168.1.8/images/logos/dr1.jpg",
+         "start":1586604900,
+         "stop":1586611200,
+         "title":"Stolthed og fordom (2:3)",
+         "description":"Dramaserie (Pride and Prejudice). Engelsk romantisk drama-miniserie fra 1995. Ungkarlene Darcy og Bingley rejser ganske uventet tilbage til London. Det gør ikke Elizabeth Bennet mildere stemt over for den flotte, men tilknappede Darcy. Hendes søster Jane er sønderknust over nyheden om, at Bingley er rejst, og Elizabeth opfatter miseren som Darcys skyld.Medvirkende: Jennifer Ehle, Colin Firth, Susannah Harker m.fl. Features: (G)",
+         "nextEventId":191704
+      
+},
+      {
+         "eventId":194634,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586604900,
+         "stop":1586605500,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192263
+      
+},
+      {
+         "eventId":191819,
+         "serieslinkUri":"crid://onid-65024/029060D35Brillebjørn",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586605200,
+         "stop":1586605500,
+         "title":"Brillebjørn (6:26)",
+         "description":"Mindre børn Glaskuglerne. Norsk dramaserie.Ruby er på besøg hos farmor og leger med glaskugler. Farmor har en hund, som Ruby synes ser lidt farlig ud. Da hendes yndlingsglaskugle triller ud og lander ved siden af hunden, tør Ruby ikke hente den. Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191820
+      
+},
+      {
+         "eventId":191723,
+         "serieslinkUri":"crid://onid-65024/124031CC3Death in Paradise",
+         "channelName":"TV 2 Charlie",
+         "channelUuid":"119930eac893df26f9f5ec64be1f2704",
+         "channelNumber":"5",
+         "channelIcon":"http://192.168.1.8/images/logos/tv2charlie.jpg",
+         "start":1586605200,
+         "stop":1586608500,
+         "title":"Death in Paradise (6:8)",
+         "description":"Krimiserie Engelsk krimiserie fra 2012.  En kvindelig, engelsk turist findes myrdet i sin luksus-villa. Hun er tydeligvis blevet stranguleret med sit eget tørklæde, og gerningsstedet mere end antyder, at der er tale om et røveri, der er gået helt galt. Men det lader vicekriminalkommissær Richard Poole sig ikke vildlede af - for hele situationen minder uhyggeligt meget om en lignende sag, han har hørt om hjemme i London.  Features: (G)",
+         "nextEventId":192847
+      
+},
+      {
+         "eventId":192263,
+         "serieslinkUri":"crid://onid-65024/134051FC3Tom & Jerry Show",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586605500,
+         "stop":1586606400,
+         "title":"Tom & Jerry Show",
+         "description":"Børn og unge De ikoniske katte- og muserivaler er tilbage i TOM & JERRY-SHOWET, en ny optagelse af den klassiske serie.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192264
+      
+},
+      {
+         "eventId":191820,
+         "serieslinkUri":"crid://onid-65024/02901A1FFAlfons Åberg",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586605500,
+         "stop":1586606400,
+         "title":"Alfons Åberg (2:12)",
+         "description":"Mindre børn Alfons Åberg er en dreng på omkring 6 år. Han bor alene sammen med sin far, og er en meget nysgerrig, fantasifuld og opfindsom dreng. Historierne i episoderne tager udgangspunkt i en 6 årig drengs hverdag og de tanker, Alfons gør sig om sin omverden. Features: 16:9",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191821
+      
+},
+      {
+         "eventId":192969,
+         "serieslinkUri":"crid://onid-65024/029084B84DR2 bringer kulturen ud",
+         "channelName":"DR2",
+         "channelUuid":"85656fe35b57c3b04d8caa0ccf4f121e",
+         "channelNumber":"2",
+         "channelIcon":"http://192.168.1.8/images/logos/dr2.jpg",
+         "start":1586605800,
+         "stop":1586606400,
+         "title":"DR2 bringer kulturen ud (7)",
+         "description":"Kunst- og kultur Kultur i en karantænetid. DR2s værter Ane Cortzen, Maria Månson og Phillip Faber bringer kulturanbefalinger ud til dig - hjemme fra deres egne stuer. Features: TTV, HD, (G)",
+         "genre":[
+            112
+         
+],
+         "nextEventId":191760
+      
+},
+      {
+         "eventId":191674,
+         "channelName":"Xee",
+         "channelUuid":"381ad197129781b226c8f776d1f9badb",
+         "channelNumber":"8",
+         "channelIcon":"http://192.168.1.8/images/logos/xee.jpg",
+         "start":1586606400,
+         "stop":1586610000,
+         "title":"The Spanish Princess (6:8)",
+         "description":"Serie Sæson 1. Afsnit 6. USA, 2019. A Polite Kidnapping. Den engelske trone synes indenfor rækkevidde, men en ulykkelig hændelse gør, at Katarinas fremtid pludselig havner i hendes ustabile storesøsters hænder.",
+         "nextEventId":191675
+      
+},
+      {
+         "eventId":192264,
+         "serieslinkUri":"crid://onid-65024/13401A1C2Mr. Bean",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586606400,
+         "stop":1586607300,
+         "title":"Mr. Bean",
+         "description":"Børn og unge Denne serie følger alles yndlingskluddermikkels eventyr. Mr. Bean deler lejlighed med den elskelige Teddy, hvor han træffer tossede beslutninger og kommer op med geniale løsninger.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192265
+      
+},
+      {
+         "eventId":191821,
+         "serieslinkUri":"crid://onid-65024/02901E042Cirkeline",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586606400,
+         "stop":1586607000,
+         "title":"Cirkeline (2:12)",
+         "description":"Mindre børn Klodsmus. Det er regnvejr. Musene og Cirkeline synger \"Regnvejrssang\", men så finder de på at spørge Bedstefar, om han ikke vil fortælle et eventyr - og det vil han. Det bliver eventyret om Klodsmus.",
+         "genre":[
+            81
+         
+],
+         "nextEventId":191822
+      
+},
+      {
+         "eventId":191760,
+         "serieslinkUri":"crid://onid-65024/029021B31Danmarkshistorien fortalt af Erik Kjersgaard",
+         "channelName":"DR2",
+         "channelUuid":"85656fe35b57c3b04d8caa0ccf4f121e",
+         "channelNumber":"2",
+         "channelIcon":"http://192.168.1.8/images/logos/dr2.jpg",
+         "start":1586606400,
+         "stop":1586610000,
+         "title":"Danmarkshistorien fortalt af Erik Kjersgaard (8:12)",
+         "description":"Fakta/videnskab/natur Et lidet, fattigt land. Om perioden 1814-1850 - Oehlenschlægers og H.C. Ørsteds Danmark - et land hensunket i romantiske fortidsdrømmerier og kulturel terapi, fordi nationen var fattig og lå under for reaktionen i Europa. Men ud af den kulturelle blomstring skulle der dog fremgå en politisk vækst, som styrtede enevælden.Sendt første gang i 1982.",
+         "genre":[
+            144
+         
+],
+         "nextEventId":191761
+      
+},
+      {
+         "eventId":191822,
+         "serieslinkUri":"crid://onid-65024/029019EF5Peddersen og Findus",
+         "channelName":"DR Ramasjang",
+         "channelUuid":"86b21fd7a09526b72f923611171f2482",
+         "channelNumber":"10",
+         "channelIcon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "start":1586607000,
+         "stop":1586607900,
+         "title":"Peddersen og Findus (12:13)",
+         "description":"Tegnefilm/dukketeater Gok-gok i køkkenhaven. Peddersen sår kartofler og gulerødder, men Findus mener, at det vil være bedre at prøve med frikadeller.",
+         "genre":[
+            85
+         
+],
+         "nextEventId":191823
+      
+},
+      {
+         "eventId":192265,
+         "serieslinkUri":"crid://onid-65024/13401A1C2Mr. Bean",
+         "channelName":"Ekstrakanalen",
+         "channelUuid":"eb2a1844a2276a926a8840bccc877e16",
+         "channelNumber":"9",
+         "channelIcon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "start":1586607300,
+         "stop":1586608200,
+         "title":"Mr. Bean",
+         "description":"Børn og unge Denne serie følger alles yndlingskluddermikkels eventyr. Mr. Bean deler lejlighed med den elskelige Teddy, hvor han træffer tossede beslutninger og kommer op med geniale løsninger.",
+         "genre":[
+            80
+         
+],
+         "nextEventId":192266
+      
+}
+   
+]
+}

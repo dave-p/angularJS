@@ -1,0 +1,299 @@
+html, body {
+  font-family: 'Times';font-size: 22px;
+  height: 100%;
+  margin: 0px;
+  background-color: black;
+}
+
+hr {
+  border: 0;
+  height: 2px;
+  background: #444444;
+}
+
+p {
+  margin: 0;
+}
+
+.float-left {
+  float: left;
+}
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin:  10px;
+  display: inline-block;
+  float: left;
+}
+
+.bigdot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  margin-top:  5px !important;
+  margin-right:  15px !important;
+  display: inline-block;
+}
+
+.sidenav_small {
+  left: -240px;  
+}
+
+.sidenav_big {
+  left: 0px;  
+}
+
+.sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: .2s;
+}
+
+.sidenav span {
+  float: right;
+  margin-right: 3px;
+  margin-top: 3px;
+}
+
+.sidenav a {
+  font-size: 16px;
+  padding: 0px 8px 6px 16px;
+  text-decoration: none;
+  font-family: Montserrat;
+  font-weight: bold;
+  display: block;
+  padding-bottom: 10px;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav a:hover span {
+  background-color: #f1f1f1;
+}
+
+.main {
+  color: black;
+  height: 97vh;
+  transition: .2s;
+}
+
+.main_big {
+  margin-left: 60px;
+  width: calc(100% - 60px);
+}
+
+.main_small {
+  margin-left: 300px;
+  width: calc(100% - 300px);
+}
+
+#showHideIcon {
+  float:right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 13px;
+}
+
+#showHideIcon:hover {
+  background-color: darkgrey;
+}
+
+#menulogo {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+}
+
+#logoimage {
+  width: 400px;
+  height: auto;
+  margin: 20px;
+}
+
+#about {
+  color: gray;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+#about p {
+  font-size: 14px;
+  margin: 10px;
+}
+
+#about h4 {
+  margin-top: 0px;
+  padding-top: 20px;
+}
+
+#epg_main {
+  background-color: black;
+  font-size: 18px;
+  width: 100%;
+  height: 102%;
+  padding-left: 0px;
+  padding-top: 5px;
+  overflow: hidden;
+}
+
+#epg_channels {
+  padding-left: 0px;
+  padding-top: 3px;
+  margin-top: 70px;
+  height: 510px;
+  width: 230px;
+  float: left;
+}
+
+#epg_data {
+  padding-left: 0px;
+  height: 635px;
+  display: block;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+#epg_bottom {
+  width: 1500px;
+  height: 250px;
+  color: #f1f1f1;
+  border: 3px solid #333333;
+  transition: .2s;
+}
+
+.epg_bottom_wide {
+  margin-left: 120px;
+}
+
+#epg_bottom_image {
+  width: 200px;
+  height: 200px;
+  margin: 25px;
+  float: left;
+}
+
+#epg_bottom_title {
+  width: 1250px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+  float: left;
+}
+
+#epg_bottom_placeholder {
+  width: 1250px;
+  float: left;
+}
+
+#epg_bottom_time {
+  margin: 0px;
+  margin-top: 5px;
+  float: left;
+}
+
+#epg_bottom_genre {
+  margin: 0px;
+  margin-top: 5px;
+}
+
+#epg_summary {
+  margin: 0px;
+  margin-top: 5px;
+  width: 1230px;
+  height: 150px;
+  line-height: 1.2;
+  float: left;
+  overflow: hidden;
+}
+
+.epg_row {
+  width: 24000px;
+  padding: 0px;
+  display: block;
+  float: left;
+  clear: left;
+}
+
+.epg_hr_row {
+  height: 3px;
+  margin: 10px;
+  margin-bottom: 4px;
+  font-size: 0px;
+}
+
+.epg_unit {
+  height: 50px;
+  margin: 0px;
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  float: left;
+  color: #f1f1f1;
+}
+
+.epg_unit p {
+  margin-top: 13px;
+  margin-left: 8px;
+}
+
+.channel {
+  margin-bottom: 3px;
+  padding: 0px;
+  width: 220px;
+  margin-top: 4px;
+  margin-bottom: 1px;
+  border: 3px hidden;
+}
+
+.selectable {
+  border: 3px solid black;
+}
+
+.selectable:hover {
+  border: 3px solid #008ffa;
+}
+
+.selectedBorder{
+  border: 3px solid green;
+}
+
+.channel p {
+  float: left;
+  margin-left: 7px;
+}
+
+.time {
+  background-color: black;
+  width: 148px;
+  text-align: left;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+.channelLogo {
+  height: 50px;
+  width: 50px;
+  float: left;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

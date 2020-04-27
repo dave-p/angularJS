@@ -1,0 +1,224 @@
+{
+   "entries":[
+      {
+         "uuid":"bc3288052208ba12763fdb96ffd63236",
+         "enabled":true,
+         "autoname":true,
+         "name":"DR1",
+         "number":1,
+         "icon":"http://192.168.1.8/images/logos/dr1.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/dr1.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[ ],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[ "be002738b12203eeec9e9f180a890044"],
+         "tags":  [  
+                     "d1ac5ba20afa8c01d6c4d8560586cc5b",
+                     "457223647ffca9c27f47e4f0f9b4cb14"
+                  ],
+         "bouquet":""
+      },
+
+
+
+      {
+         "uuid":"381ad197129781b226c8f776d1f9badb",
+         "enabled":true,
+         "autoname":true,
+         "name":"Xee",
+         "number":8,
+         "icon":"http://192.168.1.8/images/logos/xee.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/xee.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[ ],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "537845c5f071a9d78a7278895accf29b"
+         
+],
+         "tags":[
+            "457223647ffca9c27f47e4f0f9b4cb14",
+            "d1ac5ba20afa8c01d6c4d8560586cc5b"
+         
+],
+         "bouquet":""
+      
+},
+      {
+         "uuid":"20ffe8c2b94dff78c137fa9bf6c7838c",
+         "enabled":true,
+         "autoname":true,
+         "name":"TV3",
+         "number":4,
+         "icon":"http://192.168.1.8/images/logos/tv3.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/tv3.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[
+
+         
+],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "7923e23feae0bea4754dc4feb5946d7a"
+         
+],
+         "tags":[
+
+         
+],
+         "bouquet":""
+      
+},
+      {
+         "uuid":"eb2a1844a2276a926a8840bccc877e16",
+         "enabled":true,
+         "autoname":true,
+         "name":"Ekstrakanalen",
+         "number":9,
+         "icon":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/ekstra.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[
+
+         
+],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "d89ae18493f1941c9b2d844989046027"
+         
+],
+         "tags":[
+
+         
+],
+         "bouquet":""
+      
+},
+      {
+         "uuid":"86b21fd7a09526b72f923611171f2482",
+         "enabled":true,
+         "autoname":true,
+         "name":"DR Ramasjang",
+         "number":10,
+         "icon":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/drramasjang.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[
+
+         
+],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "e30c4ff23ea4ff4dbafda087a70fd539"
+         
+],
+         "tags":[
+
+         
+],
+         "bouquet":""
+      
+},
+      {
+         "uuid":"85656fe35b57c3b04d8caa0ccf4f121e",
+         "enabled":true,
+         "autoname":true,
+         "name":"DR2",
+         "number":2,
+         "icon":"http://192.168.1.8/images/logos/dr2.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/dr2.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[
+
+         
+],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "f44ec918254f1d478fa28d35daad5ec5"
+         
+],
+         "tags":[
+
+         
+],
+         "bouquet":""
+      
+},
+      {
+         "uuid":"119930eac893df26f9f5ec64be1f2704",
+         "enabled":true,
+         "autoname":true,
+         "name":"TV 2 Charlie",
+         "number":5,
+         "icon":"http://192.168.1.8/images/logos/tv2charlie.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/tv2charlie.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[
+
+         
+],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "ac18b1a784bf1c5827f653d08cab821a"
+         
+],
+         "tags":[
+
+         
+],
+         "bouquet":""
+      
+},
+      {
+         "uuid":"4d3f19fafca1e99f89fa588ee58299ec",
+         "enabled":true,
+         "autoname":true,
+         "name":"TV 2 Danmark",
+         "number":3,
+         "icon":"http://192.168.1.8/images/logos/tv2.jpg",
+         "icon_public_url":"http://192.168.1.8/images/logos/tv2.jpg",
+         "epgauto":true,
+         "epglimit":0,
+         "epggrab":[
+
+         
+],
+         "dvr_pre_time":0,
+         "dvr_pst_time":0,
+         "epg_running":-1,
+         "services":[
+            "8dfb5c14801c6ddb3d1d36b521997e4c"
+         
+],
+         "tags":[
+
+         
+],
+         "bouquet":""
+      
+}
+   
+],
+   "total":8
+}

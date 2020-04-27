@@ -1,0 +1,60 @@
+{
+   "entries":[
+      {
+         "key":0,
+         "val":""
+      
+},
+      {
+         "key":16,
+         "val":"Movie / Drama"
+      
+},
+      {
+         "key":32,
+         "val":"News / Current affairs"
+      
+},
+      {
+         "key":48,
+         "val":"Show / Game show"
+      
+},
+      {
+         "key":64,
+         "val":"Sports"
+      
+},
+      {
+         "key":80,
+         "val":"Children's / Youth programs"
+      
+},
+      {
+         "key":96,
+         "val":"Music / Ballet / Dance"
+      
+},
+      {
+         "key":112,
+         "val":"Arts / Culture (without music)"
+      
+},
+      {
+         "key":128,
+         "val":"Social / Political issues / Economics"
+      
+},
+      {
+         "key":144,
+         "val":"Education / Science / Factual topics"
+      
+},
+      {
+         "key":160,
+         "val":"Leisure hobbies"
+      
+}
+   
+]
+}
