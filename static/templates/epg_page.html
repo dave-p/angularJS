@@ -1,6 +1,7 @@
 <div id='epg_main'>
 
-	<div id='epg_channels'>
+	<div id='epg_channels' class="epg_channels_big">
+		<img id="showHideIconChannels" src="static/img/switch.png" ng-click=showHideChannelNames() />
 		<div class='epg_unit channel' ng-repeat="entry in channelList">
 			<img class="channelLogo" src="{{entry['icon']}}" />
 			<p class="mb-0 text-truncate">{{entry['name']}}</p>

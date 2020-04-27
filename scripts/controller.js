@@ -33,6 +33,12 @@ app.controller("getJson", function ($scope, $http) {
 		angular.element(bottomDiv).toggleClass("epg_bottom_wide");
 	};
 
+	$scope.showHideChannelNames = function() {
+		var channelDiv = document.getElementById("epg_channels");
+		angular.element(channelDiv).toggleClass ("epg_channels_big");
+		angular.element(channelDiv).toggleClass("epg_channels_small");
+	}
+
 	var now = new Date();
 	var hour = now.getHours();
 	for (var x = 0; x < 24; x += 1)
