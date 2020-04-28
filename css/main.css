@@ -171,6 +171,7 @@ p {
   margin-top: 0px;
   height: 510px;
   float: left;
+  transition: .2s;
 }
 
 .epg_channels_big {

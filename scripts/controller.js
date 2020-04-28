@@ -1,26 +1,55 @@
 
 var app = angular.module("mainApp", ["ngRoute"]);
 
-function timeToMinutes(timeIn)	// UNUSED
-{
-	var timeArray = timeIn.split(':');
-	return Number(timeArray[0]) * 60 + Number(timeArray[1]);
+var genre_dict = 
+{ 
+	"0" : [ "#898a8d", "Undefined" ],
+	"1" : [ "#ad8f72", "Movie / Drama" ],
+	"2" : [ "#657665", "News / Current affairs" ],
+	"3" : [ "#adad72", "Show / Game show" ],
+	"4" : [ "#b36f77", "Sports" ],
+	"5" : [ "#72ada6", "Children's / Youth programs" ],
+	"6" : [ "#7fb282", "Music / Ballet / Dance" ],
+	"7" : [ "#6d80b1", "Arts / Culture (without music)" ],
+	"8" : [ "#838384", "Social / Political issues / Economics" ],
+	"9" : [ "#9b759b", "Education / Science / Factual topics" ],
+	"a" : [ "#9797aa", "Leisure hobbies" ],
+	"b" : [ "#9797bb", "Special" ] 
 };
 
-
+function formatTime(seconds) {
+    return [
+        parseInt(seconds / 60 / 60),
+        parseInt(seconds / 60 % 60),
+        parseInt(seconds % 60)
+    ]
+        .join(":")
+        .replace(/\b(\d)\b/g, "0$1")
+}
 
 app.controller("getJson", function ($scope, $http) {
 
-	$scope.epgArray = [];
+	$scope.epgArray = [];	// for displaying data
+	$scope.epgData = [];	// for looking up data
 	$scope.timeLine = [];
 
-    $scope.selectContainer = function (id) {
-		$scope.selectedTitle = id;
-		$scope.selectedTime = id;
-		$scope.selectedGenre = id;
-		$scope.selectedText = id;
-		$scope.selectedIcon = id;
-    };
+	$scope.selectContainer = function (id) {
+		var bottomDiv = document.getElementById("epg_bottom");
+		angular.element(bottomDiv).css("visibility", "visible");
+
+
+
+		$scope.selectedTitle = $scope.epgData[id]['title'];
+		$scope.selectedTime = formatTime($scope.epgData[id]['stop'] - $scope.epgData[id]['start']);
+		$scope.selectedText = $scope.epgData[id]['description'];
+		$scope.selectedIcon = $scope.epgData[id]['channelIcon'];
+		if (angular.isDefined($scope.epgData[id]['genre'])) {
+			var genreInt = $scope.epgData[id]['genre'][0];
+			$scope.selectedGenre = genre_dict[genreInt.toString(16)[0]][1]; // + ' (' + genreInt.toString(16) + ')';
+		}
+		else
+			$scope.selectedGenre = '?';
+	};
 
 	$scope.showHideSidebar = function() {
 		var sideNavDiv = document.getElementsByClassName("sidenav");
@@ -42,48 +71,45 @@ app.controller("getJson", function ($scope, $http) {
 	var now = new Date();
 	var hour = now.getHours();
 	for (var x = 0; x < 24; x += 1)
-    {
-        if (hour === 24) {hour = 0};
-        $scope.timeLine.push(hour + ':00');
-        $scope.timeLine.push(hour + ':30');
-        hour++;
-    }
+	{
+		if (hour === 24) {hour = 0};
+		$scope.timeLine.push(hour + ':00');
+		$scope.timeLine.push(hour + ':30');
+		hour++;
+	}
 
 	$http.get("/api/channel/grid")
 		.then(function (data)
 		{
 			$scope.channelList = data["data"]['entries'];
-			$http.get("static/genre_color.json")
-			.then(function (catData)
+			angular.forEach($scope.channelList, function (row)
 			{
-				var categoryDict = catData["data"];
-				angular.forEach($scope.channelList, function (row)
+				$http.get("/api/epg/events/grid?limit=25&channel=" + row['uuid'])
+				.then(function (data)
 				{
-					$http.get("/api/epg/events/grid?limit=25&channel=" + row['uuid'])
-					.then(function (data)
+					var epgLine = [];
+					angular.forEach(data["data"]["entries"], function (row)
 					{
-						var epgLine = [];
-						angular.forEach(data["data"]["entries"], function (row)
-						{
-							var duration = (row["stop"] - row["start"]) / 60;
-							if (angular.isDefined(row['genre']))
-								var col = categoryDict[row['genre'][0]];
-							else
-								var col = 'gray';
-							var record = {
-											name : row['title'],
-											description : row['description'],
-											color : col,
-											id: row['eventId'],
-											width : (duration * 5) - 6
-										 };
-							epgLine.push(record);
-						})
-					$scope.epgArray.push(epgLine);
+						var duration = (row["stop"] - row["start"]) / 60;
+						if (angular.isDefined(row['genre']))
+							var col = genre_dict[ row['genre'][0].toString(16)[0] ][0];
+						else
+							var col = 'gray';
+						var record = {
+										name : row['title'],
+										description : row['description'],
+										color : col,
+										id: row['eventId'],
+										width : (duration * 5) - 6
+									 };
+						epgLine.push(record);
+						$scope.epgData[row['eventId']] = row;
 					})
+				$scope.epgArray.push(epgLine);
 				})
-				console.log($scope.epgArray);
-			});
+			})
+//			console.log($scope.epgArray);
+//			console.log($scope.epgData);
 		})
 	});
 

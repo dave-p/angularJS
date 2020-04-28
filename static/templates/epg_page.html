@@ -15,11 +15,6 @@
 		<li class='epg_row epg_hr_row'>	
 			<hr />
 		</li>
-
-
-
-
-
 		<div ng-repeat="program in epgArray"> 
 			<li class='epg_row'>
 				<div id={{entry.id}} class='epg_unit selectable' ng-click="selectContainer(entry.id)" ng-repeat="entry in program" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
@@ -27,13 +22,9 @@
 				</div>
 			</li>
 		</div>
-
-
-
-
 	</div>
-	<div id='epg_bottom'>
-		<img id="epg_bottom_image" src="http://192.168.1.8/images/logos/tv2charlie.jpg" />
+	<div id='epg_bottom' style="visibility: hidden;">
+		<img id="epg_bottom_image" src="{{selectedIcon}}" />
 		<h2 id="epg_bottom_title">{{selectedTitle}}</h2>
 		<div id="epg_bottom_placeholder">
 			<h4 id="epg_bottom_time">{{selectedTime}}</h4>
