@@ -34,11 +34,12 @@ app.controller("getJson", function ($scope, $http) {
 	$scope.timeLine = [];
 
 	$scope.selectContainer = function (id) {
+		var allEpgUnits = document.getElementsByClassName("epg_unit");
+		angular.element(allEpgUnits).removeClass("selected");
+		var selectedEpg = document.getElementById(id);
+		angular.element(selectedEpg).toggleClass ("selected");
 		var bottomDiv = document.getElementById("epg_bottom");
 		angular.element(bottomDiv).css("visibility", "visible");
-
-
-
 		$scope.selectedTitle = $scope.epgData[id]['title'];
 		$scope.selectedTime = formatTime($scope.epgData[id]['stop'] - $scope.epgData[id]['start']);
 		$scope.selectedText = $scope.epgData[id]['description'];

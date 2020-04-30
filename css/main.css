@@ -45,6 +45,24 @@ p {
   display: inline-block;
 }
 
+.recordButton {
+  background-color: darkred;
+  color: white;
+  padding: 10px 22px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 10px 0px 0px;
+  cursor: pointer;
+  float: right;
+}
+
+.recordButton:hover {
+  background-color: darkgrey;
+  color: black;
+}
+
 .sidenav_small {
   left: -240px;  
 }
@@ -205,12 +223,12 @@ p {
 #epg_bottom_image {
   width: 200px;
   height: 200px;
-  margin: 25px;
+  margin: 19px;
   float: left;
+  border: 3px solid #333333;
 }
 
 #epg_bottom_title {
-  width: 1250px;
   margin-top: 15px;
   margin-bottom: 0px;
   float: left;
@@ -289,9 +307,14 @@ p {
   border: 3px solid #008ffa;
 }
 
-.selectedBorder{
-  border: 3px solid green;
+.selected {
+  border: 3px solid red;
 }
+
+.selected:hover {
+  border: 3px solid red;
+}
+
 
 .channel p {
   float: left;
