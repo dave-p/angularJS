@@ -18,34 +18,57 @@ var genre_dict =
 };
 
 function formatTime(seconds) {
-    return [
-        parseInt(seconds / 60 / 60),
-        parseInt(seconds / 60 % 60),
-        parseInt(seconds % 60)
-    ]
-        .join(":")
-        .replace(/\b(\d)\b/g, "0$1")
+	return [
+		parseInt(seconds / 60 / 60),
+		parseInt(seconds / 60 % 60),
+		parseInt(seconds % 60)
+	]
+		.join(":")
+		.replace(/\b(\d)\b/g, "0$1")
 }
 
 app.controller("getJson", function ($scope, $http) {
 
-	$scope.epgArray = [];	// for displaying data
-	$scope.epgData = [];	// for looking up data
 	$scope.timeLine = [];
 
-	$scope.selectContainer = function (id) {
+
+	$scope.keyPress = function (event) {
+		 switch (event.keyCode) {
+			case 13:
+				key = "ENTER";
+				break;
+			case 37:
+				key = "LEFT";
+				break;
+			case 38:
+				key = "UP";
+				break;
+			case 39:
+				key = "RIGHT";
+				break;
+			case 40:
+				key = "DOWN";
+				break;
+			}
+		alert(key);
+	};
+
+
+
+
+	$scope.selectContainer = function (epgUnit) {
 		var allEpgUnits = document.getElementsByClassName("epg_unit");
 		angular.element(allEpgUnits).removeClass("selected");
-		var selectedEpg = document.getElementById(id);
+		var selectedEpg = document.getElementById(epgUnit);
 		angular.element(selectedEpg).toggleClass ("selected");
 		var bottomDiv = document.getElementById("epg_bottom");
 		angular.element(bottomDiv).css("visibility", "visible");
-		$scope.selectedTitle = $scope.epgData[id]['title'];
-		$scope.selectedTime = formatTime($scope.epgData[id]['stop'] - $scope.epgData[id]['start']);
-		$scope.selectedText = $scope.epgData[id]['description'];
-		$scope.selectedIcon = $scope.epgData[id]['channelIcon'];
-		if (angular.isDefined($scope.epgData[id]['genre'])) {
-			var genreInt = $scope.epgData[id]['genre'][0];
+		$scope.selectedTitle = epgUnit['data']['title'];
+		$scope.selectedTime = formatTime(epgUnit['data']['stop'] - epgUnit['data']['start']);
+		$scope.selectedText = epgUnit['data']['description'];
+		$scope.selectedIcon = epgUnit['data']['channelIcon'];
+		if (angular.isDefined(epgUnit['data']['genre'])) {
+			var genreInt = epgUnit['data']['genre'][0];
 			$scope.selectedGenre = genre_dict[genreInt.toString(16)[0]][1]; // + ' (' + genreInt.toString(16) + ')';
 		}
 		else
@@ -97,20 +120,16 @@ app.controller("getJson", function ($scope, $http) {
 						else
 							var col = 'gray';
 						var record = {
-										name : row['title'],
-										description : row['description'],
 										color : col,
-										id: row['eventId'],
-										width : (duration * 5) - 6
+										width : (duration * 5) - 6,
+										data : row
 									 };
 						epgLine.push(record);
-						$scope.epgData[row['eventId']] = row;
 					})
-				$scope.epgArray.push(epgLine);
+				row['epgData'] = epgLine;
 				})
 			})
-//			console.log($scope.epgArray);
-//			console.log($scope.epgData);
+			console.log($scope.channelList);
 		})
 	});
 

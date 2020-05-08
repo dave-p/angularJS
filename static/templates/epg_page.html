@@ -2,12 +2,12 @@
 
 	<div id='epg_channels' class="epg_channels_big">
 		<img id="showHideIconChannels" src="static/img/switch.png" ng-click=showHideChannelNames() />
-		<div class='epg_unit channel' ng-repeat="entry in channelList">
-			<img class="channelLogo" src="{{entry['icon']}}" />
-			<p class="mb-0 text-truncate">{{entry['name']}}</p>
+		<div class='epg_unit channel' ng-repeat="channel in channelList">
+			<img class="channelLogo" src="{{channel['icon']}}" />
+			<p class="mb-0 text-truncate">{{channel['name']}}</p>
 		</div>
 	</div>
-	<div id='epg_data'>
+	<div id='epg_data' ng-keydown="keyPress($event)" tabindex="0"   >
 		<li class='epg_row'>
 			<div class='epg_unit time' ng-repeat='time in timeLine'><p>{{time}}</p></div>
 			<div class='epg_unit time' ng-repeat='time in timeLine | limitTo : 29'><p>{{time}}</p></div>
@@ -15,10 +15,10 @@
 		<li class='epg_row epg_hr_row'>	
 			<hr />
 		</li>
-		<div ng-repeat="program in epgArray"> 
+		<div ng-repeat="channel in channelList"> 
 			<li class='epg_row'>
-				<div id={{entry.id}} class='epg_unit selectable' ng-click="selectContainer(entry.id)" ng-repeat="entry in program" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
-					<p class=" text-truncate">{{entry.name}}</p>
+				<div id={{entry.data.eventId}} class='epg_unit selectable' ng-click="selectContainer(entry)" ng-repeat="entry in channel.epgData" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
+					<p class=" text-truncate">{{entry.data.title}}</p>
 				</div>
 			</li>
 		</div>
@@ -28,8 +28,12 @@
 		<h2 id="epg_bottom_title">{{selectedTitle}}</h2>
 
 
+
+
 		<button id="recordProgram" class="recordButton" type="button" onclick="alert('Recording Program...')">Record</button>
 		<button id="recordSeries" class="recordButton" type="button" onclick="alert('Recording series ...')">Record Series</button>
+
+
 
 
 		<div id="epg_bottom_placeholder">
