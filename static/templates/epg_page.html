@@ -16,8 +16,8 @@
 			<hr />
 		</li>
 		<div ng-repeat="channel in channelList"> 
-			<li class='epg_row'>
-				<div id={{entry.data.eventId}} class='epg_unit selectable' ng-click="selectContainer(entry)" ng-repeat="entry in channel.epgData" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
+			<li class='epg_row' style="padding-left: {{channel.offset}}px;">
+				<div id={{entry.data.eventId}} class='epg_unit selectable rowIndex{{$parent.$index}}-{{$index}}' ng-click="selectContainer(entry)" ng-repeat="entry in channel.epgData" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
 					<p class=" text-truncate">{{entry.data.title}}</p>
 				</div>
 			</li>

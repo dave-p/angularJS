@@ -1,0 +1,23 @@
+ 
+
+ - Flytte markeret felt (selected) med piletaster
+	DONE!		- LEFT / RIGHT :	find næste objekti egen raekke
+	DONE!		- UP / DOWN :		find egen tid, find tidligere raekke, gennemgå alle objekter til vi finder samme tid, vaelg denne
+	DONE!		- check om første/sidste er nået
+	DONE!		- check om øverste/nederste er nået
+	DONE!		- padding-left på hver epg_row, for at matche tiden som hver row starter på
+
+	- udregning af tid ved skift af linie, ikke af nummer
+		- korrigering af underlig opførsel ved row.skifte
+	- Flyt skærmen med piletaster, så markeret aldrig kommer ud over skærmen
+	- Lav markør af tid som overlay, som i KODI
+
+
+
+
+
+
+
+ - Lave 'recordings' + 'record series'
+ - Formindsk sidepaneler (x2) laves permanent (cookies?)
+

@@ -17,63 +17,109 @@ var genre_dict =
 	"b" : [ "#9797bb", "Special" ] 
 };
 
-function formatTime(seconds) {
-	return [
-		parseInt(seconds / 60 / 60),
-		parseInt(seconds / 60 % 60),
-		parseInt(seconds % 60)
-	]
-		.join(":")
-		.replace(/\b(\d)\b/g, "0$1")
+
+// formats EPG time to match universal time
+function getUniversalTime(seconds) {	
+	secondsString = seconds.toString();
+	return parseInt(secondsString + '000');
 }
+
 
 app.controller("getJson", function ($scope, $http) {
 
 	$scope.timeLine = [];
 
+	$scope.fillBotomEPG = function(epgUnit) {	// fill out data on the bottom EPG display
+			var bottomDiv = document.getElementById("epg_bottom");
+			angular.element(bottomDiv).css("visibility", "visible");
+			$scope.selectedTitle = epgUnit['data']['title'];
+			var objStart = new Date(epgUnit['data']['start']);
+			var objStop = new Date(epgUnit['data']['stop']);
+			var timeArray = [	(objStart.getHours()).toString(), 
+								(objStart.getMinutes()).toString(), 
+								(objStop.getHours()).toString(), 
+								(objStop.getMinutes()).toString()
+							];
+			if (timeArray[0].length == 1) {timeArray[0] = '0' + timeArray[0]}
+			if (timeArray[1].length == 1) {timeArray[1] = '0' + timeArray[1]}
+			if (timeArray[2].length == 1) {timeArray[2] = '0' + timeArray[2]}
+			if (timeArray[3].length == 1) {timeArray[3] = '0' + timeArray[3]}
 
-	$scope.keyPress = function (event) {
-		 switch (event.keyCode) {
-			case 13:
-				key = "ENTER";
+
+			$scope.selectedTime = timeArray[0] + ':' + timeArray[1] + ' - ' + timeArray[2] + ':' + timeArray[3];
+			$scope.selectedText = epgUnit['data']['description'];
+			$scope.selectedIcon = epgUnit['data']['channelIcon'];
+			if (angular.isDefined(epgUnit['data']['genre'])) {
+				var genreInt = epgUnit['data']['genre'][0];
+				$scope.selectedGenre = genre_dict[genreInt.toString(16)[0]][1];
+			}
+			else
+				$scope.selectedGenre = '?';
+	}
+
+
+	$scope.keyPress = function (event) {	// handle a key pressed on the keyboard
+		var selectedUnit = document.getElementsByClassName("selected");
+		var id = selectedUnit[0]['id'];
+		var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
+		var gridPos = rowIndex.split('-');
+		var curEpgTime = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]]['data']['start'];
+		var match = false;
+		var epgUnit;
+		angular.element(selectedUnit).removeClass("selected");
+		switch (event.keyCode) {
+			case 37:	//	key = "LEFT";
+				if (gridPos[1] > 0)
+					gridPos[1] = parseInt(gridPos[1]) - 1;
+				epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
 				break;
-			case 37:
-				key = "LEFT";
+			case 39:	//	key = "RIGHT";
+				if (gridPos[1] < $scope.channelList[gridPos[0]]['epgData'].length - 1)
+					gridPos[1] = parseInt(gridPos[1]) + 1;
+				epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
 				break;
-			case 38:
-				key = "UP";
+			case 38:	//	key = "UP";
+				if (gridPos[0] > 0)
+					gridPos[0] = parseInt(gridPos[0]) - 1;
+				var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
+				angular.forEach(newRow, function (row)
+				{
+					if (row['data']["start"] >= curEpgTime && !match)
+					{
+						epgUnit = row;
+						match = true;
+					}
+				})
 				break;
-			case 39:
-				key = "RIGHT";
-				break;
-			case 40:
-				key = "DOWN";
+			case 40:	//	key = "DOWN";
+				if (gridPos[0] < $scope.channelList.length - 1)
+					gridPos[0] = parseInt(gridPos[0]) + 1;
+				var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
+				angular.forEach(newRow, function (row)
+				{
+					if (row['data']["start"] >= curEpgTime && !match)
+					{
+						epgUnit = row;
+						match = true;
+					}
+				})
 				break;
 			}
-		alert(key);
+		var nyDiv = document.getElementById(epgUnit['data']['eventId']);
+		angular.element(nyDiv).addClass("selected");
+		$scope.fillBotomEPG(epgUnit);
 	};
-
 
 
 
 	$scope.selectContainer = function (epgUnit) {
 		var allEpgUnits = document.getElementsByClassName("epg_unit");
 		angular.element(allEpgUnits).removeClass("selected");
-		var selectedEpg = document.getElementById(epgUnit);
+		var selectedEpg = document.getElementById(epgUnit['data']['eventId']);
 		angular.element(selectedEpg).toggleClass ("selected");
-		var bottomDiv = document.getElementById("epg_bottom");
-		angular.element(bottomDiv).css("visibility", "visible");
-		$scope.selectedTitle = epgUnit['data']['title'];
-		$scope.selectedTime = formatTime(epgUnit['data']['stop'] - epgUnit['data']['start']);
-		$scope.selectedText = epgUnit['data']['description'];
-		$scope.selectedIcon = epgUnit['data']['channelIcon'];
-		if (angular.isDefined(epgUnit['data']['genre'])) {
-			var genreInt = epgUnit['data']['genre'][0];
-			$scope.selectedGenre = genre_dict[genreInt.toString(16)[0]][1]; // + ' (' + genreInt.toString(16) + ')';
-		}
-		else
-			$scope.selectedGenre = '?';
+		$scope.fillBotomEPG(epgUnit);
 	};
+
 
 	$scope.showHideSidebar = function() {
 		var sideNavDiv = document.getElementsByClassName("sidenav");
@@ -93,7 +139,9 @@ app.controller("getJson", function ($scope, $http) {
 	}
 
 	var now = new Date();
-	var hour = now.getHours();
+	var hour = now.getHours() - 1;
+	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );	// uskønt... men, for at få hele timer
+	var timeLineStart = timeObj.getTime() - 60 * 60 * 1000;	// subtrack an hour to be sure to be before first object
 	for (var x = 0; x < 24; x += 1)
 	{
 		if (hour === 24) {hour = 0};
@@ -124,9 +172,16 @@ app.controller("getJson", function ($scope, $http) {
 										width : (duration * 5) - 6,
 										data : row
 									 };
+						row["start"] = getUniversalTime(row["start"]);
+						row["stop"] = getUniversalTime(row["stop"]);
 						epgLine.push(record);
 					})
 				row['epgData'] = epgLine;
+				// calculate correction for each rows' starting position
+				var firstEpgUnitStart = row['epgData'][0]['data']['start'];
+				var correctionMiliSeconds = firstEpgUnitStart - timeLineStart;
+				var correctionMinutes = correctionMiliSeconds / 1000 / 60;
+				row['offset'] = (correctionMinutes * 5);
 				})
 			})
 			console.log($scope.channelList);
