@@ -266,6 +266,7 @@ p {
   display: block;
   float: left;
   clear: left;
+  background-color: black;
 }
 
 .epg_hr_row {

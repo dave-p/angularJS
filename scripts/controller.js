@@ -84,7 +84,7 @@ app.controller("getJson", function ($scope, $http) {
 				var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
 				angular.forEach(newRow, function (row)
 				{
-					if (row['data']["start"] >= curEpgTime && !match)
+					if (row['data']["stop"] > curEpgTime && !match)
 					{
 						epgUnit = row;
 						match = true;
@@ -97,7 +97,7 @@ app.controller("getJson", function ($scope, $http) {
 				var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
 				angular.forEach(newRow, function (row)
 				{
-					if (row['data']["start"] >= curEpgTime && !match)
+					if (row['data']["stop"] > curEpgTime && !match)
 					{
 						epgUnit = row;
 						match = true;
@@ -139,9 +139,9 @@ app.controller("getJson", function ($scope, $http) {
 	}
 
 	var now = new Date();
-	var hour = now.getHours() - 1;
+	var hour = now.getHours() - 2;
 	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );	// uskønt... men, for at få hele timer
-	var timeLineStart = timeObj.getTime() - 60 * 60 * 1000;	// subtrack an hour to be sure to be before first object
+	var timeLineStart = timeObj.getTime() - 2 * 60 * 60 * 1000;	// subtrack two hours to be sure to be before first object
 	for (var x = 0; x < 24; x += 1)
 	{
 		if (hour === 24) {hour = 0};
