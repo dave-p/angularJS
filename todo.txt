@@ -1,31 +1,75 @@
+About-page:
+----------------------------------------------------------------------------------------------
+- Vis korrekt build
+- Vis build parameters (far eksisterende fil)
+
+
+
 EPG-page:
 ----------------------------------------------------------------------------------------------
-	DONE!		- Flytte markeret felt (selected) med piletaster
-	DONE!		- LEFT / RIGHT :	find næste objekti egen raekke
-	DONE!		- UP / DOWN :		find egen tid, find tidligere raekke, gennemgå alle objekter til vi finder samme tid, vaelg denne
-	DONE!		- check om første/sidste er nået
-	DONE!		- check om øverste/nederste er nået
-	DONE!		- padding-left på hver epg_row, for at matche tiden som hver row starter på
-	DONE!		- udregning af tid ved skift af linie, ikke af nummer
-	DONE!		- padding-left på row skal dække over programnavne ved formindskning af sidepaneler (solid baggrund?)
-	DONE!		- korrigering af underlig opførsel ved row.skifte
-
-
-	- Flyt skærmen med piletaster, så markeret aldrig kommer ud over skærmen
-	- Lav markør af tid som overlay, som i KODI
-
-
-
-
-
-
- - Lave 'recordings' + 'record series'
- - Formindsk sidepaneler (x2) laves permanent (cookies?)
+DONE!	- Flytte markeret felt (selected) med piletaster
+DONE!	- LEFT / RIGHT :	find næste objekti egen raekke
+DONE!	- UP / DOWN :		find egen tid, find tidligere raekke, gennemgå alle objekter til vi finder samme tid, vaelg denne
+DONE!	- check om første/sidste er nået
+DONE!	- check om øverste/nederste er nået
+DONE!	- padding-left på hver epg_row, for at matche tiden som hver row starter på
+DONE!	- udregning af tid ved skift af linie, ikke af nummer
+DONE!	- padding-left på row skal dække over programnavne ved formindskning af sidepaneler (solid baggrund?)
+DONE!	- korrigering af underlig opførsel ved row.skifte
+DONE!	- Flyt skærmen med piletaster, så markeret aldrig kommer ud over skærmen
+DONE!	- refresh-interval på EPG
+DONE!	- Lav markør af tid som overlay, som i KODI
+DONE!	- scroll windows to left on load
+DONE!	- Ved skift med piletaster, vaelg sidste i raekke hvis skift af linie
+DONE!	- Marking an epgUnit that it is beeing recorded	(icon inside epg_unit: red dot = recording | watch = scheduled)
+DONE!	- Lave 'recordings'
+DONE!	- Lave 'record series'
+DONE!	- Update epgunits affected by 'record series'
 
 
 
+	- change button text, if recording is ongoing / scheduled
+		- Stop ongoing recording
+		- cancel scheduled recording
 
 
+
+
+
+
+
+
+
+
+Digital Video Recorder-page:
+----------------------------------------------------------------------------------------------
+<not started>
+
+
+
+
+Configuration-page:
+----------------------------------------------------------------------------------------------
+<not started>
+
+
+
+
+Status-page:
+----------------------------------------------------------------------------------------------
+<not started>
+
+
+
+
+GENERAL
+----------------------------------------------------------------------------------------------
+ - Formindsk sidepaneler (x2) laves permanent ( laes fra file.conf )
+ - Sorter Channels
+ - Lav bedre notification end ALERT(), toastr()
+ - bedre måde at skifte sub-page? (ikke ngRoute)
+ - create a config-object
+ - update just one row, not all, when recording / recording series
 
 
 

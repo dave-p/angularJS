@@ -19,30 +19,32 @@
 			<li class='epg_row' style="padding-left: {{channel.offset}}px;">
 				<div id={{entry.data.eventId}} class='epg_unit selectable rowIndex{{$parent.$index}}-{{$index}}' ng-click="selectContainer(entry)" ng-repeat="entry in channel.epgData" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
 					<p class=" text-truncate">{{entry.data.title}}</p>
+					<img src="{{entry.data.recStatus}}" />
 				</div>
 			</li>
 		</div>
+		<div id="epg_timebox"></div>
 	</div>
 	<div id='epg_bottom' style="visibility: hidden;">
-		<img id="epg_bottom_image" src="{{selectedIcon}}" />
-		<h2 id="epg_bottom_title">{{selectedTitle}}</h2>
+		<img id="epg_bottom_image" src="{{selectedEpgUnit['data']['channelIcon']}}" />
+		<h2 id="epg_bottom_title">{{selectedEpgUnit['data']['title']}}</h2>
 
 
 
 
-		<button id="recordProgram" class="recordButton" type="button" onclick="alert('Recording Program...')">Record</button>
-		<button id="recordSeries" class="recordButton" type="button" onclick="alert('Recording series ...')">Record Series</button>
+		<button id="recordProgram" class="recordButton" type="button" ng-click="recordProgram()">Record</button>
+		<button id="recordSeries" class="recordButton" type="button" ng-click="recordSeries()">Record Series</button>
 
 
 
 
 		<div id="epg_bottom_placeholder">
-			<h4 id="epg_bottom_time">{{selectedTime}}</h4>
+			<h4 id="epg_bottom_time">{{selectedEpgUnit['data']['fromToTime']}}</h4>
 			<p class="dot"></p>
-			<h4 id="epg_bottom_genre">{{selectedGenre}}</h4>
+			<h4 id="epg_bottom_genre">{{selectedEpgUnit['data']['genreText']}}</h4>
 		</div>
 		<div id="epg_summary">
-			{{selectedText}}
+			{{selectedEpgUnit['data']['description']}}
 		</div>
 	</div>
 

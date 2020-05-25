@@ -25,6 +25,14 @@ p {
   white-space: nowrap;
 }
 
+#epg_timebox {
+  margin-top:       63px;
+  height:           569px;
+  background-color: black;
+  border-right:     3px solid blue;
+  opacity:          0.5;
+}
+
 .dot {
   height: 7px;
   width: 7px;
@@ -122,6 +130,30 @@ p {
   width: calc(100% - 300px);
 }
 
+.dvr_main {
+  color: white;
+}
+
+.dvr_main p {
+  margin-left: 50px;
+}
+
+.conf_main {
+  color: white;
+}
+
+.conf_main p {
+  margin-left: 50px;
+}
+
+.status_main {
+  color: white;
+}
+
+.status_main p {
+  margin-left: 50px;
+}
+
 #showHideIcon {
   float:right;
   margin-top: 10px;
@@ -205,6 +237,7 @@ p {
   height: 635px;
   display: block;
   overflow-y: scroll;
+  scroll-behavior: smooth;
   scrollbar-width: none;
 }
 
@@ -289,6 +322,13 @@ p {
 .epg_unit p {
   margin-top: 13px;
   margin-left: 8px;
+}
+
+.epg_unit img {
+  float: left;
+  position: relative;
+  left: 1px;
+  top: -6px;
 }
 
 .channel {
