@@ -25,17 +25,10 @@ DONE!	- Marking an epgUnit that it is beeing recorded	(icon inside epg_unit: red
 DONE!	- Lave 'recordings'
 DONE!	- Lave 'record series'
 DONE!	- Update epgunits affected by 'record series'
-
-
-
-	- change button text, if recording is ongoing / scheduled
-		- Stop ongoing recording
-		- cancel scheduled recording
-
-
-
-
-
+DONE!	- Skjul begge knapper hvis tiden er passeret
+DONE!	- change button text, if recording is ongoing / scheduled
+DONE!	- STAY SELECTED when start/stopping recording
+DONE!	- Must set focus back to EPG_window after button-push (linie 293)
 
 
 
@@ -64,13 +57,14 @@ Status-page:
 
 GENERAL
 ----------------------------------------------------------------------------------------------
- - Formindsk sidepaneler (x2) laves permanent ( laes fra file.conf )
- - Sorter Channels
- - Lav bedre notification end ALERT(), toastr()
- - bedre måde at skifte sub-page? (ikke ngRoute)
+DONE!	- Lav bedre notification end ALERT(), toastr()
+DONE!	- flere notificationer (nedenunder eksisterende, hvis der er nogen)
+
  - create a config-object
+	 - Formindsk sidepaneler (x2) laves permanent ( laes fra file.conf )
+	 - Sorter Channels
+ - bedre måde at skifte sub-page? (ikke ngRoute)
  - update just one row, not all, when recording / recording series
-
-
+ - Lav standard POST og GET
 
 

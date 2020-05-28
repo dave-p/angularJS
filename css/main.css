@@ -1,382 +1,412 @@
 html, body {
-  font-family: 'Times';font-size: 22px;
-  height: 100%;
-  margin: 0px;
-  background-color: black;
+	font-family: 'Times';font-size: 22px;
+	height: 100%;
+	margin: 0px;
+	background-color: black;
 }
 
 hr {
-  border: 0;
-  height: 2px;
-  background: #444444;
+	border: 0;
+	height: 2px;
+	background: #444444;
 }
 
 p {
-  margin: 0;
+	margin: 0;
 }
 
 .float-left {
-  float: left;
+	float: left;
 }
 
 .text-truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 #epg_timebox {
-  margin-top:       63px;
-  height:           569px;
-  background-color: black;
-  border-right:     3px solid blue;
-  opacity:          0.5;
+	margin-top:       63px;
+	height:           569px;
+	background-color: black;
+	border-right:     3px solid blue;
+	opacity:          0.5;
 }
 
 .dot {
-  height: 7px;
-  width: 7px;
-  background-color: #bbb;
-  border-radius: 50%;
-  margin:  10px;
-  display: inline-block;
-  float: left;
+	height: 7px;
+	width: 7px;
+	background-color: #bbb;
+	border-radius: 50%;
+	margin:  10px;
+	display: inline-block;
+	float: left;
 }
 
 .bigdot {
-  height: 15px;
-  width: 15px;
-  background-color: #bbb;
-  border-radius: 50%;
-  margin-top:  5px !important;
-  margin-right:  15px !important;
-  display: inline-block;
+	height: 15px;
+	width: 15px;
+	background-color: #bbb;
+	border-radius: 50%;
+	margin-top:  5px !important;
+	margin-right:  15px !important;
+	display: inline-block;
 }
 
 .recordButton {
-  background-color: darkred;
-  color: white;
-  padding: 10px 22px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px 10px 0px 0px;
-  cursor: pointer;
-  float: right;
+	background-color: darkred;
+	color: white;
+	padding: 10px 22px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 10px 10px 0px 0px;
+	cursor: pointer;
+	float: right;
 }
 
 .recordButton:hover {
-  background-color: darkgrey;
-  color: black;
+	background-color: darkgrey;
+	color: black;
 }
 
 .sidenav_small {
-  left: -240px;  
+	left: -240px;  
 }
 
 .sidenav_big {
-  left: 0px;  
+	left: 0px;  
 }
 
 .sidenav {
-  height: 100%;
-  width: 300px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: .2s;
+	height: 100%;
+	width: 300px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	background-color: #111;
+	overflow-x: hidden;
+	transition: .2s;
 }
 
 .sidenav span {
-  float: right;
-  margin-right: 3px;
-  margin-top: 3px;
+	float: right;
+	margin-right: 3px;
+	margin-top: 3px;
 }
 
 .sidenav a {
-  font-size: 16px;
-  padding: 0px 8px 6px 16px;
-  text-decoration: none;
-  font-family: Montserrat;
-  font-weight: bold;
-  display: block;
-  padding-bottom: 10px;
+	font-size: 16px;
+	padding: 0px 8px 6px 16px;
+	text-decoration: none;
+	font-family: Montserrat;
+	font-weight: bold;
+	display: block;
+	padding-bottom: 10px;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+	color:				#f1f1f1;
 }
 
 .sidenav a:hover span {
-  background-color: #f1f1f1;
+	background-color:	#f1f1f1;
 }
 
 .main {
-  color: black;
-  height: 97vh;
-  transition: .2s;
+	color:				black;
+	height:				97vh;
+	transition:			.2s;
 }
 
 .main_big {
-  margin-left: 60px;
-  width: calc(100% - 60px);
+	margin-left:		60px;
+	width:				calc(100% - 60px);
 }
 
 .main_small {
-  margin-left: 300px;
-  width: calc(100% - 300px);
+	margin-left:		300px;
+	width:				calc(100% - 300px);
 }
 
 .dvr_main {
-  color: white;
+	color:				white;
 }
 
 .dvr_main p {
-  margin-left: 50px;
+	margin-left:		50px;
 }
 
 .conf_main {
-  color: white;
+	color:				white;
 }
 
 .conf_main p {
-  margin-left: 50px;
+	margin-left:		50px;
 }
 
 .status_main {
-  color: white;
+	color:				white;
 }
 
 .status_main p {
-  margin-left: 50px;
+	margin-left:		50px;
 }
 
 #showHideIcon {
-  float:right;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 13px;
+	float:				right;
+	margin-top:			10px;
+	margin-bottom:		10px;
+	margin-right:		13px;
+}
+
+#infoBoxContainer {
+	position:			fixed;
+	height:				10px;
+	top:				0;
+	left:				1;
+	right:				0;
+	bottom:				0;
+	margin:				20px;
+}
+
+.infoBox {
+	text-align:			center;
+	display:			block;
+	height:				40px;
+	color:				#f1f1f1;
+	background-color:	green;
+	margin-bottom:		10px;
+	padding-top:		20px;
+	padding-left:		30px;
+	padding-right:		30px;
+	z-index:			100;
+	border-radius:		5px;
+	opacity:			1;
+	transition: opacity	3s linear;
+}
+
+.infoBox.fadedOut {
+	opacity:			0;
 }
 
 #showHideIcon:hover {
-  background-color: darkgrey;
+	background-color:	darkgrey;
 }
 
 #showHideIconChannels {
-  float:left;
-  margin-top: 2px;
-  margin-bottom: 27px;
-  margin-left: 8px;
+	float:				left;
+	margin-top:			2px;
+	margin-bottom:		27px;
+	margin-left:		8px;
 }
 
 #showHideIconChannels:hover {
-  background-color: darkgrey;
+	background-color:	darkgrey;
 }
 
 #menulogo {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 15px;
+	padding-top:		10px;
+	padding-bottom:		10px;
+	padding-left:		15px;
 }
 
 #logoimage {
-  width: 400px;
-  height: auto;
-  margin: 20px;
+	width: 400px;
+	height: auto;
+	margin: 20px;
 }
 
 #about {
-  color: gray;
-  text-align: center;
-  height: 100%;
-  width: 100%;
+	color: gray;
+	text-align: center;
+	height: 100%;
+	width: 100%;
 }
 
 #about p {
-  font-size: 14px;
-  margin: 10px;
+	font-size: 14px;
+	margin: 10px;
 }
 
 #about h4 {
-  margin-top: 0px;
-  padding-top: 20px;
+	margin-top: 0px;
+	padding-top: 20px;
 }
 
 #epg_main {
-  background-color: black;
-  font-size: 18px;
-  width: 100%;
-  height: 102%;
-  padding-left: 0px;
-  padding-top: 5px;
-  overflow: hidden;
+	background-color: black;
+	font-size: 18px;
+	width: 100%;
+	height: 102%;
+	padding-left: 0px;
+	padding-top: 5px;
+	overflow: hidden;
 }
 
 #epg_channels {
-  padding-left: 0px;
-  padding-top: 3px;
-  margin-top: 0px;
-  height: 510px;
-  float: left;
-  transition: .2s;
+	padding-left: 0px;
+	padding-top: 3px;
+	margin-top: 0px;
+	height: 510px;
+	float: left;
+	transition: .2s;
 }
 
 .epg_channels_big {
-  width: 230px;
+	width: 230px;
 }
 
 .epg_channels_small {
-  width: 55px;
+	width: 55px;
 }
 
 #epg_data {
-  padding-left: 0px;
-  height: 635px;
-  display: block;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
+	padding-left: 0px;
+	height: 635px;
+	display: block;
+	overflow-y: scroll;
+	scroll-behavior: smooth;
+	scrollbar-width: none;
 }
 
 #epg_bottom {
-  width: 1500px;
-  height: 250px;
-  color: #f1f1f1;
-  border: 3px solid #333333;
-  transition: .2s;
+	width: 1500px;
+	height: 250px;
+	color: #f1f1f1;
+	border: 3px solid #333333;
+	transition: .2s;
 }
 
 .epg_bottom_wide {
-  margin-left: 120px;
+	margin-left: 120px;
 }
 
 #epg_bottom_image {
-  width: 200px;
-  height: 200px;
-  margin: 19px;
-  float: left;
-  border: 3px solid #333333;
+	width: 200px;
+	height: 200px;
+	margin: 19px;
+	float: left;
+	border: 3px solid #333333;
 }
 
 #epg_bottom_title {
-  margin-top: 15px;
-  margin-bottom: 0px;
-  float: left;
+	margin-top: 15px;
+	margin-bottom: 0px;
+	float: left;
 }
 
 #epg_bottom_placeholder {
-  width: 1250px;
-  float: left;
+	width: 1250px;
+	float: left;
 }
 
 #epg_bottom_time {
-  margin: 0px;
-  margin-top: 5px;
-  float: left;
+	margin: 0px;
+	margin-top: 5px;
+	float: left;
 }
 
 #epg_bottom_genre {
-  margin: 0px;
-  margin-top: 5px;
+	margin: 0px;
+	margin-top: 5px;
 }
 
 #epg_summary {
-  margin: 0px;
-  margin-top: 5px;
-  width: 1230px;
-  height: 150px;
-  line-height: 1.2;
-  float: left;
-  overflow: hidden;
+	margin: 0px;
+	margin-top: 5px;
+	width: 1230px;
+	height: 150px;
+	line-height: 1.2;
+	float: left;
+	overflow: hidden;
 }
 
 .epg_row {
-  width: 24000px;
-  padding: 0px;
-  display: block;
-  float: left;
-  clear: left;
-  background-color: black;
+	width: 24000px;
+	padding: 0px;
+	display: block;
+	float: left;
+	clear: left;
+	background-color: black;
 }
 
 .epg_hr_row {
-  height: 3px;
-  margin: 10px;
-  margin-bottom: 4px;
-  font-size: 0px;
+	height: 3px;
+	margin: 10px;
+	margin-bottom: 4px;
+	font-size: 0px;
 }
 
 .epg_unit {
-  height: 50px;
-  margin: 0px;
-  display: block;
-  text-align: center;
-  overflow: hidden;
-  float: left;
-  color: #f1f1f1;
+	height: 50px;
+	margin: 0px;
+	display: block;
+	text-align: center;
+	overflow: hidden;
+	float: left;
+	color: #f1f1f1;
 }
 
 .epg_unit p {
-  margin-top: 13px;
-  margin-left: 8px;
+	margin-top: 13px;
+	margin-left: 8px;
 }
 
 .epg_unit img {
-  float: left;
-  position: relative;
-  left: 1px;
-  top: -6px;
+	float: left;
+	position: relative;
+	left: 1px;
+	top: -6px;
 }
 
 .channel {
-  margin-bottom: 3px;
-  padding: 0px;
-  width: 220px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  border: 3px hidden;
+	margin-bottom: 3px;
+	padding: 0px;
+	width: 220px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	border: 3px hidden;
 }
 
 .selectable {
-  border: 3px solid black;
+	border: 3px solid black;
 }
 
 .selectable:hover {
-  border: 3px solid #008ffa;
+	border: 3px solid #008ffa;
 }
 
 .selected {
-  border: 3px solid red;
+	border: 3px solid red;
 }
 
 .selected:hover {
-  border: 3px solid red;
+	border: 3px solid red;
 }
 
 
 .channel p {
-  float: left;
-  margin-left: 7px;
+	float: left;
+	margin-left: 7px;
 }
 
 .time {
-  background-color: black;
-  width: 148px;
-  text-align: left;
-  border-left: 1px solid white;
-  border-right: 1px solid white;
+	background-color: black;
+	width: 148px;
+	text-align: left;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
 }
 
 .channelLogo {
-  height: 50px;
-  width: 50px;
-  float: left;
+	height: 50px;
+	width: 50px;
+	float: left;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
 }

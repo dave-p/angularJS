@@ -100,30 +100,68 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 	}, 60000);
 
 
+	// show an infobox for x seconds, then remove it
+	$scope.showInfobox = function(text) {
+		// check if one or more infoboxes exist already
+		var infoBoxContainer = document.getElementById('infoBoxContainer')
+		var infoBox = document.createElement('div');
+		infoBox.setAttribute("class", "infoBox");
+		infoBox.innerHTML = text;
+		infoBoxContainer.append(infoBox);
+		setTimeout(function () {
+			angular.element(infoBox).addClass("fadedOut");
+		}, 3000);
+		setTimeout(function () {
+			infoBox.parentNode.removeChild(infoBox);
+		}, 6000);
+	}
+
 	// fill out data on the bottom EPG display
 	$scope.fillBotomEPG = function(epgUnit) {
-			$scope.selectedEpgUnit = epgUnit;	// refer to this in view, fill ekstra data into "data" child
-			var bottomDiv = document.getElementById("epg_bottom");
-			angular.element(bottomDiv).css("visibility", "visible");
-			var objStart = new Date(epgUnit['data']['start']);
-			var objStop = new Date(epgUnit['data']['stop']);
-			var timeArray = [	(objStart.getHours()).toString(), 
-								(objStart.getMinutes()).toString(), 
-								(objStop.getHours()).toString(), 
-								(objStop.getMinutes()).toString()
-							];
-			if (timeArray[0].length == 1) {timeArray[0] = '0' + timeArray[0]}
-			if (timeArray[1].length == 1) {timeArray[1] = '0' + timeArray[1]}
-			if (timeArray[2].length == 1) {timeArray[2] = '0' + timeArray[2]}
-			if (timeArray[3].length == 1) {timeArray[3] = '0' + timeArray[3]}
-			$scope.selectedEpgUnit['data']['fromToTime'] = timeArray[0] + ':' + timeArray[1] + ' - ' + timeArray[2] + ':' + timeArray[3];
-			if (angular.isDefined(epgUnit['data']['genre'])) {
-				var genreInt = epgUnit['data']['genre'][0];
-				$scope.selectedEpgUnit['data']['genreText'] = genre_dict[genreInt.toString(16)[0]][1];
+		$scope.selectedEpgUnit = epgUnit;
+		var bottomDiv = document.getElementById("epg_bottom");
+		angular.element(bottomDiv).css("visibility", "visible");
+		var objStart = new Date(epgUnit['data']['start']);
+		var objStop = new Date(epgUnit['data']['stop']);
+		var timeArray = [	(objStart.getHours()).toString(), 
+							(objStart.getMinutes()).toString(), 
+							(objStop.getHours()).toString(), 
+							(objStop.getMinutes()).toString()
+						];
+		if (timeArray[0].length == 1) {timeArray[0] = '0' + timeArray[0]}
+		if (timeArray[1].length == 1) {timeArray[1] = '0' + timeArray[1]}
+		if (timeArray[2].length == 1) {timeArray[2] = '0' + timeArray[2]}
+		if (timeArray[3].length == 1) {timeArray[3] = '0' + timeArray[3]}
+		epgUnit['data']['fromToTime'] = timeArray[0] + ':' + timeArray[1] + ' - ' + timeArray[2] + ':' + timeArray[3];
+		if (angular.isDefined(epgUnit['data']['genre'])) {
+			var genreInt = epgUnit['data']['genre'][0];
+			epgUnit['data']['genreText'] = genre_dict[genreInt.toString(16)[0]][1];
+		}
+		else
+			epgUnit['data']['genreText'] = '(unknown)';
+		// change button text
+		var recordButton = document.getElementById('recordProgram');
+		var recordSeriesButton = document.getElementById('recordSeries');
+		angular.element(recordButton).css("visibility", "visible");
+		angular.element(recordSeriesButton).css("visibility", "visible");
+		if (angular.isDefined(epgUnit['data']['dvrState']))
+		{
+			angular.element(recordSeriesButton).css("visibility", "hidden");
+			var status = epgUnit['data']['dvrState'];
+			if (status == 'scheduled')
+				recordButton.innerText = 'Cancel Recording';
+			else if (status == 'recording')
+				recordButton.innerText = 'Stop Recording';
+			var testActive = 1;
+		}
+		else {
+			recordButton.innerText = 'Record';
+			var now = new Date();
+			if (now.getTime() > epgUnit['data']['stop']) {
+				angular.element(recordButton).css("visibility", "hidden");
+				angular.element(recordSeriesButton).css("visibility", "hidden");
 			}
-			else
-				$scope.selectedEpgUnit['data']['genreText'] = '(unknown)';
-
+		}
 	}
 
 
@@ -186,16 +224,67 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 		nyDiv.scrollIntoView(); 
 	};
 
+	// determine action of the button
+	$scope.epgBottomButton = function() {
+		var recordButton = document.getElementById('recordProgram');
+			if (recordButton.innerText == 'Cancel Recording')
+				$scope.stopRunningRecording();						// TODO: get $scope.cancelScheduledRecording() to work
+			else if (recordButton.innerText == 'Stop Recording')
+				$scope.stopRunningRecording();
+			else if (recordButton.innerText == 'Record')
+				$scope.recordProgram();
+	}
+
+
+	// NOT USED. Does not stop recording, even though returns 200
+	$scope.cancelScheduledRecording = function() {
+		$http.post('/api/dvr/entry/stop', http_build_query({ "uuid": $scope.selectedEpgUnit['data']['dvrUuid'] }), 
+			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		.then(function (response)
+		{
+			if (response.data) {
+				$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+				var recordButton = document.getElementById('recordProgram');
+				var recordSeriesButton = document.getElementById('recordSeries');
+				recordButton.innerText = 'Record';
+				angular.element(recordSeriesButton).css("visibility", "visible");
+				$scope.showInfobox('Scheduled recording was canceled');
+			}
+		}, function (response)
+		{
+				alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
+		});
+	}
+
+
+	$scope.stopRunningRecording = function() {
+		$http.post('/api/dvr/entry/cancel', http_build_query({ "uuid": $scope.selectedEpgUnit['data']['dvrUuid'] }), 
+			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		.then(function (response)
+		{
+			if (response.data) {
+				$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+				var recordButton = document.getElementById('recordProgram');
+				var recordSeriesButton = document.getElementById('recordSeries');
+				recordButton.innerText = 'Record';
+				angular.element(recordSeriesButton).css("visibility", "visible");
+				$scope.showInfobox('Active recording was stopped');
+			}
+		}, function (response)
+		{
+				alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
+		});
+	}
+
 
 	// record a specific program
 	$scope.recordProgram = function() {
-		// get the default configuration uuid 					<----- better to get it on load of program. create config-object an read from fil + from program
+		// get the default configuration uuid 					<----- TODO: better to get it on load of program. create config-object an read from fil + from program
 		var config_uuid;
 		$http.get("/api/dvr/config/grid")
 		.then(function (data)
 		{
-			var configProfiles = data['data']['entries'];
-			angular.forEach(configProfiles, function (row)
+			angular.forEach(data['data']['entries'], function (row)
 			{
 				if (row['name'] === '') {
 					config_uuid = row['uuid']
@@ -209,8 +298,13 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 			.then(function (response)
 			{
 				if (response.data) {
-					$scope.updateAllChannelsEpg();	// TODO: update just one, but must know rowIndex
-				}
+					$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+					var recordButton = document.getElementById('recordProgram');
+					var recordSeriesButton = document.getElementById('recordSeries');
+					recordButton.innerText = 'Cancel Recording';
+					angular.element(recordSeriesButton).css("visibility", "hidden");
+					$scope.showInfobox('Program was scheduled for recording');
+			}
 			}, function (response)
 			{
 					alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
@@ -221,14 +315,19 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 
 	// create an autorec from a specific program, recording all programs like it
 	$scope.recordSeries = function() {
-		var config_uuid = '381d7e78fd66381e1175fbbd74b28a4f';	//	<----- better to get it on load of program. create config-object an read from fil + from program
+		var config_uuid = '381d7e78fd66381e1175fbbd74b28a4f';	//	<----- TODO: better to get it on load of program. create config-object an read from fil + from program
 
 		$http.post('/api/dvr/autorec/create_by_series', http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": config_uuid }), 
 			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 			.then(function (response)
 			{
 				if (response.data) {
-					$scope.updateAllChannelsEpg();	// TODO: update just one, but must know rowIndex
+					$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+					var recordButton = document.getElementById('recordProgram');
+					var recordSeriesButton = document.getElementById('recordSeries');
+					recordButton.innerText = 'Cancel Recording';
+					angular.element(recordSeriesButton).css("visibility", "hidden");
+					$scope.showInfobox('A series was scheduled for recording');
 				}
 			}, function (response)
 			{
@@ -270,7 +369,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 		var i;
 		for (i = 0; i < $scope.channelList.length; i++) {
 			$scope.updateChannelEpg(i);
-		} 
+		}
 	}
 
 
@@ -305,6 +404,13 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 		var correctionMiliSeconds = firstEpgUnitStart - timeLineStart;
 		var correctionMinutes = correctionMiliSeconds / 1000 / 60;
 		$scope.channelList[index]['offset'] = correctionMinutes * 5;
+		})
+		// set ccs-class back to selected epg_unit
+		.then(function (data){
+			var selectedDiv = document.getElementById($scope.selectedEpgUnit['data']['eventId']);
+			angular.element(selectedDiv).addClass("selected");
+			var epgdataDiv = document.getElementById('epg_data');
+			epgdataDiv.focus();
 		})
 	}
 
