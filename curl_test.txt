@@ -1,3 +1,0 @@
-
-  curl https://klf:Pass@192.168.1.8:9981/api/dvr/entry/create_by_event
-

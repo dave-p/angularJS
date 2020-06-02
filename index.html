@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-cookies.js"></script>
 		<script src="scripts/controller.js"></script>
 		<link rel="icon" href="static/img/logosmall.png" type="image/png">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
@@ -13,7 +14,7 @@
 
 	<body ng-app="mainApp" ng-controller="getJson">
 		<div id="infoBoxContainer"></div>
-		<div class="sidenav sidenav_big">
+		<div class="sidenav">
 			<img id="menulogo" src="static/img/menulogo.png" alt="Menu Logo" /> 
 			<img id="showHideIcon" src="static/img/switch.png" ng-click=showHideSidebar() />
 			<a href="#!epg">EPG<span class="bigdot"></span></a>
@@ -23,7 +24,7 @@
 			<a href="#!about">About<span class="bigdot"></span></a>
 		</div>
 
-		<div class="main main_small" ng-view> </div>
+		<div class="main" ng-view> </div>
 
 
 

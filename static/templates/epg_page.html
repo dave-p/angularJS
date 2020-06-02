@@ -1,6 +1,6 @@
 <div id='epg_main'>
 
-	<div id='epg_channels' class="epg_channels_big">
+	<div id='epg_channels' class='epg_channels_big'>
 		<img id="showHideIconChannels" src="static/img/switch.png" ng-click=showHideChannelNames() />
 		<div class='epg_unit channel' ng-repeat="channel in channelList">
 			<img class="channelLogo" src="{{channel['icon']}}" />
@@ -23,20 +23,13 @@
 				</div>
 			</li>
 		</div>
-		<div id="epg_timebox"></div>
+		<div id="epg_timebox" style="width: {{timeBoxWidth}}px "></div>
 	</div>
 	<div id='epg_bottom' style="visibility: hidden;">
 		<img id="epg_bottom_image" src="{{selectedEpgUnit['data']['channelIcon']}}" />
 		<h2 id="epg_bottom_title">{{selectedEpgUnit['data']['title']}}</h2>
-
-
-
 		<button id="recordProgram" class="recordButton" type="button" ng-click="epgBottomButton()">Record</button>
 		<button id="recordSeries" class="recordButton" type="button" ng-click="recordSeries()">Record Series</button>
-
-
-
-
 		<div id="epg_bottom_placeholder">
 			<h4 id="epg_bottom_time">{{selectedEpgUnit['data']['fromToTime']}}</h4>
 			<p class="dot"></p>

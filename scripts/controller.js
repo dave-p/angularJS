@@ -1,5 +1,5 @@
 
-var app = angular.module("mainApp", ["ngRoute"]);
+var app = angular.module('mainApp', ['ngCookies', 'ngRoute']);
 
 var genre_dict = 
 { 
@@ -62,19 +62,29 @@ function http_build_query( arrayIn ) {
 }
 
 
-app.controller("getJson", function ($scope, $http, $interval, $timeout) {
+// returns the position (row, coulmm) of the currently selected epgUnit
+function getGridPosition() {
+	var selectedUnit = document.getElementsByClassName("selected");
+	var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
+	var gridPos = rowIndex.split('-');
+	return gridPos;
+}
+
+
+app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies) { 		// TODO : This is a controller for much, much more. Put into separate controllers
 
 	// ------------- set up variables -----------------------------------------------------------
 
 	$scope.timeLine = [];
+	$scope.configuration = [];
 	var now = new Date();
 	var hour = now.getHours() - 2;
-	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );	// uskønt... men, for at få hele timer
-	var timeLineStart = timeObj.getTime() - 2 * 60 * 60 * 1000;	// subtrack two hours to be sure to be before first object
+	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );
+	var timeLineStart = timeObj.getTime() - 2 * 60 * 60 * 1000;					// subtract two hours to be sure to be before first object
 	for (var x = 0; x < 24; x += 1)
 	{
 		if (hour === 24) {hour = 0};
-		$scope.timeLine.push(hour + ':00');
+		$scope.timeLine.push(hour + ':00');										// TODO: Skal ikke have flere timer end der er EPG-units
 		$scope.timeLine.push(hour + ':30');
 		hour++;
 	}
@@ -84,19 +94,21 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 	// fired when page has been rendered
 	$timeout(function() {
 		var timeBoxDiv = document.getElementById("epg_timebox");
-		angular.element(timeBoxDiv).css('width', calculateTimeboxWidth(timeLineStart) + 'px');
+//		angular.element(timeBoxDiv).css('width', calculateTimeboxWidth(timeLineStart) + 'px');
 		$scope.timeBoxWidth = calculateTimeboxWidth(timeLineStart);
 		var epgDataDiv = document.getElementById("epg_data");
-		if (epgDataDiv)
-			epgDataDiv.scrollLeft = $scope.timeBoxWidth - 100;
+		if (epgDataDiv) { epgDataDiv.scrollLeft = $scope.timeBoxWidth - 100; }
+		if ($cookies.get('mainMenuCollapsed') === 'true') { $scope.showHideSidebar(); }
+		if ($cookies.get('channelMenuCollapsed') === 'true') { $scope.showHideChannelNames(); }
 	}, 50);
 
 
 	// reload page every minute to set time
 	$interval(function () {
 		// Update the timebox to show time progressing
-		var timeBoxDiv = document.getElementById("epg_timebox");
-		angular.element(timeBoxDiv).css('width', calculateTimeboxWidth(timeLineStart) + 'px');
+		$scope.timeBoxWidth = calculateTimeboxWidth(timeLineStart);
+//		var timeBoxDiv = document.getElementById("epg_timebox");
+//		angular.element(timeBoxDiv).css('width', calculateTimeboxWidth(timeLineStart) + 'px');
 	}, 60000);
 
 
@@ -165,7 +177,8 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 	}
 
 
-	$scope.keyPress = function (event) {	// handle a key pressed on the keyboard
+	// handle a key pressed on the keyboard
+	$scope.keyPress = function (event) {
 		var selectedUnit = document.getElementsByClassName("selected");
 		var id = selectedUnit[0]['id'];
 		var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
@@ -224,6 +237,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 		nyDiv.scrollIntoView(); 
 	};
 
+
 	// determine action of the button
 	$scope.epgBottomButton = function() {
 		var recordButton = document.getElementById('recordProgram');
@@ -236,14 +250,17 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 	}
 
 
-	// NOT USED. Does not stop recording, even though returns 200
+	// does not work
 	$scope.cancelScheduledRecording = function() {
-		$http.post('/api/dvr/entry/stop', http_build_query({ "uuid": $scope.selectedEpgUnit['data']['dvrUuid'] }), 
-			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		var url = '/api/dvr/entry/stop';
+		var data = http_build_query({ "uuid": $scope.selectedEpgUnit['data']['dvrUuid'] });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+		$http.post(url, data, headers)
 		.then(function (response)
 		{
 			if (response.data) {
-				$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+				var gridPos = getGridPosition();
+				$scope.updateChannelEpg(gridPos[0]);
 				var recordButton = document.getElementById('recordProgram');
 				var recordSeriesButton = document.getElementById('recordSeries');
 				recordButton.innerText = 'Record';
@@ -258,12 +275,15 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 
 
 	$scope.stopRunningRecording = function() {
-		$http.post('/api/dvr/entry/cancel', http_build_query({ "uuid": $scope.selectedEpgUnit['data']['dvrUuid'] }), 
-			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		var url = '/api/dvr/entry/cancel';
+		var data = http_build_query({ "uuid": $scope.selectedEpgUnit['data']['dvrUuid'] });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+		$http.post(url, data, headers)
 		.then(function (response)
 		{
 			if (response.data) {
-				$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+				var gridPos = getGridPosition();
+				$scope.updateChannelEpg(gridPos[0]);
 				var recordButton = document.getElementById('recordProgram');
 				var recordSeriesButton = document.getElementById('recordSeries');
 				recordButton.innerText = 'Record';
@@ -279,50 +299,45 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 
 	// record a specific program
 	$scope.recordProgram = function() {
-		// get the default configuration uuid 					<----- TODO: better to get it on load of program. create config-object an read from fil + from program
-		var config_uuid;
-		$http.get("/api/dvr/config/grid")
-		.then(function (data)
-		{
-			angular.forEach(data['data']['entries'], function (row)
-			{
-				if (row['name'] === '') {
-					config_uuid = row['uuid']
-				}
-			})
-		})
-		.then(function (data)
-		{
-		$http.post('/api/dvr/entry/create_by_event', http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": config_uuid }), 
-			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		var url = '/api/dvr/entry/create_by_event';
+		var data = http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": $scope.configuration['dvrConfig'] });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+		$http.post(url, data, headers)
 			.then(function (response)
 			{
 				if (response.data) {
-					$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+					var gridPos = getGridPosition();
+					$scope.updateChannelEpg(gridPos[0]);
+
+
+
+
+
 					var recordButton = document.getElementById('recordProgram');
 					var recordSeriesButton = document.getElementById('recordSeries');
 					recordButton.innerText = 'Cancel Recording';
 					angular.element(recordSeriesButton).css("visibility", "hidden");
+//					$scope.selectedEpgUnit['data']['dvrState'] = 'TESTING!';
 					$scope.showInfobox('Program was scheduled for recording');
 			}
 			}, function (response)
 			{
 					alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
 			});
-		})
 	};
 
 
 	// create an autorec from a specific program, recording all programs like it
 	$scope.recordSeries = function() {
-		var config_uuid = '381d7e78fd66381e1175fbbd74b28a4f';	//	<----- TODO: better to get it on load of program. create config-object an read from fil + from program
-
-		$http.post('/api/dvr/autorec/create_by_series', http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": config_uuid }), 
-			{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		var url = '/api/dvr/autorec/create_by_series';
+		var data = http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": $scope.configuration['dvrConfig'] });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+		$http.post(url, data, headers)
 			.then(function (response)
 			{
 				if (response.data) {
-					$scope.updateAllChannelsEpg();	// TODO: should update just one, but must know rowIndex
+					var gridPos = getGridPosition();
+					$scope.updateChannelEpg(gridPos[0]);
 					var recordButton = document.getElementById('recordProgram');
 					var recordSeriesButton = document.getElementById('recordSeries');
 					recordButton.innerText = 'Cancel Recording';
@@ -333,7 +348,6 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 			{
 					alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
 			});
-
 	};
 
 
@@ -347,14 +361,20 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 
 
 	$scope.showHideSidebar = function() {
-		var sideNavDiv = document.getElementsByClassName("sidenav");
-		angular.element(sideNavDiv).toggleClass ("sidenav_big");
-		angular.element(sideNavDiv).toggleClass("sidenav_small");
-		var mainDiv = document.getElementsByClassName("main");
-		angular.element(mainDiv).toggleClass ("main_big");
-		angular.element(mainDiv).toggleClass("main_small");
+		var sideNavDiv = document.getElementsByClassName("sidenav")[0];
 		var bottomDiv = document.getElementById("epg_bottom");
-		angular.element(bottomDiv).toggleClass("epg_bottom_wide");
+		var mainDiv = document.getElementsByClassName("main")[0];
+		angular.element(sideNavDiv).toggleClass("sidenav_small");	// toggle this, use its status to determine others
+		if (sideNavDiv['className'] == "sidenav sidenav_small") {
+			angular.element(mainDiv).addClass("main_big");
+			angular.element(bottomDiv).addClass("epg_bottom_wide");
+			$cookies.put('mainMenuCollapsed', true);
+		}
+		else{
+			angular.element(mainDiv).removeClass("main_big");
+			angular.element(bottomDiv).removeClass("epg_bottom_wide");
+			$cookies.put('mainMenuCollapsed', false);
+		}
 	};
 
 
@@ -362,6 +382,10 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 		var channelDiv = document.getElementById("epg_channels");
 		angular.element(channelDiv).toggleClass ("epg_channels_big");
 		angular.element(channelDiv).toggleClass("epg_channels_small");
+		if (channelDiv['className'] == "epg_channels_small")
+			$cookies.put('channelMenuCollapsed', true);
+		else
+			$cookies.put('channelMenuCollapsed', false);
 	}
 
 
@@ -376,7 +400,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 	// update a channel, by given ROW index
 	$scope.updateChannelEpg = function(index) {
 		var ID = $scope.channelList[index]['uuid'];
-		$http.get("/api/epg/events/grid?limit=25&channel=" + ID)
+		$http.get("/api/epg/events/grid?limit=" + $scope.configuration['noOfEpgRecordsToGet'] + "&channel=" + ID)
 		.then(function (data)
 		{
 			var epgLine = [];
@@ -405,48 +429,101 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout) {
 		var correctionMinutes = correctionMiliSeconds / 1000 / 60;
 		$scope.channelList[index]['offset'] = correctionMinutes * 5;
 		})
-		// set ccs-class back to selected epg_unit
 		.then(function (data){
-			var selectedDiv = document.getElementById($scope.selectedEpgUnit['data']['eventId']);
-			angular.element(selectedDiv).addClass("selected");
-			var epgdataDiv = document.getElementById('epg_data');
-			epgdataDiv.focus();
+			// update the selectedUnit
+			var gridPos = getGridPosition();
+			$scope.selectedEpgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
+			setTimeout(function () {
+				// set ccs-class back to selected epg_unit
+				var selectedDiv = document.getElementById($scope.selectedEpgUnit['data']['eventId']);
+				angular.element(selectedDiv).addClass("selected");
+				var epgdataDiv = document.getElementById('epg_data');
+				epgdataDiv.focus();
+			}, 300);
 		})
 	}
 
 
-	// find and iterate channels
-	$http.get("/api/channel/grid")
-		.then(function (data)
+	// MAIN: Program starts here
+	$http.get("configuration.json")
+		.then(function (configData)
 		{
-			$scope.channelList = data["data"]['entries'];
-			var rowIndex = 0;
-			angular.forEach($scope.channelList, function (row)
+			angular.forEach(configData['data'], function (value, key)
 			{
-				$scope.updateChannelEpg(rowIndex++);
+				$scope.configuration[key] = value;
 			})
-			console.log($scope.channelList);
+			$http.get("/api/channel/grid")
+				.then(function (data)
+				{
+					$scope.channelList = data["data"]['entries'];
+					var rowIndex = 0;
+					angular.forEach($scope.channelList, function (row)
+					{
+						$scope.updateChannelEpg(rowIndex++);
+					})
+					console.log($scope.channelList);
+				})
 		})
-	});
+	}); // controller ends
 
 
 app.config(function($routeProvider) {
 	$routeProvider
+	.when("/", {
+		templateUrl : "static/templates/welcome_page.html"
+	})
 	.when("/epg", {
-		templateUrl : "static/templates/epg_page.html"
+		templateUrl : "static/templates/epg_page.html",
+		controller : "epgTempController"
 	})
 	.when("/dvr", {
-		templateUrl : "static/templates/dvr_page.html"
+		templateUrl : "static/templates/dvr_page.html",
+		controller : "tempChangeController"
 	})
 	.when("/conf", {
-		templateUrl : "static/templates/conf_page.html"
+		templateUrl : "static/templates/conf_page.html",
+		controller : "tempChangeController"
 	})
 	.when("/status", {
-		templateUrl : "static/templates/status_page.html"
+		templateUrl : "static/templates/status_page.html",
+		controller : "tempChangeController"
 	})
 	.when("/about", {
-		templateUrl : "static/templates/about_page.html"
+		templateUrl : "static/templates/about_page.html",
+		controller : "tempChangeController"
 	});
+});
+
+// controller for loading the EPG temp-page
+app.controller("epgTempController", function ($scope) {
+	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
+	var bottomDiv = document.getElementById("epg_bottom");
+	var mainDiv = document.getElementsByClassName("main")[0];
+	if (sideNavDiv['className'] == "sidenav sidenav_small") 
+	{
+		angular.element(mainDiv).addClass("main_big");
+		angular.element(bottomDiv).addClass("epg_bottom_wide");
+	}
+	else
+	{
+		angular.element(mainDiv).removeClass("main_big");
+		angular.element(bottomDiv).removeClass("epg_bottom_wide");
+	}
+	var epgDataDiv = document.getElementById("epg_data");
+	if (epgDataDiv) { epgDataDiv.scrollLeft = $scope.timeBoxWidth - 100; }
+});
+
+
+// controller for loading a generic temp-page
+app.controller("tempChangeController", function ($scope) {
+	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
+	var mainDiv = document.getElementsByClassName("main")[0];
+	if (sideNavDiv['className'] == "sidenav sidenav_small") 
+		angular.element(mainDiv).addClass("main_big");
+	else
+		angular.element(mainDiv).removeClass("main_big");
+
+
 });
 
 

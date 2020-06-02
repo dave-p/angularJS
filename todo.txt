@@ -43,7 +43,10 @@ Digital Video Recorder-page:
 
 Configuration-page:
 ----------------------------------------------------------------------------------------------
-<not started>
+	- Funktion til at vælge værdier i configuration.json
+	- Vælg sortering af Channels, skriv i configuration.json
+	- Choose a default dvr-Configuration, skriv i configuration.json
+	- tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
 
 
 
@@ -59,12 +62,16 @@ GENERAL
 ----------------------------------------------------------------------------------------------
 DONE!	- Lav bedre notification end ALERT(), toastr()
 DONE!	- flere notificationer (nedenunder eksisterende, hvis der er nogen)
-
- - create a config-object
-	 - Formindsk sidepaneler (x2) laves permanent ( laes fra file.conf )
-	 - Sorter Channels
- - bedre måde at skifte sub-page? (ikke ngRoute)
- - update just one row, not all, when recording / recording series
- - Lav standard POST og GET
+DONE!	- create a config-object
+DONE!	- Tag config_uuid fra config
+DONE!	- check if infoboxes can move up slowly, not instantly
+DONE!	- Formindsk sidepaneler (x2) laves permanent		( config )
+DONE!	- "show/hide pannels" konverteres til cookies, fjernes fra configuration
+DONE!	- BUG: fold ind/ud af paneler går i hegnet hvis man skifter underside
+DONE!	- BUG: timeBox følger med begge sidepaneler nogle gange, men kan ikke fremprovokere det? 	(Sker hvis timebox ingen WIDTH har!)
+DONE!	- BUG: timeBox bliver ikke justeret i width ved skift fra anden underside
+DONE!	- BUG: make route to index.html
+DONE!	- update just one row, not all, when recording / recording series
+DONE!	- figure out why you cant press epg_bottom button twice
 
 
