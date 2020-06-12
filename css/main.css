@@ -1,5 +1,4 @@
 html, body {
-	font-family:		'Times';font-size: 22px;
 	height:				100%;
 	margin:				0px;
 	background-color:	#191919;
@@ -74,11 +73,7 @@ p {
 	float:				left;
 }
 
-.bigdot {
-	height:				15px;
-	width:				15px;
-	background-color:	#bbb;
-	border-radius:		50%;
+.navLink {
 	margin-top:			5px !important;
 	margin-right:		15px !important;
 	display:			inline-block;
@@ -120,7 +115,6 @@ p {
 	font-size:			16px;
 	padding:			0px 8px 6px 16px;
 	text-decoration:	none;
-	font-family:		Montserrat;
 	font-weight:		bold;
 	display:			block;
 	padding-bottom:		10px;
@@ -166,8 +160,13 @@ p {
 #showHideIcon {
 	float:				right;
 	margin-top:			10px;
-	margin-bottom:		10px;
+	margin-bottom:		6px;
 	margin-right:		13px;
+	border:				2px solid black;
+}
+
+#showHideIcon:hover {
+	border:				2px solid #333333;
 }
 
 #infoBoxContainer {
@@ -203,19 +202,16 @@ p {
 	padding-top:		0px;
 }
 
-#showHideIcon:hover {
-	background-color:	darkgrey;
-}
-
 #showHideIconChannels {
 	float:				left;
 	margin-top:			6px;
 	margin-bottom:		24px;
 	margin-left:		8px;
+	border:				2px solid;
 }
 
 #showHideIconChannels:hover {
-	background-color:	darkgrey;
+	border:				2px solid #333333;
 }
 
 #menulogo {
@@ -231,193 +227,192 @@ p {
 }
 
 #about {
-	color: gray;
-	text-align: center;
-	height: 100%;
-	width: 100%;
+	color:				gray;
+	text-align:			center;
+	height:				100%;
+	width:				100%;
 }
 
 #about p {
-	font-size: 14px;
-	margin: 10px;
+	font-size:			14px;
+	margin:				10px;
 }
 
 #about h4 {
-	margin-top: 0px;
-	padding-top: 20px;
+	margin-top:			0px;
+	padding-top:		20px;
 }
 
 #epg_main {
-	background-color: black;
-	font-size: 25px;
-	width: 100%;
-	height: 100%;
-	padding-left: 0px;
-	padding-top: 5px;
-	overflow: hidden;
+	background-color:	black;
+	font-size:			20px;
+	width:				100%;
+	height:				100%;
+	padding-left:		0px;
+	padding-top:		7px;
+	overflow:			hidden;
 }
 
 #epg_channels {
-	padding-left: 0px;
-	padding-top: 3px;
-	margin-top: 0px;
-	height: 510px;
-	float: left;
-	transition: .2s;
+	padding-left:		0px;
+	padding-top:		3px;
+	margin-top:			0px;
+	height:				510px;
+	float:				left;
+	transition:			.2s;
 }
 
 .epg_channels_big {
-	width: 230px;
+	width:				230px;
 }
 
 .epg_channels_small {
-	width: 55px;
+	width:				55px;
 }
 
 #epg_data {
-	padding-left: 0px;
-	height: 635px;
-	display: block;
-	overflow-y: scroll;
-	scroll-behavior: smooth;
-	scrollbar-width: none;
+	padding-left:		0px;
+	height:				635px;
+	display:			block;
+	overflow-y:			scroll;
+	scroll-behavior:	smooth;
+	scrollbar-width:	none;
 }
 
 #epg_bottom {
-	width: 1500px;
-	height: 250px;
-	color: #f1f1f1;
-	border: 3px solid #333333;
-	transition: .2s;
+	width:				1500px;
+	height:				250px;
+	color:				#f1f1f1;
+	border:				3px solid #333333;
+	transition:			.2s;
 }
 
 .epg_bottom_wide {
-	margin-left: 120px;
+	margin-left:		120px;
 }
 
 #epg_bottom_image {
-	width: 200px;
-	height: 200px;
-	margin: 19px;
-	float: left;
-	border: 3px solid #333333;
+	width:				200px;
+	height:				200px;
+	margin:				19px;
+	float:				left;
+	border:				3px solid #333333;
 }
 
 #epg_bottom_title {
-	margin-top: 15px;
-	margin-bottom: 0px;
-	float: left;
+	margin-top:			15px;
+	margin-bottom:		0px;
+	float:				left;
 }
 
 #epg_bottom_placeholder {
-	width: 1250px;
-	float: left;
+	width:				1250px;
+	float:				left;
 }
 
 #epg_bottom_time {
-	margin: 0px;
-	margin-top: 5px;
-	float: left;
+	margin:				0px;
+	margin-top:			5px;
+	float:				left;
 }
 
 #epg_bottom_genre {
-	margin: 0px;
-	margin-top: 5px;
+	margin:				0px;
+	margin-top:			5px;
 }
 
 #epg_summary {
-	margin: 0px;
-	margin-top: 5px;
-	width: 1230px;
-	height: 150px;
-	line-height: 1.2;
-	float: left;
-	overflow: hidden;
+	margin:				0px;
+	margin-top:			5px;
+	width:				1230px;
+	height:				150px;
+	line-height:		1.2;
+	float:				left;
+	overflow:			hidden;
 }
 
 .epg_row {
-	width: 24000px;
-	padding: 0px;
-	display: block;
-	float: left;
-	clear: left;
-	background-color: black;
+	width:				24000px;
+	padding:			0px;
+	display:			block;
+	float:				left;
+	clear:				left;
+	background-color:	black;
 }
 
 .epg_hr_row {
-	height: 3px;
-	margin: 10px;
-	margin-bottom: 4px;
-	font-size: 0px;
+	height:				3px;
+	margin:				10px;
+	margin-bottom:		4px;
+	font-size:			0px;
 }
 
 .epg_unit {
-	height: 50px;
-	margin: 0px;
-	padding-left: 5px; 
-	padding-right: 5px; 
-	padding-top: 5px;
-	display: block;
-	text-align: center;
-	overflow: hidden;
-	float: left;
-	color: #f1f1f1;
+	height:				50px;
+	margin:				0px;
+	padding-left:		5px; 
+	padding-right:		5px; 
+	padding-top:		5px;
+	display:			block;
+	text-align:			center;
+	overflow:			hidden;
+	float:				left;
+	color:				#f1f1f1;
 }
 
 .epg_unit img {
-	float: left;
-	position: relative;
-	left: -3px;
-	top: -21px;
+	float:				left;
+	position:			relative;
+	left:				-3px;
+	top:				-21px;
 }
 
 .channel {
-	width: 220px;
-	height: 50px;
-	border: 3px hidden;
-	display: block;
-	text-align: center;
-	overflow: hidden;
-	float: left;
-	color: #f1f1f1;
-	border: 3px solid black;
+	width:				220px;
+	height:				50px;
+	border:				3px hidden;
+	display:			block;
+	text-align:			center;
+	overflow:			hidden;
+	float:				left;
+	color:				#f1f1f1;
+	border:				3px solid black;
 }
 
 .channel p {
-	float: left;
-	margin-left: 7px;
+	float:				left;
+	margin-left:		7px;
 }
 
 .channelLogo {
-	height: 46px;
-	width: 46px;
-	float: left;
+	height:				46px;
+	width:				46px;
+	float:				left;
 }
 
 .selectable {
-	border: 3px solid black;
+	border:				3px solid black;
 }
 
 .selectable:hover {
-	border: 3px solid #008ffa;
+	border:				3px solid #008ffa;
 }
 
 .selected {
-	border: 3px solid red;
+	border:				3px solid red;
 }
 
 .selected:hover {
-	border: 3px solid red;
+	border:				3px solid red;
 }
 
 .time {
-	background-color: black;
-	width: 148px;
-	text-align: left;
-	border-left: 1px solid white;
-	border-right: 1px solid white;
+	background-color:	black;
+	width:				148px;
+	text-align:			left;
+	border-left:		1px solid white;
+	border-right:		1px solid white;
 }
-
 
 @media screen and (max-height: 450px) {
 	.sidenav {padding-top: 15px;}
