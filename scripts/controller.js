@@ -461,7 +461,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 					{
 						$scope.updateChannelEpg(rowIndex++);
 					})
-					console.log($scope.channelList);
+//					console.log($scope.channelList);
 				})
 		})
 	}); // controller ends
@@ -474,7 +474,7 @@ app.config(function($routeProvider) {
 	})
 	.when("/epg", {
 		templateUrl : "static/templates/epg_page.html",
-		controller : "epgTempController"
+		controller : "epgController"
 	})
 	.when("/dvr", {
 		templateUrl : "static/templates/dvr_page.html",
@@ -486,7 +486,7 @@ app.config(function($routeProvider) {
 	})
 	.when("/status", {
 		templateUrl : "static/templates/status_page.html",
-		controller : "tempChangeController"
+		controller : "statusController"
 	})
 	.when("/about", {
 		templateUrl : "static/templates/about_page.html",
@@ -494,8 +494,9 @@ app.config(function($routeProvider) {
 	});
 });
 
-// controller for loading the EPG temp-page
-app.controller("epgTempController", function ($scope) {
+
+// controller for loading the EPG-page
+app.controller("epgController", function ($scope) {
 	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
 	var bottomDiv = document.getElementById("epg_bottom");
 	var mainDiv = document.getElementsByClassName("main")[0];
@@ -514,8 +515,8 @@ app.controller("epgTempController", function ($scope) {
 });
 
 
-// controller for loading a generic temp-page
-app.controller("tempChangeController", function ($scope) {
+// controller for loading a status-page
+app.controller("statusController", function ($scope, $http) {
 	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
 	var mainDiv = document.getElementsByClassName("main")[0];
 	if (sideNavDiv['className'] == "sidenav sidenav_small") 
@@ -523,7 +524,62 @@ app.controller("tempChangeController", function ($scope) {
 	else
 		angular.element(mainDiv).removeClass("main_big");
 
+	$http.get("/api/status/inputs")
+		.then(function (response) {	$scope.streamData = response.data.entries });
+	$http.get("/api/status/subscriptions")
+		.then(function (response) {	$scope.subscriptionsData = response.data.entries });
+	$http.get("/api/status/connections")
+		.then(function (response) {	$scope.connectionsData = response.data.entries });
+	$http.get("/api/service/mapper/status")
+		.then(function (response) {	$scope.serviceMapperData = response.data });
 
+	$scope.clearStreamStats = function(uuid) {
+		var url = '/api/status/inputclrstats';
+		var data = http_build_query({ "uuid": uuid });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+		$http.post(url, data, headers)
+		.then(function (response)
+		{
+			if (response.data) {
+				$scope.showInfobox('Stream statistics cleared');
+				$http.get("/api/status/inputs")
+					.then(function (response) {	$scope.streamData = response.data.entries });
+			}
+		}, function (response)
+		{
+			alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
+		});
+	}
+
+	$scope.dropConnection = function(id) {
+		var url = '/api/connections/cancel';
+		var data = http_build_query({ "id": id });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
+		$http.post(url, data, headers)
+		.then(function (response)
+		{
+			if (response.data) {
+				$scope.showInfobox('Connection dropped');
+				$http.get("/api/status/connections")
+					.then(function (response) {	$scope.connectionsData = response.data.entries });
+			}
+		}, function (response)
+		{
+			alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
+		});
+	}
+});		// status-page controller ends
+
+
+
+// controller for loading a generic page
+app.controller("tempChangeController", function ($scope) {
+	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
+	var mainDiv = document.getElementsByClassName("main")[0];
+	if (sideNavDiv['className'] == "sidenav sidenav_small") 
+		angular.element(mainDiv).addClass("main_big");
+	else
+		angular.element(mainDiv).removeClass("main_big");
 });
 
 

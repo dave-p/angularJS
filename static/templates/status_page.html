@@ -1,4 +1,115 @@
 <div class='status_main'>
-	<h1>Status</h1>
-	<p>notImplemented Error</p>
+
+	<h5 class="mb-0">Streams:</h5>
+	<div class="noneFoundDiv" ng-hide="streamData.length">None</div>
+	<table class="table table-sm table-dark table-striped">
+	    <thead>
+		  <tr>
+		    <th>Stats</th>
+		    <th>Input</th>
+		    <th>Subs No.</th>
+		    <th>Weight</th>
+		    <th>Signal</th>
+		    <th>Signal Scale</th>
+		    <th>BER</th>
+		    <th>SNR</th>
+		    <th>SNR Scale</th>
+		    <th>unc</th>
+		    <th>bps</th>
+		    <th>te</th>
+		    <th>cc</th>
+		    <th>ec_bit</th>
+		    <th>tc_bit</th>
+		    <th>ec_block</th>
+		    <th>tc_block</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="x in streamData">
+		    <td style="width: 50px; height: 100%">
+		       	<button class="btn btn-outline-light btn-block btn-status" ng-click='clearStreamStats( x.uuid )'>Clear</button>
+		    </td>
+		    <td>{{ x.input }}</td>
+		    <td>{{ x.subs }}</td>
+		    <td>{{ x.weight }}</td>
+		    <td>{{ x.signal }}</td>
+		    <td>{{ x.signal_scale }}</td>
+		    <td>{{ x.ber }}</td>
+		    <td>{{ x.snr }}</td>
+		    <td>{{ x.snr_scale }}</td>
+		    <td>{{ x.unc }}</td>
+		    <td>{{ x.bps }}</td>
+		    <td>{{ x.te }}</td>
+		    <td>{{ x.cc }}</td>
+		    <td>{{ x.ec_bit }}</td>
+		    <td>{{ x.tc_bit }}</td>
+		    <td>{{ x.ec_block }}</td>
+		    <td>{{ x.tc_block }}</td>
+		  </tr>
+		</tbody>
+	</table>
+
+	<h5 class="mb-0">Subscriptions:</h5>
+	<div class="noneFoundDiv" ng-hide="subscriptionsData.length">None</div>
+	<table class="table table-sm table-dark table-striped">
+		<tbody>
+		  <tr ng-repeat="x in subscriptionsData">
+		    <td> {{x}} </td>
+		  </tr>
+		</tbody>
+	</table>
+
+	<h5 class="mb-0">Connections:</h5>
+	<div class="noneFoundDiv" ng-hide="connectionsData.length">None</div>
+	<table class="table table-sm table-dark table-striped">
+		<thead>
+		  <tr>
+		    <th></th>
+		    <th>Server</th>
+		    <th>Server Port</th>
+		    <th>Peer</th>
+		    <th>Peer Port</th>
+		    <th>Started</th>
+		    <th>Streaming</th>
+		    <th>Type</th>
+		    <th>User</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="x in connectionsData">
+		    <td style="width: 50px; height: 100%">
+		    	<button class="btn btn-outline-light btn-status" ng-click='dropConnection( x.id )'>Drop</button>
+		    </td>
+		    <td> {{ x.server }} </td>
+		    <td> {{ x.server_port }} </td>
+		    <td> {{ x.peer }} </td>
+		    <td> {{ x.peer_port }} </td>
+		    <td> {{ x.started + '000' | date:'yyyy-MM-dd HH:mm:ss'}} </td>
+		    <td> {{ x.streaming }} </td>
+		    <td> {{ x.type }} </td>
+		    <td> {{ x.user }} </td>
+		  </tr>
+		</tbody>
+	</table>
+
+	<h5 class="mb-0">Service Mapper:</h5>
+	<table class="table table-sm table-dark table-striped">
+		<thead>
+		  <tr>
+		    <th>Ignore</th>
+		    <th>OK</th>
+		    <th>Fail</th>
+		    <th>Total</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td> {{ serviceMapperData.ignore }} </td>
+			<td> {{ serviceMapperData.ok }} </td>
+			<td> {{ serviceMapperData.fail }} </td>
+			<td> {{ serviceMapperData.total }} </td>
+		  </tr>
+		</tbody>
+	</table>		
+
 </div>

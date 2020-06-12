@@ -1,7 +1,7 @@
 About-page:
 ----------------------------------------------------------------------------------------------
 - Vis korrekt build
-- Vis build parameters (far eksisterende fil)
+- Vis build parameters (fra eksisterende fil)
 
 
 
@@ -32,11 +32,12 @@ DONE!	- Must set focus back to EPG_window after button-push (linie 293)
 
 
 
-
-
 Digital Video Recorder-page:
 ----------------------------------------------------------------------------------------------
 <not started>
+
+
+
 
 
 
@@ -50,11 +51,12 @@ Configuration-page:
 
 
 
-
 Status-page:
 ----------------------------------------------------------------------------------------------
-<not started>
-
+DONE!	- style knapper i første kategori
+DONE!	- clear all streams-knap i første kategori	
+DONE!	- convert 'Started'-field to date
+DONE!	- reload status-page when connection dropped / stats reset
 
 
 
