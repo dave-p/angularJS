@@ -62,12 +62,16 @@ function http_build_query( arrayIn ) {
 }
 
 
-// returns the position (row, coulmm) of the currently selected epgUnit
+// returns the position (row, coulmm) of the currently selected epgUnit, if any, else false
 function getGridPosition() {
 	var selectedUnit = document.getElementsByClassName("selected");
-	var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
-	var gridPos = rowIndex.split('-');
-	return gridPos;
+	if (angular.isDefined(selectedUnit[0])) {
+		var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
+		var gridPos = rowIndex.split('-');
+		return gridPos;
+	} else {
+		return false;
+	}
 }
 
 
@@ -77,24 +81,19 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 
 	$scope.timeLine = [];
 	$scope.configuration = [];
+	$scope.maxEpgWidth = 0;
 	var now = new Date();
 	var hour = now.getHours() - 2;
 	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );
 	var timeLineStart = timeObj.getTime() - 2 * 60 * 60 * 1000;					// subtract two hours to be sure to be before first object
-	for (var x = 0; x < 24; x += 1)
-	{
-		if (hour === 24) {hour = 0};
-		$scope.timeLine.push(hour + ':00');										// TODO: Skal ikke have flere timer end der er EPG-units
-		$scope.timeLine.push(hour + ':30');
-		hour++;
-	}
+
 
 	// ------------- functions ------------------------------------------------------------------
+
 
 	// fired when page has been rendered
 	$timeout(function() {
 		var timeBoxDiv = document.getElementById("epg_timebox");
-//		angular.element(timeBoxDiv).css('width', calculateTimeboxWidth(timeLineStart) + 'px');
 		$scope.timeBoxWidth = calculateTimeboxWidth(timeLineStart);
 		var epgDataDiv = document.getElementById("epg_data");
 		if (epgDataDiv) { epgDataDiv.scrollLeft = $scope.timeBoxWidth - 100; }
@@ -180,61 +179,63 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	// handle a key pressed on the keyboard
 	$scope.keyPress = function (event) {
 		var selectedUnit = document.getElementsByClassName("selected");
-		var id = selectedUnit[0]['id'];
-		var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
-		var gridPos = rowIndex.split('-');
-		var curEpgTime = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]]['data']['start'];
-		var match = false;
-		var epgUnit = false;
-		angular.element(selectedUnit).removeClass("selected");
-		switch (event.keyCode) {
-			case 37:	//	key = "LEFT";
-				if (gridPos[1] > 0)
-					gridPos[1] = parseInt(gridPos[1]) - 1;
-				epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
-				break;
-			case 39:	//	key = "RIGHT";
-				if (gridPos[1] < $scope.channelList[gridPos[0]]['epgData'].length - 1)
-					gridPos[1] = parseInt(gridPos[1]) + 1;
-				epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
-				break;
-			case 38:	//	key = "UP";
-				if (gridPos[0] > 0)
-					gridPos[0] = parseInt(gridPos[0]) - 1;
-				var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
-				angular.forEach(newRow, function (row)
-				{
-					if (row['data']["stop"] > curEpgTime && !match)
+		if (angular.isDefined(selectedUnit[0])) { 
+			var id = selectedUnit[0]['id'];
+			var rowIndex = selectedUnit[0]['className'].split(" ")[2].substring(8);
+			var gridPos = rowIndex.split('-');
+			var curEpgTime = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]]['data']['start'];
+			var match = false;
+			var epgUnit = false;
+			angular.element(selectedUnit).removeClass("selected");
+			switch (event.keyCode) {
+				case 37:	//	key = "LEFT";
+					if (gridPos[1] > 0)
+						gridPos[1] = parseInt(gridPos[1]) - 1;
+					epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
+					break;
+				case 39:	//	key = "RIGHT";
+					if (gridPos[1] < $scope.channelList[gridPos[0]]['epgData'].length - 1)
+						gridPos[1] = parseInt(gridPos[1]) + 1;
+					epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
+					break;
+				case 38:	//	key = "UP";
+					if (gridPos[0] > 0)
+						gridPos[0] = parseInt(gridPos[0]) - 1;
+					var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
+					angular.forEach(newRow, function (row)
 					{
-						epgUnit = row;
-						match = true;
-					}
-				})
-				if (!epgUnit) { epgUnit = newRow[newRow.length - 1]; }
-				break;
-			case 40:	//	key = "DOWN";
-				if (gridPos[0] < $scope.channelList.length - 1)
-					gridPos[0] = parseInt(gridPos[0]) + 1;
-				var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
-				angular.forEach(newRow, function (row)
-				{
-					if (row['data']["stop"] > curEpgTime && !match)
+						if (row['data']["stop"] > curEpgTime && !match)
+						{
+							epgUnit = row;
+							match = true;
+						}
+					})
+					if (!epgUnit) { epgUnit = newRow[newRow.length - 1]; }
+					break;
+				case 40:	//	key = "DOWN";
+					if (gridPos[0] < $scope.channelList.length - 1)
+						gridPos[0] = parseInt(gridPos[0]) + 1;
+					var newRow = $scope.channelList[gridPos[0]]['epgData'];		// the row of the new selction, must find correct object by time
+					angular.forEach(newRow, function (row)
 					{
-						epgUnit = row;
-						match = true;
-					}
-				})
-				if (!epgUnit) { epgUnit = newRow[newRow.length - 1]; }
-				break;
-			default:
-				epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
-				break;
-			}
-		var nyDiv = document.getElementById(epgUnit['data']['eventId']);
-		angular.element(nyDiv).addClass("selected");
-		$scope.fillBotomEPG(epgUnit);
-		// correct the windows scroll
-		nyDiv.scrollIntoView(); 
+						if (row['data']["stop"] > curEpgTime && !match)
+						{
+							epgUnit = row;
+							match = true;
+						}
+					})
+					if (!epgUnit) { epgUnit = newRow[newRow.length - 1]; }
+					break;
+				default:
+					epgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
+					break;
+				}
+			var nyDiv = document.getElementById(epgUnit['data']['eventId']);
+			angular.element(nyDiv).addClass("selected");
+			$scope.fillBotomEPG(epgUnit);
+			// correct the windows scroll
+			nyDiv.scrollIntoView(); 
+		}
 	};
 
 
@@ -308,11 +309,6 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 				if (response.data) {
 					var gridPos = getGridPosition();
 					$scope.updateChannelEpg(gridPos[0]);
-
-
-
-
-
 					var recordButton = document.getElementById('recordProgram');
 					var recordSeriesButton = document.getElementById('recordSeries');
 					recordButton.innerText = 'Cancel Recording';
@@ -400,6 +396,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	// update a channel, by given ROW index
 	$scope.updateChannelEpg = function(index) {
 		var ID = $scope.channelList[index]['uuid'];
+		var totalWidth = 0;
 		$http.get("/api/epg/events/grid?limit=" + $scope.configuration['noOfEpgRecordsToGet'] + "&channel=" + ID)
 		.then(function (data)
 		{
@@ -411,17 +408,32 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 					var col = genre_dict[ row['genre'][0].toString(16)[0] ][0];
 				else
 					var col = 'gray';
+				var calcWidth = (duration * 5) - 6;
 				var record = {
 								color : col,
-								width : (duration * 5) - 6,
+								width : calcWidth,
 								data : row
 							 };
+				totalWidth += calcWidth;
 				row["start"] = getUniversalTime(row["start"]);
 				row["stop"] = getUniversalTime(row["stop"]);
 				if (angular.isDefined(row['dvrState']))
 					row['recStatus'] = getRecordingStatusIcon(row['dvrState']);
 				epgLine.push(record);
 			})
+		// update maxEPGwidth and timeline
+		if (totalWidth > $scope.maxEpgWidth) {
+			$scope.maxEpgWidth = totalWidth;
+			$scope.timeLine.length = 0;
+			var hour = now.getHours() - 2;
+			for (var x = 0; x < (($scope.maxEpgWidth + 600) / 300); x += 1)
+			{
+				if (hour === 24) {hour = 0};
+				$scope.timeLine.push(hour + ':00');
+				$scope.timeLine.push(hour + ':30');
+				hour++;
+			}
+		}
 		$scope.channelList[index]['epgData'] = epgLine;
 		// calculate correction for each rows' starting position
 		var firstEpgUnitStart = epgLine[0]['data']['start'];
@@ -432,14 +444,16 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		.then(function (data){
 			// update the selectedUnit
 			var gridPos = getGridPosition();
-			$scope.selectedEpgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
-			setTimeout(function () {
-				// set ccs-class back to selected epg_unit
-				var selectedDiv = document.getElementById($scope.selectedEpgUnit['data']['eventId']);
-				angular.element(selectedDiv).addClass("selected");
-				var epgdataDiv = document.getElementById('epg_data');
-				epgdataDiv.focus();
-			}, 300);
+			if (gridPos) {
+				$scope.selectedEpgUnit = $scope.channelList[gridPos[0]]['epgData'][gridPos[1]];
+				setTimeout(function () {
+					// set ccs-class back to selected epg_unit
+					var selectedDiv = document.getElementById($scope.selectedEpgUnit['data']['eventId']);
+					angular.element(selectedDiv).addClass("selected");
+					var epgdataDiv = document.getElementById('epg_data');
+					epgdataDiv.focus();
+				}, 300);
+			}
 		})
 	}
 
@@ -490,7 +504,7 @@ app.config(function($routeProvider) {
 	})
 	.when("/about", {
 		templateUrl : "static/templates/about_page.html",
-		controller : "tempChangeController"
+		controller : "aboutController"
 	});
 });
 
@@ -570,6 +584,21 @@ app.controller("statusController", function ($scope, $http) {
 	}
 });		// status-page controller ends
 
+
+// controller for loading a about-page
+app.controller("aboutController", function ($scope, $http) {
+	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
+	var mainDiv = document.getElementsByClassName("main")[0];
+	if (sideNavDiv['className'] == "sidenav sidenav_small") 
+		angular.element(mainDiv).addClass("main_big");
+	else
+		angular.element(mainDiv).removeClass("main_big");
+	$http.get("/api/serverinfo")
+	.then(function (reply)
+	{
+		$scope.softwareVersion = reply['data']['sw_version'];
+	})
+});
 
 
 // controller for loading a generic page

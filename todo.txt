@@ -1,43 +1,19 @@
 About-page:
 ----------------------------------------------------------------------------------------------
-- Vis korrekt build
-- Vis build parameters (fra eksisterende fil)
+	- Show correct build time
+	- Show correct build parameters
 
 
 
 EPG-page:
 ----------------------------------------------------------------------------------------------
-DONE!	- Flytte markeret felt (selected) med piletaster
-DONE!	- LEFT / RIGHT :	find næste objekti egen raekke
-DONE!	- UP / DOWN :		find egen tid, find tidligere raekke, gennemgå alle objekter til vi finder samme tid, vaelg denne
-DONE!	- check om første/sidste er nået
-DONE!	- check om øverste/nederste er nået
-DONE!	- padding-left på hver epg_row, for at matche tiden som hver row starter på
-DONE!	- udregning af tid ved skift af linie, ikke af nummer
-DONE!	- padding-left på row skal dække over programnavne ved formindskning af sidepaneler (solid baggrund?)
-DONE!	- korrigering af underlig opførsel ved row.skifte
-DONE!	- Flyt skærmen med piletaster, så markeret aldrig kommer ud over skærmen
-DONE!	- refresh-interval på EPG
-DONE!	- Lav markør af tid som overlay, som i KODI
-DONE!	- scroll windows to left on load
-DONE!	- Ved skift med piletaster, vaelg sidste i raekke hvis skift af linie
-DONE!	- Marking an epgUnit that it is beeing recorded	(icon inside epg_unit: red dot = recording | watch = scheduled)
-DONE!	- Lave 'recordings'
-DONE!	- Lave 'record series'
-DONE!	- Update epgunits affected by 'record series'
-DONE!	- Skjul begge knapper hvis tiden er passeret
-DONE!	- change button text, if recording is ongoing / scheduled
-DONE!	- STAY SELECTED when start/stopping recording
-DONE!	- Must set focus back to EPG_window after button-push (linie 293)
+	- Timeline must be in separate div, to display it when scrolled down
 
 
 
 Digital Video Recorder-page:
 ----------------------------------------------------------------------------------------------
 <not started>
-
-
-
 
 
 
@@ -53,27 +29,12 @@ Configuration-page:
 
 Status-page:
 ----------------------------------------------------------------------------------------------
-DONE!	- style knapper i første kategori
-DONE!	- clear all streams-knap i første kategori	
-DONE!	- convert 'Started'-field to date
-DONE!	- reload status-page when connection dropped / stats reset
+<All done>
 
 
 
 GENERAL
 ----------------------------------------------------------------------------------------------
-DONE!	- Lav bedre notification end ALERT(), toastr()
-DONE!	- flere notificationer (nedenunder eksisterende, hvis der er nogen)
-DONE!	- create a config-object
-DONE!	- Tag config_uuid fra config
-DONE!	- check if infoboxes can move up slowly, not instantly
-DONE!	- Formindsk sidepaneler (x2) laves permanent		( config )
-DONE!	- "show/hide pannels" konverteres til cookies, fjernes fra configuration
-DONE!	- BUG: fold ind/ud af paneler går i hegnet hvis man skifter underside
-DONE!	- BUG: timeBox følger med begge sidepaneler nogle gange, men kan ikke fremprovokere det? 	(Sker hvis timebox ingen WIDTH har!)
-DONE!	- BUG: timeBox bliver ikke justeret i width ved skift fra anden underside
-DONE!	- BUG: make route to index.html
-DONE!	- update just one row, not all, when recording / recording series
-DONE!	- figure out why you cant press epg_bottom button twice
 
+	- Get better Icons
 

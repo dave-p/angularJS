@@ -1,9 +1,5 @@
-
-
-
-
 <div id="about">
-    <h4>HTS Tvheadend 4.3-1789~g6bfeca6c0-dirty</h4>
+    <h4>HTS Tvheadend {{ softwareVersion }}</h4>
     <p>© 2006 - 2019 Andreas Öman, Jaroslav Kysela, Adam Sutton, et al.</p>
     <img id='logoimage' src='static/img/logobig.png' alt='Logo' />
     <p>
@@ -26,8 +22,8 @@
         <img src='static/img/tvdb.png'>
     </p>
     <p>
-        Build: 4.3-1789~g6bfeca6c0-dirty (2019-05-15T14:01:13+0000) 
-        <a href='javascript:void(0)' onclick='Ext.get(' textarea_build_config ').setVisibilityMode(Ext.Element.DISPLAY).toggle()'>Toggle details</a>
+        Build: {{ softwareVersion }} (2019-05-15T14:01:13+0000) 
+        <a href='javascript:void(0)'>Toggle details</a>
     </p>
     <p>
         If you'd like to support the project, please consider a donation.<br>

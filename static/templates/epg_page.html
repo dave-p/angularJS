@@ -7,39 +7,64 @@
 			<p class="mt-2 text-truncate">{{channel['name']}}</p>
 		</div>
 	</div>
-	<div id='epg_data' ng-keydown="keyPress($event)" tabindex="0"   >
-		<li class='epg_row'>
+	<div id='epg_data' ng-keydown="keyPress($event)" tabindex="0">
+
+
+
+		<li class='epg_row' style="width: {{maxEpgWidth + 1000}}px">
 			<div class='epg_unit time' ng-repeat='time in timeLine'><p>{{time}}</p></div>
-			<div class='epg_unit time' ng-repeat='time in timeLine | limitTo : 29'><p>{{time}}</p></div>
 		</li>
-		<li class='epg_row epg_hr_row'>	
-			<hr />
-		</li>
-		<div ng-repeat="channel in channelList"> 
-			<li class='epg_row' style="padding-left: {{channel.offset}}px;">
-				<div id={{entry.data.eventId}} class='epg_unit selectable rowIndex{{$parent.$index}}-{{$index}}' ng-click="selectContainer(entry)" ng-repeat="entry in channel.epgData" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
-					<p class=" text-truncate">{{entry.data.title}}</p>
-					<img src="{{entry.data.recStatus}}" />
-				</div>
-			</li>
+
+
+
+
+		<li class='epg_row epg_hr_row' style="width: {{maxEpgWidth + 1000}}px"></li>
+
+		<div id='epg_data_inner'>
+			<div ng-repeat="channel in channelList"> 
+				<li class='epg_row' style="padding-left: {{channel.offset}}px; width: {{maxEpgWidth + 1000}}px">
+					<div id={{entry.data.eventId}} class='epg_unit selectable rowIndex{{$parent.$index}}-{{$index}}' ng-click="selectContainer(entry)" ng-repeat="entry in channel.epgData" style='background-color: {{entry.color || "gray"}}; width: {{entry.width}}px'>
+						<p class=" text-truncate">{{entry.data.title}}</p>
+						<img src="{{entry.data.recStatus}}" />
+					</div>
+				</li>
+			</div>
+			<div id="epg_timebox" style="width: {{timeBoxWidth}}px "></div>
 		</div>
-		<div id="epg_timebox" style="width: {{timeBoxWidth}}px "></div>
+
 	</div>
 	<div id='epg_bottom' style="visibility: hidden;">
-		<img id="epg_bottom_image" src="{{selectedEpgUnit['data']['channelIcon']}}" />
-		<h4 id="epg_bottom_title">{{selectedEpgUnit['data']['title']}}</h4>
-		<button id="recordProgram" class="recordButton btn btn-outline-info" type="button" ng-click="epgBottomButton()">Record</button>
-		<button id="recordSeries" class="recordButton btn btn-outline-info" type="button" ng-click="recordSeries()">Record Series</button>
-		<div id="epg_bottom_placeholder">
-			<h6 id="epg_bottom_time">{{selectedEpgUnit['data']['fromToTime']}}</h6>
-			<p class="dot"></p>
-			<h6 id="epg_bottom_genre">{{selectedEpgUnit['data']['genreText']}}</h6>
-		</div>
-		<div id="epg_summary">
-			{{selectedEpgUnit['data']['description']}}
+		<div class="row">
+			<div class="col-2">
+				<img id="epg_bottom_image" src="{{selectedEpgUnit['data']['channelIcon']}}" />
+			</div>
+			<div class="col-10 pl-4">
+				<div class="row">
+					<div class="col-10 p-2">
+						<h4 id="epg_bottom_title">{{selectedEpgUnit['data']['title']}}</h4>
+						<div id="epg_bottom_placeholder">
+							<h6 id="epg_bottom_time">{{selectedEpgUnit['data']['fromToTime']}}</h6>
+							<p class="dot"></p>
+							<h6 id="epg_bottom_genre">{{selectedEpgUnit['data']['genreText']}}</h6>
+						</div>
+					</div>
+					<div class="col-2">
+						<div id="recordButtonsDiv">
+							<button id="recordProgram" class="recordButton btn btn-outline-info" type="button" ng-click="epgBottomButton()">Record</button>
+							<button id="recordSeries" class="recordButton btn btn-outline-info" type="button" ng-click="recordSeries()">Record Series</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 overflow-hidden">
+							<div id="epg_bottom_description">
+								{{selectedEpgUnit['data']['description']}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-
 
 </div>
 
