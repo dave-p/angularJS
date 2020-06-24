@@ -85,7 +85,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	var now = new Date();
 	var hour = now.getHours() - 2;
 	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );
-	var timeLineStart = timeObj.getTime() - 2 * 60 * 60 * 1000;					// subtract two hours to be sure to be before first object
+	var timeLineStart = timeObj.getTime() - 30 * 60 * 1000;					// subtract 1/2 hour to be sure to be before first object
 
 
 	// ------------- functions ------------------------------------------------------------------
@@ -239,6 +239,34 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	};
 
 
+	// toggle epg_bottom-field size
+	$scope.epgBottomToggleSize = function() {
+		var epg_bottom = document.getElementById('epg_bottom');
+		var epg_bottom_image = document.getElementById('epg_bottom_image');
+		var epg_bottom_placeholder = document.getElementById('epg_bottom_placeholder');
+		var epg_bottom_description = document.getElementById('epg_bottom_description');
+		var epg_bottom_title = document.getElementById('epg_bottom_title');
+		var minimized = document.getElementsByClassName("minimized")[0];
+		if (minimized['style']['max-width'] != "80px") {
+			angular.element(epg_bottom).css("height", "65px");
+			angular.element(epg_bottom_image).css("margin", "4px");
+			angular.element(epg_bottom_image).css("width", "50px");
+			angular.element(epg_bottom_placeholder).css("visibility", "hidden");
+			angular.element(epg_bottom_description).css("visibility", "hidden");
+			angular.element(epg_bottom_title).css("margin-top", "6px");
+			angular.element(minimized).css("max-width", "80px");
+		} else {
+			angular.element(epg_bottom).css("height", "245px");
+			angular.element(epg_bottom_image).css("margin", "19px");
+			angular.element(epg_bottom_image).css("width", "");
+			angular.element(epg_bottom_placeholder).css("visibility", "visible");
+			angular.element(epg_bottom_description).css("visibility", "visible");
+			angular.element(epg_bottom_title).css("margin-top", "");
+			angular.element(minimized).css("max-width", "");
+		}
+	}
+
+
 	// determine action of the button
 	$scope.epgBottomButton = function() {
 		var recordButton = document.getElementById('recordProgram');
@@ -363,12 +391,10 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		angular.element(sideNavDiv).toggleClass("sidenav_small");	// toggle this, use its status to determine others
 		if (sideNavDiv['className'] == "sidenav sidenav_small") {
 			angular.element(mainDiv).addClass("main_big");
-			angular.element(bottomDiv).addClass("epg_bottom_wide");
 			$cookies.put('mainMenuCollapsed', true);
 		}
 		else{
 			angular.element(mainDiv).removeClass("main_big");
-			angular.element(bottomDiv).removeClass("epg_bottom_wide");
 			$cookies.put('mainMenuCollapsed', false);
 		}
 	};
@@ -425,18 +451,30 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		if (totalWidth > $scope.maxEpgWidth) {
 			$scope.maxEpgWidth = totalWidth;
 			$scope.timeLine.length = 0;
-			var hour = now.getHours() - 2;
-			for (var x = 0; x < (($scope.maxEpgWidth + 600) / 300); x += 1)
+			var hour = now.getHours() - 1;
+			var oddEven = 1; //(now.getMinutes() <= 30) ? 1 : 1;
+			for (var x = 0; x < (($scope.maxEpgWidth) / 150); x += 1)
 			{
 				if (hour === 24) {hour = 0};
-				$scope.timeLine.push(hour + ':00');
-				$scope.timeLine.push(hour + ':30');
-				hour++;
+				if (oddEven) {
+					$scope.timeLine.push(hour + ":30");					// forkert
+					oddEven = 0;
+					hour++;
+				} else {
+					$scope.timeLine.push(hour + ":00");					// passer
+					oddEven = 1;
+				}
 			}
 		}
 		$scope.channelList[index]['epgData'] = epgLine;
 		// calculate correction for each rows' starting position
 		var firstEpgUnitStart = epgLine[0]['data']['start'];
+		// if program starts before timeline, shorten it
+		if (firstEpgUnitStart < timeLineStart) {
+			var duration = (epgLine[0]['data']['stop'] - timeLineStart) / 1000 / 60;
+			var calcWidth = (duration * 5) - 12;
+			epgLine[0]['width'] = calcWidth;
+		}
 		var correctionMiliSeconds = firstEpgUnitStart - timeLineStart;
 		var correctionMinutes = correctionMiliSeconds / 1000 / 60;
 		$scope.channelList[index]['offset'] = correctionMinutes * 5;
@@ -459,6 +497,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 
 
 	// MAIN: Program starts here
+	$scope.timeBoxHeigth = 15;
 	$http.get("configuration.json")
 		.then(function (configData)
 		{
@@ -474,6 +513,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 					angular.forEach($scope.channelList, function (row)
 					{
 						$scope.updateChannelEpg(rowIndex++);
+						$scope.timeBoxHeigth += 50;
 					})
 //					console.log($scope.channelList);
 				})
@@ -515,15 +555,9 @@ app.controller("epgController", function ($scope) {
 	var bottomDiv = document.getElementById("epg_bottom");
 	var mainDiv = document.getElementsByClassName("main")[0];
 	if (sideNavDiv['className'] == "sidenav sidenav_small") 
-	{
 		angular.element(mainDiv).addClass("main_big");
-		angular.element(bottomDiv).addClass("epg_bottom_wide");
-	}
 	else
-	{
 		angular.element(mainDiv).removeClass("main_big");
-		angular.element(bottomDiv).removeClass("epg_bottom_wide");
-	}
 	var epgDataDiv = document.getElementById("epg_data");
 	if (epgDataDiv) { epgDataDiv.scrollLeft = $scope.timeBoxWidth - 100; }
 });

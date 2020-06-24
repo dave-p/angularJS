@@ -8,43 +8,40 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-cookies.js"></script>
 		<script src="scripts/controller.js"></script>
+		<script src="scripts/dvrController.js"></script>
 		<link rel="icon" href="static/img/logosmall.png" type="image/png">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 	</head>
 
 	<body ng-app="mainApp" ng-controller="getJson">
 		<div id="infoBoxContainer"></div>
-		<div class="sidenav">
-			<img id="menulogo" src="static/img/menulogo.png" alt="Menu Logo" /> 
-			<img id="showHideIcon" src="static/img/switch.png" ng-click=showHideSidebar() />
-
-			<a href="#!epg">EPG
-				<span class="navLink">
-					<img src="/static/icons/epg.png"/>
-				</span>
-			</a>
-			<a href="#!dvr">Digital Video Recorder
-				<span class="navLink">
-					<img src="/static/icons/drive.png"/>
-				</span>
-			</a>
-			<a href="#!conf">Configuration
-				<span class="navLink">
-					<img src="/static/icons/wrench.png"/>
-				</span>
-			</a>
-			<a href="#!status">Status
-				<span class="navLink">
-					<img src="/static/icons/eye.png"/>
-				</span>
-			</a>
-			<a href="#!about">About
-				<span class="navLink">
-					<img src="/static/icons/information.png"/>
-				</span>
-			</a>
-		</div>
+		<ul class="sidenav">
+			<div class="sidebar-header">
+				<img id="menulogo" src="static/img/menulogo.png" alt="Menu Logo" />
+				<div class="float-right">
+					<a href="" ng-click=showHideSidebar()><span class="navHeader fas fa-exchange-alt"></span></a>
+				</div> 
+			</div>
+			<div class="sidebar-content">
+				<li class="sidebar-list">
+					<a href="#!epg">EPG <span class="navLink fas fa-stream"></span></a>
+				</li>
+				<li class="sidebar-list">
+					<a href="#!dvr">Digital Video Recorder<span class="navLink fas fa-film"></span></a>
+				</li>
+				<li class="sidebar-list">
+					<a href="#!conf">Configuration<span class="navLink fas fa-cog"></span></a>
+				</li>
+				<li class="sidebar-list">
+					<a href="#!status">Status<span class="navLink fas fa-eye"></span></a>
+				</li>
+				<li class="sidebar-list">
+					<a href="#!about">About<span class="navLink fas fa-info-circle"></span></a>
+				</li>
+			</div>
+		</ul>
 
 		<div class="main" ng-view> </div>
 
