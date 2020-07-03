@@ -1,17 +1,107 @@
-<div ng-app="mainApp" ng-controller="dvrController">
-
-
-
-
+<div id="dvr_content" ng-app="mainApp" ng-controller="dvrController">
 
 	<div id="dvr_header">
-		<h1>Digital Video Recorder</h1>
+		<h1>Recordings</h1>
 	</div>
+
 	<div id="dvr_main">
-		<p>notImplemented Error {{ dvrVariable }}</p>
+
+
+		<div id="dvr_toolbar">
+			<div class="btn-group" role="group" aria-label="...">
+				<button type="button" class="btn btn-sm btn-primary blackText">
+					<i class="fas fa-edit mr-1" aria-hidden="true"></i>Edit
+				</button>
+				<button type="button" class="btn btn-sm btn-primary blackText">
+					<i class="fas fa-stop mr-1" aria-hidden="true"></i>Stop
+				</button>
+				<button type="button" class="btn btn-sm btn-primary blackText">
+					<i class="fas fa-ban mr-1" aria-hidden="true"></i>Enable/Disable
+				</button>
+				<button type="button" class="btn btn-sm btn-danger blackText">
+					<i class="fas fa-arrow-right mr-1" aria-hidden="true"></i>Move
+				</button>
+				<button type="button" class="btn btn-sm btn-danger blackText">
+					<i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>Delete
+				</button>
+				<button class="btn btn-sm btn-danger blackText">
+					<i class="fas fa-download mr-1" aria-hidden="true"></i>Download
+				</button>
+			</div>
+			<button type="button" class="btn btn-sm btn-primary blackText">
+				<i class="fas fa-plus mr-1" aria-hidden="true"></i>Add recording
+			</button>
+		</div>
+
+
+
+		<div class="searchBar">
+			<i class="fa fa-search searchIcon" aria-hidden="true"></i>
+			<input type="text" class="searchInput ng-valid ng-touched ng-not-empty ng-dirty ng-valid-parse" ng-model="textFilter" ng-change="$ctrl.onTextFilterChange()" placeholder="Search..." auto-focus="" ng-model-options="{ debounce: 300 }">
+		</div>
+		<table class="dvrTable table-hover">
+			<thead>
+			  <tr class="dvrTable">
+				<th style="width: 30px">
+					<input type="checkbox" ng-model="selectAll" ng-click="checkAll()" />
+				</th>
+				<th>
+					<a ng-click="changeSorting('disp_title')">
+						Title
+						<i class="fas fa-sort-alpha-up" ng-show="sort.column === 'disp_title' && sort.descending"></i>
+						<i class="fas fa-sort-alpha-down" ng-show="sort.column === 'disp_title' && !sort.descending"></i>
+					</a>
+				</th>
+				<th>
+					<a ng-click="changeSorting('status')">
+						Status
+						<i class="fas fa-sort-alpha-up" ng-show="sort.column === 'status' && sort.descending"></i>
+						<i class="fas fa-sort-alpha-down" ng-show="sort.column === 'status' && !sort.descending"></i>
+					</a>
+				</th>
+				<th>
+					<a ng-click="changeSorting('channelname')">
+						Channel
+						<i class="fas fa-sort-alpha-up" ng-show="sort.column === 'channelname' && sort.descending"></i>
+						<i class="fas fa-sort-alpha-down" ng-show="sort.column === 'channelname' && !sort.descending"></i>
+					</a>
+				</th>
+				<th>
+					<a ng-click="changeSorting('start')">
+						Time
+						<i class="fas fa-sort-numeric-up" ng-show="sort.column === 'start' && sort.descending"></i>
+						<i class="fas fa-sort-numeric-down" ng-show="sort.column === 'start' && !sort.descending"></i>
+					</a>
+				</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="x in dvrData | orderBy:sort.column:sort.descending | filter : textFilter">
+				<td style="padding-top: 10px;">
+					<input class="dvrCheckbox" type="checkbox" ng-model="item.Checked">
+				</td>
+				<td>{{ x.disp_title }}</td>
+				<td ng-class="{	'badge-primary'	:	x.status == 'Scheduled for recording' , 
+								'badge-success'	:	x.status == 'Completed OK', 
+								'badge-danger'	:	x.status == 'File missing', 
+								'badge-warning'	:	x.status == 'Time missed',
+								'badge-info'	:	x.status == 'Running'
+							}" class="badge" >{{ x.status }}
+				</td>
+				<td>
+					<span>
+						<img class="dvrLogo" src="{{ x.channel_icon }}">
+						<b id="{{ x.uuid }}">{{ x.channelname }}</b>
+					</span>
+				</td>
+				<td>{{ x.start * 1000 | date:'yyyy-MM-dd HH:mm' }}</td>
+			  </tr>
+			</tbody>
+		</table>
 	</div>
 
+	<div id="dvr_footer">
+	</div>
 
-
-
-
+</div> 
+	

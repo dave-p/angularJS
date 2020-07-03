@@ -20,15 +20,22 @@ About-page:
 
 Digital Video Recorder-page:
 ----------------------------------------------------------------------------------------------
-<not started>
+ - Options for each row:
+	UPCOMING/CURRENT					FINISHED			FAILED				REMOVED
+	- Add new						 										
+	- Delete			(Selected)		+					+					+
+	- Edit 				(Selected)		+					+					+
+	- Stop/Abort 		(Active)		Move to failed		Move to finished	
+	- Enable/Disable	(Selected)		Download
 
-
+ - Overlay with more INFO (and icon/link to call it, on title link, perhaps? Edit?)
+ - Separate section for Autorecs / Timers (TABS?):
 
 
 Configuration-page:
 ----------------------------------------------------------------------------------------------
-	- Funktion til at vælge værdier i configuration.json
-	- Vælg sortering af Channels, skriv i configuration.json
+	- set values in configuration.json
+	- set sort of Channels, write to configuration.json
 	- Choose a default dvr-Configuration, skriv i configuration.json
 	- tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
 
