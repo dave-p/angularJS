@@ -27,9 +27,23 @@ Digital Video Recorder-page:
 	- Edit 				(Selected)		+					+					+
 	- Stop/Abort 		(Active)		Move to failed		Move to finished	
 	- Enable/Disable	(Selected)		Download
-
- - Overlay with more INFO (and icon/link to call it, on title link, perhaps? Edit?)
+ - Disable buttons when no acceptable items are Selected								(disabled="disabled")
  - Separate section for Autorecs / Timers (TABS?):
+ - Overlay with more INFO
+ 	- Icon			
+ 	- Channel		
+ 	- Title			
+ 	- Rec Start		
+ 	- Rec Stop		
+ 	- Duration		
+ 	- Genre			
+ 	- Description	
+ 	- Status		
+ 	- Comment		
+ 	- File Size		
+
+
+
 
 
 Configuration-page:

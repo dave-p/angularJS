@@ -1,4 +1,8 @@
-<div id="dvr_content" ng-app="mainApp" ng-controller="dvrController">
+<div id="dvr_content" ng-app="mainApp" ng-controller="dvrController as dvrCtrl">
+
+	<div id="overlay" ng-click="hideDetails()">
+		<div id="overlay_text">Details Overlay</div>
+	</div>
 
 	<div id="dvr_header">
 		<h1>Recordings</h1>
@@ -6,39 +10,37 @@
 
 	<div id="dvr_main">
 
-
 		<div id="dvr_toolbar">
 			<div class="btn-group" role="group" aria-label="...">
-				<button type="button" class="btn btn-sm btn-primary blackText">
+				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
 					<i class="fas fa-edit mr-1" aria-hidden="true"></i>Edit
 				</button>
-				<button type="button" class="btn btn-sm btn-primary blackText">
+				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
 					<i class="fas fa-stop mr-1" aria-hidden="true"></i>Stop
 				</button>
-				<button type="button" class="btn btn-sm btn-primary blackText">
+				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
 					<i class="fas fa-ban mr-1" aria-hidden="true"></i>Enable/Disable
 				</button>
-				<button type="button" class="btn btn-sm btn-danger blackText">
+				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
 					<i class="fas fa-arrow-right mr-1" aria-hidden="true"></i>Move
 				</button>
-				<button type="button" class="btn btn-sm btn-danger blackText">
-					<i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>Delete
+				<button type="button" class="btn btn-sm btn-primary" ng-click="deleteButton()" ng-disabled="selectedItems.length === 0">
+					<i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>Delete {{ fucker }}
 				</button>
-				<button class="btn btn-sm btn-danger blackText">
+				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
 					<i class="fas fa-download mr-1" aria-hidden="true"></i>Download
 				</button>
 			</div>
-			<button type="button" class="btn btn-sm btn-primary blackText">
+			<button type="button" class="btn btn-sm btn-danger">
 				<i class="fas fa-plus mr-1" aria-hidden="true"></i>Add recording
 			</button>
 		</div>
-
-
 
 		<div class="searchBar">
 			<i class="fa fa-search searchIcon" aria-hidden="true"></i>
 			<input type="text" class="searchInput ng-valid ng-touched ng-not-empty ng-dirty ng-valid-parse" ng-model="textFilter" ng-change="$ctrl.onTextFilterChange()" placeholder="Search..." auto-focus="" ng-model-options="{ debounce: 300 }">
 		</div>
+
 		<table class="dvrTable table-hover">
 			<thead>
 			  <tr class="dvrTable">
@@ -78,9 +80,9 @@
 			<tbody>
 			  <tr ng-repeat="x in dvrData | orderBy:sort.column:sort.descending | filter : textFilter">
 				<td style="padding-top: 10px;">
-					<input class="dvrCheckbox" type="checkbox" ng-model="item.Checked">
+					<input class="dvrCheckbox" type="checkbox" ng-model="x.checked" ng-change="addSelectedItem(x)" >
 				</td>
-				<td>{{ x.disp_title }}</td>
+				<td ng-click="showDetails()">{{ x.disp_title }}</td>
 				<td ng-class="{	'badge-primary'	:	x.status == 'Scheduled for recording' , 
 								'badge-success'	:	x.status == 'Completed OK', 
 								'badge-danger'	:	x.status == 'File missing', 
