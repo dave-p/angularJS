@@ -1,7 +1,68 @@
 <div id="dvr_content" ng-app="mainApp" ng-controller="dvrController as dvrCtrl">
 
-	<div id="overlay" ng-click="hideDetails()">
-		<div id="overlay_text">Details Overlay</div>
+
+
+
+
+	<div id="overlayAddRecording" class="overlay">
+		<div id="overlay_addRecordingInner">
+			<h2>Add New Recording</h2>
+			<label>Titel: <input type="text" name="inputTitel" ></label>
+			<label>Extra text: <input type="text" name="inputExtra"></label>
+			<label>Channel: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+			<label>Start: 
+				<select style="width: 120px" ng-model="selectChannel" ng-options="x for x in channels"></select>
+				<select style="width: 225px; margin-right: 5px" ng-model="selectChannel" ng-options="x for x in channels"></select>
+			</label>
+			<label>Stop: 
+				<select style="width: 120px" ng-model="selectChannel" ng-options="x for x in channels"></select>
+				<select style="width: 225px; margin-right: 5px" ng-model="selectChannel" ng-options="x for x in channels"></select>
+			</label>
+			<label>Comment: <input type="text" name="inputComment"></label>
+			<label>Pre-padding: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+			<label>Post-padding: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+			<label>Priority: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+			<label>DVR Configuration: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<div id="overlayDetails" class="overlay" ng-click="hideDetails()">
+		<div id="overlay_detailsInner">
+			<img id="overlay_icon" src="{{ detailsData.icon }}" />
+			<h3>{{ detailsData.title }}</h3>
+			<h5><i>{{ detailsData.channelName }}</i></h5>
+			<h6 style="float: left">{{ detailsData.start * 1000 | date:'HH:mm' }}</h6>
+			<p class="dot blackdot"></p>
+			<h6 style="float: left">{{ detailsData.stop * 1000 | date:'HH:mm' }}</h6>
+			<p class="dot blackdot"></p>
+			<h6>({{ detailsData.duration / 60 }} minutes)</h6>
+			<hr />
+			<p class="pl-3 pr-3" > {{ detailsData.description }}</p>
+			<hr />
+
+
+
+			<p>completed:   {{ selectedCat.completed   }}</p>
+			<p>fileMissing: {{ selectedCat.fileMissing }}</p>
+			<p>scheduled:   {{ selectedCat.scheduled   }}</p>
+			<p>timeMissed:  {{ selectedCat.timeMissed  }}</p>
+			<p>running:		{{ selectedCat.running     }}</p>
+
+
+
+			<div id="dvrBottom">
+				<h6>Status: <i>{{ detailsData.status }} </i></h6>
+				<h6>Comment: <i>{{ detailsData.comment || "None" }} </i></h6>
+				<h6>File Size: <i>{{ detailsData.fileSize }} GB</i></h6>
+				<h6>File Name: <i>{{ detailsData.fileName }} </i></h6>
+			</div>
+		</div>
 	</div>
 
 	<div id="dvr_header">
@@ -12,26 +73,32 @@
 
 		<div id="dvr_toolbar">
 			<div class="btn-group" role="group" aria-label="...">
-				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
+				<button type="button" class="btn btn-sm btn-danger" ng-click="editButton()"
+						ng-disabled="selectedCat.scheduled + selectedCat.running + selectedCat.completed + selectedCat.timeMissed + selectedCat.fileMissing === 0">
 					<i class="fas fa-edit mr-1" aria-hidden="true"></i>Edit
 				</button>
-				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
+				<button type="button" class="btn btn-sm btn-dark" ng-click="stopButton()"
+						ng-disabled="selectedCat.scheduled === 0 && selectedCat.running === 0 || selectedCat.completed + selectedCat.timeMissed + selectedCat.fileMissing !== 0">
 					<i class="fas fa-stop mr-1" aria-hidden="true"></i>Stop
 				</button>
-				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
-					<i class="fas fa-ban mr-1" aria-hidden="true"></i>Enable/Disable
-				</button>
-				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
+				<button type="button" class="btn btn-sm btn-dark" ng-click="moveDvrButton()"
+						ng-disabled="selectedCat.completed == 0 && selectedCat.timeMissed == 0 || selectedCat.scheduled !== 0 || selectedCat.fileMissing !== 0">
 					<i class="fas fa-arrow-right mr-1" aria-hidden="true"></i>Move
 				</button>
-				<button type="button" class="btn btn-sm btn-primary" ng-click="deleteButton()" ng-disabled="selectedItems.length === 0">
-					<i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>Delete {{ fucker }}
+				<button type="button" class="btn btn-sm btn-dark" ng-click="enableDisableButton()"
+						ng-disabled="selectedCat.scheduled === 0 || selectedCat.completed + selectedCat.timeMissed + selectedCat.fileMissing !== 0">
+					<i class="fas fa-ban mr-1" aria-hidden="true"></i>Enable/Disable
 				</button>
-				<button type="button" disabled="disabled" class="btn btn-sm btn-danger">
+				<button type="button" class="btn btn-sm btn-dark" ng-click="deleteButton()" 
+						ng-disabled="selectedCat.completed === 0 && selectedCat.fileMissing === 0 && selectedCat.scheduled === 0 && selectedCat.timeMissed === 0">
+					<i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>Delete
+				</button>
+				<button type="button" class="btn btn-sm btn-dark" ng-click="downloadButton()" 
+						ng-disabled="selectedCat.completed === 0 || selectedCat.fileMissing !== 0 || selectedCat.scheduled !== 0 || selectedCat.timeMissed !== 0">
 					<i class="fas fa-download mr-1" aria-hidden="true"></i>Download
 				</button>
 			</div>
-			<button type="button" class="btn btn-sm btn-danger">
+			<button type="button" class="btn btn-sm btn-dark" ng-click="addRecordingButton()">
 				<i class="fas fa-plus mr-1" aria-hidden="true"></i>Add recording
 			</button>
 		</div>
@@ -82,12 +149,13 @@
 				<td style="padding-top: 10px;">
 					<input class="dvrCheckbox" type="checkbox" ng-model="x.checked" ng-change="addSelectedItem(x)" >
 				</td>
-				<td ng-click="showDetails()">{{ x.disp_title }}</td>
-				<td ng-class="{	'badge-primary'	:	x.status == 'Scheduled for recording' , 
-								'badge-success'	:	x.status == 'Completed OK', 
-								'badge-danger'	:	x.status == 'File missing', 
-								'badge-warning'	:	x.status == 'Time missed',
-								'badge-info'	:	x.status == 'Running'
+				<td ng-class="{redText: !x.enabled}" ng-click="showDetails(x)">{{ x.disp_title }}  {{ x.enabled ?  "" : " [DISABLED]" }}</td>
+				<td ng-class="{	'badge-primary'		:	x.status == 'Scheduled for recording' , 
+								'badge-success'		:	x.status == 'Completed OK' || x.status == 'Forced OK', 
+								'badge-danger'		:	x.status == 'File missing', 
+								'badge-warning'		:	x.status == 'Time missed' || x.status == 'User request',
+								'badge-dark'		:	x.status == 'Running',
+								'badge-info'		:	x.status == 'Aborted by user'
 							}" class="badge" >{{ x.status }}
 				</td>
 				<td>

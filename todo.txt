@@ -1,6 +1,10 @@
 
 GENERAL
 ----------------------------------------------------------------------------------------------
+ - move epg-stuff into separate controller
+ - use generic POST and GET-functions in old controller
+ - put common functions in separate .js-file
+
 
  
 Status-page:
@@ -13,45 +17,44 @@ EPG-page:
 
 About-page:
 ----------------------------------------------------------------------------------------------
-	- Show correct build time
-	- Show correct build parameters
+- Show correct build time
+- Show correct build parameters
 
 
 
 Digital Video Recorder-page:
 ----------------------------------------------------------------------------------------------
- - Options for each row:
-	UPCOMING/CURRENT					FINISHED			FAILED				REMOVED
-	- Add new						 										
-	- Delete			(Selected)		+					+					+
-	- Edit 				(Selected)		+					+					+
-	- Stop/Abort 		(Active)		Move to failed		Move to finished	
-	- Enable/Disable	(Selected)		Download
- - Disable buttons when no acceptable items are Selected								(disabled="disabled")
+ - "Are you sure you want to delete" - dialogue on DELETE-button
  - Separate section for Autorecs / Timers (TABS?):
- - Overlay with more INFO
- 	- Icon			
- 	- Channel		
- 	- Title			
- 	- Rec Start		
- 	- Rec Stop		
- 	- Duration		
- 	- Genre			
- 	- Description	
- 	- Status		
- 	- Comment		
- 	- File Size		
-
-
+ - Add new Recording-functionality:
+ 	- add dialouge window
+ - Edit functionality:
+ 	UPCOMING			FINISHED		FAILED			REMOVED
+	- Enabled
+	- Title					x							x
+	- Extra text			x							x
+	- Channel
+	- Start time
+	- Stop time
+	- Comment				x			x				x
+	- Episode				x							x
+	- Pre-recording pad
+	- Post-recording pad
+	- Priority
+	- DVR configuration
+	- Owner					x			x				x
+	- Creator
+	- DVR file ret.			x			x
+	- DVR log ret.			x			x				x
+		x				Play Count		x
 
 
 
 Configuration-page:
 ----------------------------------------------------------------------------------------------
-	- set values in configuration.json
-	- set sort of Channels, write to configuration.json
-	- Choose a default dvr-Configuration, skriv i configuration.json
-	- tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
-
+- set values in configuration.json
+- set sort of Channels, write to configuration.json
+- Choose a default dvr-Configuration, skriv i configuration.json
+- tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
 
 
