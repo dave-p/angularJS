@@ -79,7 +79,7 @@ p {
 	top:				50%;
 	left:				50%;
 	width:				700px;
-	height:				400px;
+	height:				450px;
 	color:				maroon;
 	border:				3px solid maroon;
 	background-color:	#f3f3f3;
@@ -96,16 +96,25 @@ p {
 
 #overlay_addRecordingInner input {
 	float:				right;
-	height:				25px;
+	height:				30px;
 	width:				350px;
 }
 
 #overlay_addRecordingInner select {
 	float:				right;
-	height:				25px;
+	height:				30px;
 	width:				350px;
 }
 
+#addRecordingBottom {
+	margin-top:			10px;
+	width:				100%;
+	text-align:			center;
+}
+
+#newRecordingAcceptButton {
+	margin-right:		5px;
+}
 
 #overlay_detailsInner {
 	position:			absolute;

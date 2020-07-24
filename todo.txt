@@ -27,7 +27,15 @@ Digital Video Recorder-page:
  - "Are you sure you want to delete" - dialogue on DELETE-button
  - Separate section for Autorecs / Timers (TABS?):
  - Add new Recording-functionality:
- 	- add dialouge window
+	- Load CHANNELS + PROFILES
+	- Create PRIORITY + PADDING
+	- Collect Data on ACCEPT-BUTTON
+		- Call API
+
+
+
+
+
  - Edit functionality:
  	UPCOMING			FINISHED		FAILED			REMOVED
 	- Enabled

@@ -1,5 +1,14 @@
 
-app.controller('dvrController', function($scope, $http) {
+app.controller('newRecordingController', ['$scope', function($scope) {
+	var now = new Date();
+	$scope.addRecordingStartDate = { value: now };
+	$scope.addRecordingStartTime = { value: now };
+	$scope.addRecordingStopDate =  { value: now };
+	$scope.addRecordingStopTime =  { value: now };
+}])
+
+
+app.controller('dvrController', function($scope, $http, $filter) {
 
 	// loads or reloads the page data
 	loadDvrData = function(obj) {
@@ -118,12 +127,84 @@ app.controller('dvrController', function($scope, $http) {
 		}
 	};
 
+
 	// check all checkboxes
 	$scope.checkAll = function () {
 		angular.forEach($scope.dvrData, function (item) {
 			item.checked = !$scope.selectAll;
 		});
 	};
+
+
+	// clears all input-fields within the given element
+	clearInputs = function (inputsParent) {
+		var now = new Date();
+		angular.forEach(angular.element(inputsParent.querySelectorAll('input[type=text]')), function (elem, index) {
+			elem.value = '';
+		});
+		angular.forEach(angular.element(inputsParent.querySelectorAll('input[type=date]')), function (elem, index) {
+			elem.value = $filter('date')(now, 'yyyy-MM-dd');
+			elem.min = $filter('date')(now, 'yyyy-MM-dd');
+		});
+		angular.forEach(angular.element(inputsParent.querySelectorAll('input[type=time]')), function (elem, index) {
+			elem.value = $filter('date')(now, 'HH:mm');
+			elem.min = $filter('date')(now, 'HH:mm');
+		});
+	};
+
+
+
+
+
+
+
+
+	// BUTTON : Calls API and closes the newRecording-dialogue
+	$scope.newRecordingAccept = function() {
+
+
+		// TODO : Load selectable values into dialogue
+
+
+		// TODO : collect values --> call API
+
+		var value1  = 0;
+		var value2  = 0;
+		var value3  = 0;
+		var value4  = 0;
+		var value5  = 0;
+		var value6  = 0;
+		var value7  = 0;
+		var value8  = 0;
+		var value9  = 0;
+		var value10 = 0;
+
+
+
+
+
+		alert('newRecordingAccept-button was pressed!');
+
+
+
+		var dialogue = document.getElementById("overlayAddRecording");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
+
+
+
+
+
+
+
+
+	// BUTTON : Closes the newRecording-dialogue
+	$scope.newRecordingCancel = function() {
+		var dialogue = document.getElementById("overlayAddRecording");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
 
 
 	// BUTTON : Stops a running or cancels a scheduled recording 
@@ -137,7 +218,6 @@ app.controller('dvrController', function($scope, $http) {
 		// reload data
 		loadDvrData();
 	}
-
 
 
 	// BUTTON : Toggles Enable/Disable of scheduled recordings 

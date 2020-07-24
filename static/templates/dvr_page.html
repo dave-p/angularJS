@@ -10,19 +10,39 @@
 			<label>Titel: <input type="text" name="inputTitel" ></label>
 			<label>Extra text: <input type="text" name="inputExtra"></label>
 			<label>Channel: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
-			<label>Start: 
-				<select style="width: 120px" ng-model="selectChannel" ng-options="x for x in channels"></select>
-				<select style="width: 225px; margin-right: 5px" ng-model="selectChannel" ng-options="x for x in channels"></select>
-			</label>
-			<label>Stop: 
-				<select style="width: 120px" ng-model="selectChannel" ng-options="x for x in channels"></select>
-				<select style="width: 225px; margin-right: 5px" ng-model="selectChannel" ng-options="x for x in channels"></select>
-			</label>
+			<form name="addRecordingStartForm" ng-controller="newRecordingController as dateCtrl">
+				<label>Start:
+					<input style="width: 175px" type="time" id="addRecordingStartTime" ng-model="addRecordingStartTime.value" placeholder="HH:mm" 
+							min="{{addRecordingStartTime.value | date:'HH:mm'}}"  ng-model-options="{ updateOn: 'default', timeSecondsFormat: '' }" required />
+					<input style="width: 170px; margin-right: 5px" type="date" id="addRecordingStartDate" ng-model="addRecordingStartDate.value" placeholder="yyyy-MM-dd" 
+							min="{{addRecordingStartDate.value | date:'yyyy-MM-dd'}}" required />
+					<div role="alert">
+						<span class="error" ng-show="myForm.input.$error.required">Required!</span>
+						<span class="error" ng-show="myForm.input.$error.time">Not a valid date!</span>
+					</div>
+				</label>
+			</form>
+			<form name="addRecordingStopForm" ng-controller="newRecordingController as dateCtrl">
+				<label>Start:
+					<input style="width: 175px" type="time" id="addRecordingStopTime" ng-model="addRecordingStopTime.value" placeholder="HH:mm" 
+							min="{{addRecordingStartTime.value | date:'HH:mm'}}" ng-model-options="{ updateOn: 'default', timeSecondsFormat: '' }" required />
+					<input style="width: 170px; margin-right: 5px" type="date" id="addRecordingStopDate" ng-model="addRecordingStopDate.value" placeholder="yyyy-MM-dd" 
+							min="{{addRecordingStartDate.value | date:'yyyy-MM-dd'}}" required />
+					<div role="alert">
+						<span class="error" ng-show="myForm.input.$error.required">Required!</span>
+						<span class="error" ng-show="myForm.input.$error.time">Not a valid date!</span>
+					</div>
+				</label>
+			</form>
 			<label>Comment: <input type="text" name="inputComment"></label>
 			<label>Pre-padding: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
 			<label>Post-padding: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
 			<label>Priority: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
 			<label>DVR Configuration: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+			<div id="addRecordingBottom">
+				<button id="newRecordingAcceptButton" class="btn btn-outline-info" type="button" ng-click="newRecordingAccept()">Accept</button>
+				<button id="newRecordingCancelButton" class="btn btn-outline-info" type="button" ng-click="newRecordingCancel()">Cancel</button>
+			</div>
 		</div>
 	</div>
 
