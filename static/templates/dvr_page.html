@@ -1,20 +1,37 @@
 <div id="dvr_content" ng-app="mainApp" ng-controller="dvrController as dvrCtrl">
 
+	<div id="overlayEditRecording" class="overlay" ng-controller="editRecordingController">
+		<div id="overlay_recordingInner">
+			<h2>Edit Recording</h2>
+			<label>Enabled: 				<input type="checkbox" name="inputExtra" ng-model="editRecordingValues.enabled"></label>
+			<label>Titel: 					<input type="text" name="inputTitel" ng-model="editRecordingValues.disp_title"></label>
+			<label style="margin-bottom: 110px">Extra text:	<textarea name="inputExtra" cols="60" rows="3" ng-model="editRecordingValues.disp_extratext"></textarea></label>
+			<label>Comment: 				<input type="text" name="inputComment" ng-model="editRecordingValues.comment"></label>
+			<label>Pre-padding (Minutes):	<input type="number" name="prePad" ng-model="editRecordingValues.start_extra"></label>
+			<label>Post-padding (Minutes): 	<input type="number" name="postPad" ng-model="editRecordingValues.stop_extra"></label>
+			<label>Priority: 				<select id="inputPriority" ng-model="editRecordingValues.pri" ng-options="key for (key , value) in priorities"></select></label>
+			<label>DVR Configuration: 		<select id="inputConfig" ng-model="editRecordingValues.config_name" ng-options="key for (key , value) in addRecordingConfigs"></select></label>
+			<label>File retention (Days):	<input type="text" name="inputTitel" ng-model="editRecordingValues.removal"></label>
+			<label>Log retention (Days):	<input type="text" name="inputTitel" ng-model="editRecordingValues.retention"></label>
+			<div id="recordingBottom">
+				<button id="editRecordingAcceptButton" class="btn btn-outline-info" type="button" ng-click="editRecordingAccept()">Accept</button>
+				<button id="editRecordingCancelButton" class="btn btn-outline-info" type="button" ng-click="editRecordingCancel()">Cancel</button>
+			</div>
+		</div>
+	</div>
 
 
-
-
-	<div id="overlayAddRecording" class="overlay">
-		<div id="overlay_addRecordingInner">
+	<div id="overlayAddRecording" class="overlay" ng-controller="newRecordingController">
+		<div id="overlay_recordingInner">
 			<h2>Add New Recording</h2>
 			<label>Titel: <input type="text" name="inputTitel" ></label>
 			<label>Extra text: <input type="text" name="inputExtra"></label>
-			<label>Channel: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
+			<label>Channel: <select id="inputChannel" ng-model="selectChannel" ng-options="key for (key , value) in addRecordingChannels"></select></label>
 			<form name="addRecordingStartForm" ng-controller="newRecordingController as dateCtrl">
 				<label>Start:
-					<input style="width: 175px" type="time" id="addRecordingStartTime" ng-model="addRecordingStartTime.value" placeholder="HH:mm" 
+					<input style="width: 285px" type="time" id="addRecordingStartTime" ng-model="addRecordingStartTime.value" placeholder="HH:mm" 
 							min="{{addRecordingStartTime.value | date:'HH:mm'}}"  ng-model-options="{ updateOn: 'default', timeSecondsFormat: '' }" required />
-					<input style="width: 170px; margin-right: 5px" type="date" id="addRecordingStartDate" ng-model="addRecordingStartDate.value" placeholder="yyyy-MM-dd" 
+					<input style="width: 290px; margin-right: 5px" type="date" id="addRecordingStartDate" ng-model="addRecordingStartDate.value" placeholder="yyyy-MM-dd" 
 							min="{{addRecordingStartDate.value | date:'yyyy-MM-dd'}}" required />
 					<div role="alert">
 						<span class="error" ng-show="myForm.input.$error.required">Required!</span>
@@ -24,9 +41,9 @@
 			</form>
 			<form name="addRecordingStopForm" ng-controller="newRecordingController as dateCtrl">
 				<label>Start:
-					<input style="width: 175px" type="time" id="addRecordingStopTime" ng-model="addRecordingStopTime.value" placeholder="HH:mm" 
+					<input style="width: 285px" type="time" id="addRecordingStopTime" ng-model="addRecordingStopTime.value" placeholder="HH:mm" 
 							min="{{addRecordingStartTime.value | date:'HH:mm'}}" ng-model-options="{ updateOn: 'default', timeSecondsFormat: '' }" required />
-					<input style="width: 170px; margin-right: 5px" type="date" id="addRecordingStopDate" ng-model="addRecordingStopDate.value" placeholder="yyyy-MM-dd" 
+					<input style="width: 290px; margin-right: 5px" type="date" id="addRecordingStopDate" ng-model="addRecordingStopDate.value" placeholder="yyyy-MM-dd" 
 							min="{{addRecordingStartDate.value | date:'yyyy-MM-dd'}}" required />
 					<div role="alert">
 						<span class="error" ng-show="myForm.input.$error.required">Required!</span>
@@ -35,21 +52,16 @@
 				</label>
 			</form>
 			<label>Comment: <input type="text" name="inputComment"></label>
-			<label>Pre-padding: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
-			<label>Post-padding: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
-			<label>Priority: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
-			<label>DVR Configuration: <select ng-model="selectChannel" ng-options="x for x in channels"></select></label>
-			<div id="addRecordingBottom">
+			<label>Pre-padding (Minutes): <input type="number" name="prePad"></label>
+			<label>Post-padding (Minutes): <input type="number" name="postPad"></label>
+			<label>Priority: <select id="inputPriority" ng-model="selectPriority" ng-options="key for (key , value) in priorities"></select></label>
+			<label>DVR Configuration: <select id="inputConfig" ng-model="selectConfig" ng-options="key for (key , value) in addRecordingConfigs"></select></label>
+			<div id="recordingBottom">
 				<button id="newRecordingAcceptButton" class="btn btn-outline-info" type="button" ng-click="newRecordingAccept()">Accept</button>
 				<button id="newRecordingCancelButton" class="btn btn-outline-info" type="button" ng-click="newRecordingCancel()">Cancel</button>
 			</div>
 		</div>
 	</div>
-
-
-
-
-
 
 
 	<div id="overlayDetails" class="overlay" ng-click="hideDetails()">
@@ -65,17 +77,6 @@
 			<hr />
 			<p class="pl-3 pr-3" > {{ detailsData.description }}</p>
 			<hr />
-
-
-
-			<p>completed:   {{ selectedCat.completed   }}</p>
-			<p>fileMissing: {{ selectedCat.fileMissing }}</p>
-			<p>scheduled:   {{ selectedCat.scheduled   }}</p>
-			<p>timeMissed:  {{ selectedCat.timeMissed  }}</p>
-			<p>running:		{{ selectedCat.running     }}</p>
-
-
-
 			<div id="dvrBottom">
 				<h6>Status: <i>{{ detailsData.status }} </i></h6>
 				<h6>Comment: <i>{{ detailsData.comment || "None" }} </i></h6>
@@ -94,7 +95,7 @@
 		<div id="dvr_toolbar">
 			<div class="btn-group" role="group" aria-label="...">
 				<button type="button" class="btn btn-sm btn-danger" ng-click="editButton()"
-						ng-disabled="selectedCat.scheduled + selectedCat.running + selectedCat.completed + selectedCat.timeMissed + selectedCat.fileMissing === 0">
+						ng-disabled="selectedCat.scheduled + selectedCat.running + selectedCat.completed + selectedCat.timeMissed + selectedCat.fileMissing !== 1">
 					<i class="fas fa-edit mr-1" aria-hidden="true"></i>Edit
 				</button>
 				<button type="button" class="btn btn-sm btn-dark" ng-click="stopButton()"

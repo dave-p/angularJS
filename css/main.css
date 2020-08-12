@@ -72,42 +72,53 @@ p {
 	cursor:				pointer;
 }
 
-
-#overlay_addRecordingInner {
+#overlay_recordingInner {
 	position:			absolute;
 	padding:			8px;
 	top:				50%;
 	left:				50%;
-	width:				700px;
-	height:				450px;
+	width:				800px;
+	height:				550px;
 	color:				maroon;
 	border:				3px solid maroon;
 	background-color:	#f3f3f3;
 	transform:			translate(-50%,-50%);
 }
 
+#overlay_recordingInnerBig {
+	width:				800px;
+	height:				550px;
+}
 
-#overlay_addRecordingInner label {
+#overlay_recordingInner label {
 	height:				25px;
 	width:				100%;
 	margin-bottom:		8px;	
 }
 
 
-#overlay_addRecordingInner input {
+#overlay_recordingInner input {
 	float:				right;
 	height:				30px;
-	width:				350px;
+	width:				580px;
 }
 
-#overlay_addRecordingInner select {
+#overlay_recordingInner select {
 	float:				right;
 	height:				30px;
-	width:				350px;
+	width:				580px;
 }
 
-#addRecordingBottom {
-	margin-top:			10px;
+#overlay_recordingInner textarea {
+	resize:				none;
+	float:				right;
+	height:				130px;
+	width:				580px;
+}
+
+#recordingBottom {
+	position:			absolute;
+	bottom:				10px;
 	width:				100%;
 	text-align:			center;
 }
@@ -383,7 +394,7 @@ p {
 	padding-left:		10px;
 	padding-right:		10px;
 	width:				100%;
-	min-height:			calc(100vh - 70px);
+	min-height:			calc(100vh - 140px);
 	background-color:	#f3f3f3;
 }
 

@@ -1,0 +1,629 @@
+parameters: (63)
+
+	​0:
+	​​caption: "Enabled"
+​​	default: false
+	description: "Enable/disable the entry."
+	id: "enabled"
+	type: "bool"
+	value: true
+	​
+	1:
+	caption: "Time the entry was created"
+	default: 0
+	description: "The create time of the entry describing the recording."
+	hidden: true
+	id: "create"
+	noui: true
+	rdonly: true
+	type: "time"
+	value: 1596780698
+	​
+	2:
+	caption: "Time the entry was last watched"
+	default: 0
+	description: "Time the entry was last watched."
+	id: "watched"
+	rdonly: true
+	type: "time"
+	value: 0
+	​
+	3:
+	caption: "Start time"
+	default: 0
+	description: "The start time of the recording."
+	id: "start"
+	rdonly: true
+	type: "time"
+	value: 1596790500
+	​
+	4:
+	advanced: true
+	caption: "Pre-recording padding"
+	default: 0
+	description: "Start recording earlier than the EPG/timer-defined start time by x minutes."
+	duration: true
+	enum: (126) […]
+	id: "start_extra"
+	rdonly: true
+	type: "time"
+	value: 0
+	​
+	5:
+	caption: "Scheduled start time"
+	default: 0
+	description: "The scheduled start time, including any padding."
+	id: "start_real"
+	nosave: true
+	rdonly: true
+	type: "time"
+	value: 1596789870
+	​
+	6:
+	caption: "Stop time"
+	default: 0
+	description: "The time the entry stops/stopped being recorded."
+	id: "stop"
+	type: "time"
+	value: 1596791400
+	​
+	7:
+	advanced: true
+	caption: "Post-recording padding"
+	default: 0
+	description: "Continue recording for x minutes after scheduled stop time."
+	enum: (126) […]
+	id: "stop_extra"
+	type: "time"
+	value: 0
+	​
+	8:
+	caption: "Scheduled stop time"
+	default: 0
+	description: "The scheduled stop time, including any padding."
+	id: "stop_real"
+	nosave: true
+	rdonly: true
+	type: "time"
+	value: 1596792300
+	​
+	9:
+	caption: "Scheduled Duration"
+	default: 0
+	description: "The total scheduled duration."
+	duration: true
+	id: "duration"
+	nosave: true
+	rdonly: true
+	type: "time"
+	value: 2400
+	​
+	10:
+	caption: "Channel"
+	default: ""
+	description: "The channel name the entry will record from."
+	enum:
+	id: "channel"
+	rdonly: true
+	type: "str"
+	value: "86b21fd7a09526b72f923611171f2482"
+	​
+	11:
+	caption: "Channel icon"
+	default: ""
+	description: "Channel icon URL."
+	hidden: true
+	id: "channel_icon"
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: "http://192.168.1.8/images/logos/drramasjang.jpg"
+	​
+	12:
+	caption: "Channel name"
+	default: ""
+	description: "Name of channel the entry recorded from."
+	hidden: true
+	id: "channelname"
+	rdonly: true
+	type: "str"
+	value: "DR Ramasjang"
+	​
+	13:
+	caption: "Episode image"
+	default: ""
+	description: "Episode image."
+	hidden: true
+	id: "image"
+	type: "str"
+	value: ""
+	​
+	14:
+	caption: "Fanart image"
+	default: ""
+	description: "Fanart image."
+	hidden: true
+	id: "fanart_image"
+	type: "str"
+	value: ""
+	​
+	15:
+	caption: "Title"
+	description: "Title of the program."
+	id: "title"
+	rdonly: true
+	type: "langstr"
+	value:
+	​
+	16:
+	caption: "Title"
+	default: ""
+	description: "Title of the program (display only)."
+	id: "disp_title"
+	nosave: true
+	type: "str"
+	value: "Onkel Rejes sørøvershow II (13:15)"
+	​
+	17:
+	caption: "Subtitle"
+	description: "Subtitle of the program (if any)."
+	id: "subtitle"
+	rdonly: true
+	type: "langstr"
+	​
+	18:
+	caption: "Subtitle"
+	default: ""
+	description: "Subtitle of the program (if any) (display only)."
+	id: "disp_subtitle"
+	nosave: true
+	type: "str"
+	value: ""
+	​
+	19:
+	caption: "Summary"
+	description: "Summary of the program (if any)."
+	id: "summary"
+	rdonly: true
+	type: "langstr"
+	​
+	20:
+	caption: "Summary"
+	default: ""
+	description: "Summary of the program (if any) (display only)."
+	id: "disp_summary"
+	nosave: true
+	type: "str"
+	value: ""
+	​
+	21:
+	caption: "Description"
+	description: "Program synopsis."
+	id: "description"
+	rdonly: true
+	type: "langstr"
+	value:
+	​
+	22:
+	caption: "Description"
+	default: ""
+	description: "Program synopsis (display only)."
+	hidden: true
+	id: "disp_description"
+	nosave: true
+	rdonly: true
+	type: "str"
+	value: "Børn og unge En lille baby og en kæmpe abe. Sæson 2. Dr. John har kidnappet Konrads fætter Gabriel for at koge ham om til ansigtscreme. Onkel Reje og Brille er heldigvis klar til at hjælpe og kaster sig ud i en actionfyldt mission, der bl.a. involverer et pusterør med forgiftede pile, Høvdinge Grethes små flyvemaskiner og kæmpegorillaen Bing Bong på Mandehatten. Medvirkende: Mads Geertsen, Brian Lykke. Features: TTV, 16:9"
+	​
+	23:
+	caption: "Extra text"
+	default: ""
+	description: "Subtitle, summary or description of the program (if any)."
+	id: "disp_extratext"
+	nosave: true
+	type: "str"
+	value: "Børn og unge En lille baby og en kæmpe abe. Sæson 2. Dr. John har kidnappet Konrads fætter Gabriel for at koge ham om til ansigtscreme. Onkel Reje og Brille er heldigvis klar til at hjælpe og kaster sig ud i en actionfyldt mission, der bl.a. involverer et pusterør med forgiftede pile, Høvdinge Grethes små flyvemaskiner og kæmpegorillaen Bing Bong på Mandehatten. Medvirkende: Mads Geertsen, Brian Lykke. Features: TTV, 16:9"
+	​
+	24:
+	advanced: true
+	caption: "Priority"
+	default: 6
+	description: "Priority of the recording. Higher priority entries will take precedence and cancel lower-priority events. The 'Not Set' value inherits the settings from the assigned DVR configuration."
+	enum: (6) […]
+	id: "pri"
+	type: "int"
+	value: 6
+	​
+	25:
+	caption: "DVR log retention"
+	default: 0
+	description: "Number of days to retain entry information."
+	enum: (16) […]
+	expert: true
+	hidden: true
+	id: "retention"
+	type: "u32"
+	value: 0
+	​
+	26:
+	advanced: true
+	caption: "DVR file retention period"
+	default: 0
+	description: "Number of days to keep the file."
+	enum: (16) […]
+	hidden: true
+	id: "removal"
+	type: "u32"
+	value: 0
+	​
+	27:
+	caption: "Last played position"
+	default: 0
+	description: "Last played position when the recording isn't fully watched yet."
+	hidden: true
+	id: "playposition"
+	noui: true
+	type: "u32"
+	value: 0
+	​
+	28:
+	caption: "Recording play count"
+	default: 0
+	description: "Number of times this recording was played."
+	expert: true
+	hidden: true
+	id: "playcount"
+	type: "u32"
+	value: 0
+	​
+	29:
+	advanced: true
+	caption: "DVR configuration"
+	default: ""
+	description: "The DVR profile to be used/used by the recording."
+	enum:
+	id: "config_name"
+	rdonly: true
+	type: "str"
+	value: "381d7e78fd66381e1175fbbd74b28a4f"
+	​
+	30:
+	advanced: true
+	caption: "Owner"
+	default: ""
+	description: "Owner of the entry."
+	enum:
+	id: "owner"
+	type: "str"
+	value: "klf"
+	​
+	31:
+	advanced: true
+	caption: "Creator"
+	default: ""
+	description: "The user who created the recording, or the auto-recording source and IP address if scheduled by a matching rule."
+	id: "creator"
+	type: "str"
+	value: "klf"
+	​
+	32:
+	caption: "Filename"
+	default: ""
+	description: "Filename used by the entry."
+	id: "filename"
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: "/mnt/6tb_hdd/recordings/Onkel-Rejes-s_r_vershow-II-(13_15).ts"
+	​
+	33:
+	caption: "Directory"
+	default: ""
+	description: "Directory used by the entry."
+	id: "directory"
+	noui: true
+	rdonly: true
+	type: "str"
+	​
+	34:
+	caption: "Error code"
+	default: 0
+	description: "Error code of entry."
+	id: "errorcode"
+	noui: true
+	rdonly: true
+	type: "u32"
+	value: 0
+	​
+	35:
+	advanced: true
+	caption: "Errors"
+	default: 0
+	description: "Number of errors that occurred during recording."
+	id: "errors"
+	rdonly: true
+	type: "u32"
+	value: 0
+	​
+	36:
+	advanced: true
+	caption: "Data errors"
+	default: 0
+	description: "Number of errors that occurred during recording (Transport errors)."
+	id: "data_errors"
+	rdonly: true
+	type: "u32"
+	value: 0
+	​
+	37:
+	caption: "DVB EPG ID"
+	default: 0
+	description: "The EPG ID used by the entry."
+	expert: true
+	id: "dvb_eid"
+	rdonly: true
+	type: "u16"
+	value: 0
+	​
+	38:
+	caption: "Don't reschedule"
+	default: false
+	description: "Don't re-schedule if recording fails."
+	hidden: true
+	id: "noresched"
+	noui: true
+	type: "bool"
+	value: true
+	​
+	39:
+	advanced: true
+	caption: "Don't re-record"
+	default: false
+	description: "Don't re-record if recording fails."
+	hidden: true
+	id: "norerecord"
+	type: "bool"
+	value: false
+	​
+	40:
+	caption: "File removed"
+	default: 0
+	description: "The recorded file was removed intentionally"
+	hidden: true
+	id: "fileremoved"
+	noui: true
+	type: "u32"
+	value: 0
+	​
+	41:
+	caption: "Program unique ID (from grabber)"
+	default: ""
+	description: "Program unique ID (from grabber), such as MV101010101.0000"
+	expert: true
+	id: "uri"
+	rdonly: true
+	type: "str"
+	​
+	42:
+	caption: "Auto record"
+	default: ""
+	description: "Automatically record."
+	id: "autorec"
+	noui: true
+	rdonly: true
+	type: "str"
+	value: "2ac84726c1c6b85e2b449fcedfb94808"
+	​
+	43:
+	caption: "Auto record caption"
+	default: ""
+	description: "Automatic recording caption."
+	hidden: true
+	id: "autorec_caption"
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: "Onkel Rejes sørøvershow II (13:15) (Onkel Rejes sørøvershow II (13:15) - Created from EPG query)"
+	​
+	44:
+	caption: "Auto time record"
+	default: ""
+	description: "Timer-based automatic recording."
+	expert: true
+	id: "timerec"
+	rdonly: true
+	type: "str"
+	value: ""
+	​
+	45:
+	caption: "Time record caption"
+	default: ""
+	description: "Timer-based automatic record caption."
+	hidden: true
+	id: "timerec_caption"
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: ""
+	​
+	46:
+	caption: "Parent entry"
+	default: ""
+	description: "Parent entry."
+	id: "parent"
+	noui: true
+	rdonly: true
+	type: "str"
+	value: ""
+	​
+	47:
+	caption: "Slave entry"
+	default: ""
+	description: "Slave entry."
+	id: "child"
+	noui: true
+	rdonly: true
+	type: "str"
+	value: ""
+	​
+	48:
+	caption: "Content type"
+	default: 0
+	description: "Content type."
+	enum:
+	id: "content_type"
+	rdonly: true
+	type: "u32"
+	value: 5
+	​
+	49:
+	caption: "The copyright year of the program."
+	default: 0
+	description: "The copyright year of the program."
+	expert: true
+	id: "copyright_year"
+	rdonly: true
+	type: "u16"
+	value: 0
+	​
+	50:
+	caption: "Broadcast"
+	default: 0
+	description: "Broadcast."
+	hidden: true
+	id: "broadcast"
+	rdonly: true
+	type: "u32"
+	value: 0
+	​
+	51:
+	caption: "Episode"
+	default: ""
+	description: "Episode number/ID."
+	hidden: true
+	id: "episode_disp"
+	nosave: true
+	type: "str"
+	value: ""
+	​
+	52:
+	caption: "URL"
+	default: ""
+	description: "URL."
+	id: "url"
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: "dvrfile/70d1244e9ae09f2caa27bf467ff84ccb"
+	​
+	53:
+	caption: "File size"
+	default: 0
+	description: "Recording file size."
+	id: "filesize"
+	nosave: true
+	rdonly: true
+	type: "s64"
+	value: 1989252064
+	​
+	54:
+	caption: "Status"
+	default: ""
+	description: "The recording/entry status."
+	id: "status"
+	nosave: true
+	rdonly: true
+	type: "str"
+	value: "Completed OK"
+	​
+	55:
+	caption: "Schedule status"
+	default: ""
+	description: "Schedule status."
+	hidden: true
+	id: "sched_status"
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: "completed"
+	​
+	56:
+	advanced: true
+	caption: "Rerun of"
+	default: 0
+	description: "Name (or date) of program the entry is a rerun of."
+	id: "duplicate"
+	nosave: true
+	rdonly: true
+	type: "time"
+	value: 0
+	​
+	57:
+	advanced: true
+	caption: "First aired"
+	default: 0
+	description: "Time when the program was first aired"
+	id: "first_aired"
+	nosave: true
+	rdonly: true
+	type: "time"
+	value: 0
+	​
+	58:
+	caption: "Comment"
+	default: ""
+	description: "Free-form text field, enter whatever you like here."
+	id: "comment"
+	type: "str"
+	value: "Auto recording: Onkel Rejes sørøvershow II (13:15) - Created from EPG query"
+	​
+	59:
+	caption: "Category"
+	description: "Extra categories, typically from xmltv"
+	id: "category"
+	list: 1
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: []
+	​
+	60:
+	caption: "Credits"
+	description: "Credits such as cast members"
+	id: "credits"
+	list: 1
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: {}
+	​
+	61:
+	caption: "Keyword"
+	description: "Extra keywords, typically from xmltv"
+	id: "keyword"
+	list: 1
+	nosave: true
+	noui: true
+	rdonly: true
+	type: "str"
+	value: []
+	​
+	62:
+	caption: "Genre"
+	description: "Genre of program"
+	id: "genre"
+	list: 1
+	nosave: true
+	rdonly: true
+	type: "str"
+	value: []
+​
+length: 63

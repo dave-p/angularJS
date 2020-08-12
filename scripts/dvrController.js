@@ -1,11 +1,43 @@
+app.controller('editRecordingController', function($scope, $http) {
+	$scope.addRecordingConfigs = {};
+	$scope.priorities = { Default: 6, Important: 0, High: 1, Normal: 2, Low: 3, Unimportant: 4};
+	$http.get("/api/dvr/config/grid")
+		.then(function (response2)
+		{
+			angular.forEach(response2.data.entries, function (item) {
+				if (item.name == "") { item.name = "(Default profile)" };
+				$scope.addRecordingConfigs[item.name] = item.uuid;
+			});
+		});
+});
 
-app.controller('newRecordingController', ['$scope', function($scope) {
+
+app.controller('newRecordingController', function($scope, $http) {
+
+	$scope.addRecordingChannels = {};
+	$scope.addRecordingConfigs = {};
+	$scope.priorities = { Default: 6, Important: 0, High: 1, Normal: 2, Low: 3, Unimportant: 4};
+	$http.get("/api/channel/list")
+		.then(function (response)
+			{
+				angular.forEach(response.data.entries, function (item) {
+					$scope.addRecordingChannels[item.val] = item.key;
+				});
+			})
+			$http.get("/api/dvr/config/grid")
+				.then(function (response2)
+				{
+					angular.forEach(response2.data.entries, function (item) {
+						if (item.name == "") { item.name = "(Default profile)" };
+						$scope.addRecordingConfigs[item.name] = item.uuid;
+					});
+				});
 	var now = new Date();
 	$scope.addRecordingStartDate = { value: now };
 	$scope.addRecordingStartTime = { value: now };
 	$scope.addRecordingStopDate =  { value: now };
 	$scope.addRecordingStopTime =  { value: now };
-}])
+});
 
 
 app.controller('dvrController', function($scope, $http, $filter) {
@@ -48,19 +80,15 @@ app.controller('dvrController', function($scope, $http, $filter) {
 			alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
 		});
 	}
-
-
 	// used by main table, for sorting
 	$scope.sort = {
 		column: 'status',
 		descending: false
 	};
-
-
 	// called by clicking details overlay
 	$scope.hideDetails = function () {
 		document.getElementById("overlayDetails").style.display = "none";
-		document.getElementById("overlayAddRecording").style.display = "none";		
+		document.getElementById("overlayAddRecording").style.display = "none";
 	}
 
 
@@ -90,7 +118,7 @@ app.controller('dvrController', function($scope, $http, $filter) {
 			$scope.selectedItems.push(item);
 			if (item.status === "Completed OK" || item.status === "Forced OK")
 				$scope.selectedCat.completed++;
-			else if (item.status === "File missing" || item.status === "Aborted by user")
+			else if (item.status === "File missing" || item.status === "Aborted by user" || item.status === "No service enabled")
 				$scope.selectedCat.fileMissing++;
 			else if (item.status === "Scheduled for recording")
 				$scope.selectedCat.scheduled++;
@@ -142,6 +170,9 @@ app.controller('dvrController', function($scope, $http, $filter) {
 		angular.forEach(angular.element(inputsParent.querySelectorAll('input[type=text]')), function (elem, index) {
 			elem.value = '';
 		});
+		angular.forEach(angular.element(inputsParent.querySelectorAll('input[type=number]')), function (elem, index) {
+			elem.value = '';
+		});
 		angular.forEach(angular.element(inputsParent.querySelectorAll('input[type=date]')), function (elem, index) {
 			elem.value = $filter('date')(now, 'yyyy-MM-dd');
 			elem.min = $filter('date')(now, 'yyyy-MM-dd');
@@ -150,44 +181,72 @@ app.controller('dvrController', function($scope, $http, $filter) {
 			elem.value = $filter('date')(now, 'HH:mm');
 			elem.min = $filter('date')(now, 'HH:mm');
 		});
+		angular.forEach(angular.element(inputsParent.querySelectorAll('select')), function (elem, index) {
+			elem.selectedIndex = -1;
+		});
 	};
 
 
+	// BUTTON : Edit the selected entry
+	$scope.editButton = function() {
+		$scope.editRecordingValues = {};
+		document.getElementById("overlayEditRecording").style.display = "block";
+			var selected = $scope.selectedItems[0];
+			var url = '/api/idnode/load';
+			var data = http_build_query({ "uuid": selected.uuid });
+			var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+			$http.post(url, data, headers)
+			.then(function (response)
+			{
+				var parameters = response.data.entries[0].params;
+				$scope.editRecordingValues[parameters[0].id] =  parameters[0].value;
+				$scope.editRecordingValues[parameters[4].id] =  parameters[4].value;
+				$scope.editRecordingValues[parameters[7].id] =  parameters[7].value;
+				$scope.editRecordingValues[parameters[16].id] = parameters[16].value;
+				$scope.editRecordingValues[parameters[23].id] = parameters[23].value;
+				$scope.editRecordingValues[parameters[24].id] = parameters[24].value;
+				$scope.editRecordingValues[parameters[25].id] = parameters[25].value;
+				$scope.editRecordingValues[parameters[26].id] = parameters[26].value;
+				$scope.editRecordingValues[parameters[29].id] = parameters[29].value;
+				$scope.editRecordingValues[parameters[58].id] = parameters[58].value;
+				$scope.editRecordingValues['uuid'] = selected.uuid;
+
+			}, function (response)
+			{
+				alert('Sorry, an error occurred on "/api/dvr/entry/create". API response was : "(' + response.status + ')"');
+			});
+	}
 
 
-
-
-
-
-	// BUTTON : Calls API and closes the newRecording-dialogue
-	$scope.newRecordingAccept = function() {
-
-
-		// TODO : Load selectable values into dialogue
-
-
-		// TODO : collect values --> call API
-
-		var value1  = 0;
-		var value2  = 0;
-		var value3  = 0;
-		var value4  = 0;
-		var value5  = 0;
-		var value6  = 0;
-		var value7  = 0;
-		var value8  = 0;
-		var value9  = 0;
-		var value10 = 0;
-
-
-
-
-
-		alert('newRecordingAccept-button was pressed!');
-
-
-
-		var dialogue = document.getElementById("overlayAddRecording");
+	// BUTTON : Collects values, calls API and closes the editRecording-dialogue
+	$scope.editRecordingAccept = function() {
+		// write back 10 values
+		var rawData = {
+						"enabled": $scope.editRecordingValues.enabled,
+						"disp_title": $scope.editRecordingValues.disp_title,
+						"disp_extratext": $scope.editRecordingValues.disp_extratext,
+						"comment": $scope.editRecordingValues.comment,
+						"start_extra": $scope.editRecordingValues.start_extra,
+						"stop_extra": $scope.editRecordingValues.stop_extra,
+						"pri": $scope.editRecordingValues.pri,
+						"config_name": $scope.editRecordingValues.config_name,
+						"removal": $scope.editRecordingValues.removal,
+						"retention": $scope.editRecordingValues.retention,
+						"uuid": $scope.editRecordingValues.uuid
+					  };
+		var url = '/api/idnode/save';
+		var rawDataEncoded = "node=" + encodeURIComponent(JSON.stringify(rawData));
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		$http.post(url, rawDataEncoded, headers)
+		.then(function (response)
+		{
+			loadDvrData();
+			$scope.showInfobox('"' + item.disp_title + '" was edited successfully');
+		}, function (response)
+		{
+			alert('Sorry, an error occurred on "/api/idnode/load". API response was : "(' + response.status + ')"');
+		});
+		var dialogue = document.getElementById("overlayEditRecording");
 		clearInputs(dialogue);
 		dialogue.style.display = "none";
 	}
@@ -195,13 +254,68 @@ app.controller('dvrController', function($scope, $http, $filter) {
 
 
 
+	// BUTTON : Collects values, calls API and closes the newRecording-dialogue
+	$scope.newRecordingAccept = function() {
+		// collect 10 values
+		var disp_title  = document.getElementsByName("inputTitel")[0].value;
+		var disp_extratext  = document.getElementsByName("inputExtra")[0].value;
+		var channel  =(document.getElementById("inputChannel").selectedOptions[0].value).split(":")[1];
+		var _startDate  = document.getElementById("addRecordingStartDate").value;
+		var _startTime  = document.getElementById("addRecordingStartTime").value;
+		var start = Date.parse(_startDate + ' ' + _startTime) / 1000;
+		var _stopDate   = document.getElementById("addRecordingStopDate").value;
+		var _stopTime   = document.getElementById("addRecordingStopTime").value;
+		var stop = Date.parse(_stopDate + ' ' + _stopTime) / 1000;
+		var comment  = document.getElementsByName("inputComment")[0].value;
+		var start_extra  = parseInt(document.getElementsByName("prePad")[0].value);
+		var stop_extra = parseInt(document.getElementsByName("postPad")[0].value);
+		var pri  = parseInt((document.getElementById("inputPriority").selectedOptions[0].value).split(":")[1]);
+		var config_name  = (document.getElementById("inputConfig").selectedOptions[0].value).split(":")[1];
+		// Convert data into rawData
+		var rawData = 	{
+							"disp_title": disp_title, 
+							"disp_extratext": disp_extratext,
+							"channel": channel,
+							"start": start,
+							"stop": stop,
+							"comment": comment,
+							"start_extra": start_extra,
+							"stop_extra": stop_extra,
+							"pri": pri,
+							"config_name": config_name,
+						};
 
-
+		// call API
+		var url = '/api/dvr/entry/create';
+		var rawDataEncoded = "conf=" + encodeURIComponent(JSON.stringify(rawData));
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		$http.post(url, rawDataEncoded, headers)
+		.then(function (response)
+		{
+			loadDvrData();
+			$scope.showInfobox('New recording added: "' + disp_title + '"');
+		}, function (response)
+		{
+			alert('Sorry, an error occurred on "/api/dvr/entry/create". API response was : "(' + response.status + ')"');
+		});
+		// reset all
+		var dialogue = document.getElementById("overlayAddRecording");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
 
 
 	// BUTTON : Closes the newRecording-dialogue
 	$scope.newRecordingCancel = function() {
 		var dialogue = document.getElementById("overlayAddRecording");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
+
+
+	// BUTTON : Closes the newRecording-dialogue
+	$scope.editRecordingCancel = function() {
+		var dialogue = document.getElementById("overlayEditRecording");
 		clearInputs(dialogue);
 		dialogue.style.display = "none";
 	}
@@ -232,7 +346,6 @@ app.controller('dvrController', function($scope, $http, $filter) {
 				var parameters = response.data.entries[0].params;
 				var newEnabledStatus = !parameters[0].value;
 				var rawData = [{ "enabled": newEnabledStatus, "uuid": item.uuid }];
-
 				var url = '/api/idnode/save';
 				var rawDataEncoded = "node=" + encodeURIComponent(JSON.stringify(rawData));
 				var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
@@ -284,14 +397,17 @@ app.controller('dvrController', function($scope, $http, $filter) {
 
 	// BUTTON : Removes or cancels all selected items
 	$scope.deleteButton = function() {
-		var uuidDeleted;
-		angular.forEach($scope.selectedItems, function (item) {
-			if (item.status === 'Scheduled for recording') {
-				httpPost('/api/dvr/entry/cancel', { 'uuid': item.uuid }, 'Cancelled "' + item.disp_title)
-			} else {
-				httpPost('/api/dvr/entry/remove', { 'uuid': item.uuid }, 'Removed "' + item.disp_title)
-			}
-		})
+		
+		if (confirm("Are you sure?")) {
+			var uuidDeleted;
+			angular.forEach($scope.selectedItems, function (item) {
+				if (item.status === 'Scheduled for recording') {
+					httpPost('/api/dvr/entry/cancel', { 'uuid': item.uuid }, 'Cancelled "' + item.disp_title)
+				} else {
+					httpPost('/api/dvr/entry/remove', { 'uuid': item.uuid }, 'Removed "' + item.disp_title)
+				}
+			})
+		}
 		loadDvrData();
 	}
 

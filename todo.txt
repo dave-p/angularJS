@@ -3,6 +3,7 @@ GENERAL
 ----------------------------------------------------------------------------------------------
  - move epg-stuff into separate controller
  - use generic POST and GET-functions in old controller
+ 	- use generic POST and GET-functions in new controller
  - put common functions in separate .js-file
 
 
@@ -24,37 +25,12 @@ About-page:
 
 Digital Video Recorder-page:
 ----------------------------------------------------------------------------------------------
- - "Are you sure you want to delete" - dialogue on DELETE-button
  - Separate section for Autorecs / Timers (TABS?):
- - Add new Recording-functionality:
-	- Load CHANNELS + PROFILES
-	- Create PRIORITY + PADDING
-	- Collect Data on ACCEPT-BUTTON
-		- Call API
 
 
 
 
 
- - Edit functionality:
- 	UPCOMING			FINISHED		FAILED			REMOVED
-	- Enabled
-	- Title					x							x
-	- Extra text			x							x
-	- Channel
-	- Start time
-	- Stop time
-	- Comment				x			x				x
-	- Episode				x							x
-	- Pre-recording pad
-	- Post-recording pad
-	- Priority
-	- DVR configuration
-	- Owner					x			x				x
-	- Creator
-	- DVR file ret.			x			x
-	- DVR log ret.			x			x				x
-		x				Play Count		x
 
 
 
@@ -64,5 +40,6 @@ Configuration-page:
 - set sort of Channels, write to configuration.json
 - Choose a default dvr-Configuration, skriv i configuration.json
 - tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
+
 
 
