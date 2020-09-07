@@ -1,18 +1,17 @@
-app.controller('editRecordingController', function($scope, $http) {
-	$scope.addRecordingConfigs = {};
-	$scope.priorities = { Default: 6, Important: 0, High: 1, Normal: 2, Low: 3, Unimportant: 4};
-	$http.get("/api/dvr/config/grid")
-		.then(function (response2)
-		{
-			angular.forEach(response2.data.entries, function (item) {
-				if (item.name == "") { item.name = "(Default profile)" };
-				$scope.addRecordingConfigs[item.name] = item.uuid;
-			});
-		});
+// custom filter for translating weekday-numbers to text
+app.filter('weekdays',function(){
+	return function(input)
+	{
+		var newString = input.map(function(x){ return { 1:'Mon', 2:'Tue', 3:'Wed', 4:'Thu', 5:'Fri', 6:'Sat', 7:'Sun'}[x]}).toString().replace(/,/g,'-');
+		if (newString == 'Mon-Tue-Wed-Thu-Fri-Sat-Sun') 
+			return 'All';
+		else
+			return newString;
+	}
 });
 
 
-app.controller('newRecordingController', function($scope, $http) {
+app.controller('dvrEditingController', function($scope, $http) {
 
 	$scope.addRecordingChannels = {};
 	$scope.addRecordingConfigs = {};
@@ -47,6 +46,7 @@ app.controller('dvrController', function($scope, $http, $filter) {
 		$http.get("/api/dvr/entry/grid")
 			.then(function (response)
 				{
+					$scope.weekdays = { 1:'Mon', 2:'Tue', 3:'Wed', 4:'Thu', 5:'Fri', 6:'Sat', 7:'Sun'};
 					$scope.dvrData = response.data.entries;
 					$scope.selectedItems = [];
 					$scope.selectedCat =
@@ -61,7 +61,28 @@ app.controller('dvrController', function($scope, $http, $filter) {
 					angular.forEach($scope.dvrData, function (item) {
 						item.checked = false;
 					});
-				});
+					document.getElementById("selectAllTimersCheckbox").checked = false;
+					document.getElementById("selectAllRecordingsCheckbox").checked = false;
+				})
+				$http.get("/api/dvr/timerec/grid")
+					.then(function (response2)
+					{
+						$scope.dvrTimers = [];
+						$scope.selectedTimers = [];
+						angular.forEach(response2.data.entries, function (item) {
+							item['type'] = 'time';
+							$scope.dvrTimers.push(item); 
+						});
+					})
+					$http.get("/api/dvr/autorec/grid")
+						.then(function (response3)
+						{
+							angular.forEach(response3.data.entries, function (item) {
+								item['type'] = 'epg';
+								item['stop'] = item['start_window']; // translate for compatiability
+								$scope.dvrTimers.push(item); 
+							});
+						});
 	}
 
 
@@ -80,11 +101,7 @@ app.controller('dvrController', function($scope, $http, $filter) {
 			alert('Sorry, an error occurred. API response was : "(' + response.status + ')"');
 		});
 	}
-	// used by main table, for sorting
-	$scope.sort = {
-		column: 'status',
-		descending: false
-	};
+
 	// called by clicking details overlay
 	$scope.hideDetails = function () {
 		document.getElementById("overlayDetails").style.display = "none";
@@ -109,6 +126,18 @@ app.controller('dvrController', function($scope, $http, $filter) {
 		$scope.detailsData.fileName= item.filename.split('\\').pop().split('/').pop();
 		// show overlay
 		document.getElementById("overlayDetails").style.display = "block";
+	}
+
+
+	// triggered by a change of a checkbox; adds or removes item to/from list of selected items, and keeps record of types selected
+	$scope.addSelectedTimer = function (item) {
+		if (item.checked) {
+			$scope.selectedTimers.push(item);
+		} else {
+			$scope.selectedTimers = $scope.selectedTimers.filter(function(itemToDelete) {
+				return itemToDelete.uuid !== item.uuid;
+			});
+		}
 	}
 
 
@@ -144,9 +173,31 @@ app.controller('dvrController', function($scope, $http, $filter) {
 	}
 
 
-	// called by table headers, changes sorting
-	$scope.changeSorting = function(column) {
-		var sort = $scope.sort;
+	// used by main table, for sorting recordings
+	$scope.sortRecordings = {
+		column: 'status',
+		descending: false
+	};
+	// called by table headers, changes sorting of recordings
+	$scope.changeRecSorting = function(column) {
+		var sort = $scope.sortRecordings;
+		if (sort.column == column) {
+			sort.descending = !sort.descending;
+		} else {
+			sort.column = column;
+			sort.descending = false;
+		}
+	};
+
+
+	// used by main table, for sorting timers
+	$scope.sortTimers = {
+		column: 'status',
+		descending: false
+	};
+	// called by table headers, changes sorting of timers
+	$scope.changeTimerSorting = function(column) {
+		var sort = $scope.sortTimers;
 		if (sort.column == column) {
 			sort.descending = !sort.descending;
 		} else {
@@ -157,9 +208,19 @@ app.controller('dvrController', function($scope, $http, $filter) {
 
 
 	// check all checkboxes
-	$scope.checkAll = function () {
+	$scope.checkAllTimers = function () {
+		angular.forEach($scope.dvrTimers, function (item) {
+			item.checked = !$scope.selectAllTimers;
+			$scope.addSelectedTimer(item);
+		});
+	};
+
+
+	// check all checkboxes
+	$scope.checkAllRecordings = function () {
 		angular.forEach($scope.dvrData, function (item) {
-			item.checked = !$scope.selectAll;
+			item.checked = !$scope.selectAllRecordings;
+			$scope.addSelectedItem(item);
 		});
 	};
 
@@ -185,6 +246,12 @@ app.controller('dvrController', function($scope, $http, $filter) {
 			elem.selectedIndex = -1;
 		});
 	};
+
+
+	// BUTTON : Clear filter
+	$scope.clearFilter = function() {
+		$scope.textFilter = '';
+	}
 
 
 	// BUTTON : Edit the selected entry
@@ -244,14 +311,12 @@ app.controller('dvrController', function($scope, $http, $filter) {
 			$scope.showInfobox('"' + item.disp_title + '" was edited successfully');
 		}, function (response)
 		{
-			alert('Sorry, an error occurred on "/api/idnode/load". API response was : "(' + response.status + ')"');
+			alert('Sorry, an error occurred on "/api/idnode/save". API response was : "(' + response.status + ')"');
 		});
 		var dialogue = document.getElementById("overlayEditRecording");
 		clearInputs(dialogue);
 		dialogue.style.display = "none";
 	}
-
-
 
 
 	// BUTTON : Collects values, calls API and closes the newRecording-dialogue
@@ -313,9 +378,25 @@ app.controller('dvrController', function($scope, $http, $filter) {
 	}
 
 
-	// BUTTON : Closes the newRecording-dialogue
+	// BUTTON : Closes the editRecording-dialogue
 	$scope.editRecordingCancel = function() {
 		var dialogue = document.getElementById("overlayEditRecording");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
+
+
+	// BUTTON : Closes the addTimer-dialogue
+	$scope.addTimerCancel = function() {
+		var dialogue = document.getElementById("overlayAddTimer");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
+
+
+	// BUTTON : Closes the editTimer-dialogue
+	$scope.editTimerCancel = function() {
+		var dialogue = document.getElementById("overlayEditTimer");
 		clearInputs(dialogue);
 		dialogue.style.display = "none";
 	}
@@ -397,9 +478,7 @@ app.controller('dvrController', function($scope, $http, $filter) {
 
 	// BUTTON : Removes or cancels all selected items
 	$scope.deleteButton = function() {
-		
 		if (confirm("Are you sure?")) {
-			var uuidDeleted;
 			angular.forEach($scope.selectedItems, function (item) {
 				if (item.status === 'Scheduled for recording') {
 					httpPost('/api/dvr/entry/cancel', { 'uuid': item.uuid }, 'Cancelled "' + item.disp_title)
@@ -410,6 +489,184 @@ app.controller('dvrController', function($scope, $http, $filter) {
 		}
 		loadDvrData();
 	}
+
+
+	// BUTTON : Starts edit timer dialouge
+	$scope.editTimerButton = function() {
+		$scope.editTimerValues = {};
+		document.getElementById("overlayEditTimer").style.display = "block";
+		var selected = $scope.selectedTimers[0];
+		var url = '/api/idnode/load';
+		var data = http_build_query({ "uuid": selected.uuid });
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		$http.post(url, data, headers)
+		.then(function (response)
+		{
+			var parameters = response.data.entries[0].params;
+			$scope.editTimerValues['type'] = (parameters.length  == 15) ? 'time' : 'epg';
+			$scope.editTimerValues['enabled'] = parameters[0].value;
+			$scope.editTimerValues['name'] = parameters[1].value;
+			$scope.editTimerValues['comment'] = (parameters.length  == 15) ? parameters[14].value : parameters[34].value;
+			$scope.editTimerValues['config_name'] = (parameters.length  == 15) ? parameters[11].value : parameters[30].value;
+			$scope.editTimerValues['start'] = (parameters.length  == 15) ? parameters[5].value : parameters[13].value;
+			$scope.editTimerValues['stop'] = (parameters.length  == 15) ? parameters[6].value : parameters[14].value;
+			$scope.editTimerValues['title'] = (parameters.length  == 15) ? parameters[2].value : parameters[3].value;
+			$scope.editTimerValues['priority'] = (parameters.length  == 15) ? parameters[8].value : parameters[24].value;
+			$scope.editTimerValues['creator'] = (parameters.length  == 15) ? parameters[13].value : parameters[33].value;
+			$scope.editTimerValues['owner'] = (parameters.length  == 15) ? parameters[12].value : parameters[32].value;
+			$scope.editTimerValues['removal'] = (parameters.length  == 15) ? parameters[10].value : parameters[27].value;
+			$scope.editTimerValues['retention'] = (parameters.length  == 15) ? parameters[9].value : parameters[26].value;
+			$scope.editTimerValues['weekdays'] = (parameters.length  == 15) ? parameters[7].value : parameters[17].value;
+			$scope.editTimerValues['uuid'] = selected.uuid;
+
+		}, function (response)
+		{
+			alert('Sorry, an error occurred on "/api/idnode/load". API response was : "(' + response.status + ')"');
+		});
+	}
+
+
+	// BUTTON : Collects values, calls API and closes the editTimer-dialogue
+	$scope.editTimerAccept = function() {
+		// write back 10 values
+		var weekdaysRaw = $scope.editTimerValues['weekdays'];
+		var weekdaysTranslated = weekdaysRaw.split(",").map(Number);
+		var rawData = {
+							"enabled" : $scope.editTimerValues['enabled'],
+							"name" : $scope.editTimerValues['name'],
+							"comment" : $scope.editTimerValues['comment'],
+							"config_name" : $scope.editTimerValues['config_name'],
+							"start" : $scope.editTimerValues['start'],
+							"stop" : $scope.editTimerValues['stop'],
+							"title" : $scope.editTimerValues['title'],
+							"type" : $scope.editTimerValues['type'],
+							"priority" : $scope.editTimerValues['priority'],
+							"checked" : $scope.editTimerValues['checked'],
+							"creator" : $scope.editTimerValues['creator'],
+							"owner" : $scope.editTimerValues['owner'],
+							"removal" : $scope.editTimerValues['removal'],
+							"retention" : $scope.editTimerValues['retention'],
+							"weekdays" : weekdaysTranslated,
+							"uuid" : $scope.editTimerValues['uuid']
+					  };
+		var url = '/api/idnode/save';
+		var rawDataEncoded = "node=" + encodeURIComponent(JSON.stringify(rawData));
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		$http.post(url, rawDataEncoded, headers)
+		.then(function (response)
+		{
+			loadDvrData();
+			$scope.showInfobox('"' + item.disp_title + '" was edited successfully');
+		}, function (response)
+		{
+			alert('Sorry, an error occurred on "/api/idnode/save". API response was : "(' + response.status + ')"');
+		});
+		var dialogue = document.getElementById("overlayEditTimer");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
+
+
+	// BUTTON : Collects values, calls API and closes the newRecording-dialogue
+	$scope.addTimerAccept = function() {
+		var weekdaysRaw = document.getElementsByName("timerWeekdays")[0].value;
+		var weekdaysTranslated = weekdaysRaw.split(",").map(Number);
+		// collect values
+		var name = document.getElementsByName("timerName")[0].value;
+		var channel = (document.getElementById("timerChannel").selectedOptions[0].value).split(":")[1];
+		var start = document.getElementsByName("timerStart")[0].value;
+		var stop = document.getElementsByName("timerStop")[0].value;
+		var weekdays = weekdaysTranslated;
+		var comment = document.getElementsByName("timerComment")[0].value;
+		var config_name = (document.getElementById("timerConfig").selectedOptions[0].value).split(":")[1];
+		var title = document.getElementsByName("timerTitle")[0].value;
+		var directory = document.getElementsByName("timerDirectory")[0].value;
+		var removal = document.getElementsByName("timerRemoval")[0].value;
+		var retention = document.getElementsByName("timerRetention")[0].value;
+		// Convert data into rawData
+		var rawData = 	{
+							"name": name, 
+							"channel": channel,
+							"start": start,
+							"stop": stop,
+							"weekdays": weekdays,
+							"comment": comment,
+							"config_name": config_name,
+							"title": title,
+							"directory": directory,
+							"removal": removal,
+							"retention": retention
+						};
+
+		// call API
+		var url = '/api/dvr/timerec/create';
+		var rawDataEncoded = "conf=" + encodeURIComponent(JSON.stringify(rawData));
+		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+		$http.post(url, rawDataEncoded, headers)
+		.then(function (response)
+		{
+			loadDvrData();
+			$scope.showInfobox('New timer added: "' + name + '"');
+		}, function (response)
+		{
+			alert('Sorry, an error occurred on "/api/dvr/timerec/create". API response was : "(' + response.status + ')"');
+		});
+		// reset all
+		var dialogue = document.getElementById("overlayAddTimer");
+		clearInputs(dialogue);
+		dialogue.style.display = "none";
+	}
+
+
+	// BUTTON : Starts add timer dialouge
+	$scope.addTimerButton = function() {
+		document.getElementById("overlayAddTimer").style.display = "block";
+	}
+
+
+	// BUTTON : Deletes selected timers
+	$scope.deleteTimerButton = function() {
+		if (confirm("Are you sure?")) {
+			angular.forEach($scope.selectedTimers, function (item) {
+				httpPost('/api/idnode/delete', { 'uuid': item.uuid }, 'Deleted timer "' + item.name + '"')
+			})
+		}
+		loadDvrData();
+	}
+
+
+	// BUTTON : Toggles Enable/Disable of timers
+	$scope.enableDisableTimerButton = function() {
+		angular.forEach($scope.selectedTimers, function (item) {
+			var url = '/api/idnode/load';
+			var data = http_build_query({ "uuid": item.uuid });
+			var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+			$http.post(url, data, headers)
+			.then(function (response)
+			{
+				var parameters = response.data.entries[0].params;
+				var newEnabledStatus = !parameters[0].value;
+				var rawData = [{ "enabled": newEnabledStatus, "uuid": item.uuid }];
+				var url = '/api/idnode/save';
+				var rawDataEncoded = "node=" + encodeURIComponent(JSON.stringify(rawData));
+				var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}};
+				$http.post(url, rawDataEncoded, headers)
+				.then(function (response)
+				{
+					loadDvrData();
+					$scope.showInfobox('Enabled status was changed for "' + item.name + '"');
+				}, function (response)
+				{
+					alert('Sorry, an error occurred on "/api/idnode/load". API response was : "(' + response.status + ')"');
+				});
+
+			}, function (response)
+			{
+				alert('Sorry, an error occurred on "/api/idnode/save". API response was : "(' + response.status + ')"');
+			});
+		});
+	}
+
 
 	// MAIN: Program starts here
 	loadDvrData();

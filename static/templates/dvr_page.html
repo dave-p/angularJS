@@ -1,6 +1,53 @@
 <div id="dvr_content" ng-app="mainApp" ng-controller="dvrController as dvrCtrl">
 
-	<div id="overlayEditRecording" class="overlay" ng-controller="editRecordingController">
+	<div id="overlayAddTimer" class="overlay" ng-controller="dvrEditingController">
+		<div id="overlay_recordingInner">
+			<h2>Add Timer</h2>
+			<label>Titel: 					<input type="text" name="timerName"></label>
+			<label>Channel:					<select id="timerChannel" ng-model="timerChannel" ng-options="key for (key , value) in addRecordingChannels"></select></label>
+			<label>Start:					<input type="text" name="timerStart"></label>
+			<label>Stop:				 	<input type="text" name="timerStop"></label>
+			<label>Days-of-week:			<input type="text" name="timerWeekdays"></label>
+			<label>Comment: 				<input type="text" name="timerComment"></label>
+			<label>DVR Configuration: 		<select id="timerConfig" ng-model="timerConfig" ng-options="key for (key , value) in addRecordingConfigs"></select></label>
+			<label>RegEx:					<input type="text" name="timerTitle"></label>
+			<label>Directory:				<input type="text" name="timerDirectory" min="0"></label>
+			<label>Removal:					<input type="number" name="timerRemoval" min="0"></label>
+			<label>Retention:				<input type="number" name="timerRetention" min="0"></label>
+			<label>Type:					<label class="badge badge_small badge-primary text-uppercase" style="width: 50%; float: right; width: 580px">timer</label></label>
+			<div id="recordingBottom">
+				<button id="editTimerAcceptButton" class="btn btn-outline-info" type="button" ng-click="addTimerAccept()">Accept</button>
+				<button id="editTimerCancelButton" class="btn btn-outline-info" type="button" ng-click="addTimerCancel()">Cancel</button>
+			</div>
+		</div>
+	</div>
+	<div id="overlayEditTimer" class="overlay" ng-controller="dvrEditingController">
+		<div id="overlay_recordingInner">
+			<h2>Edit Timer</h2>
+			<label>Enabled: 				<input type="checkbox" name="timerEnabled" ng-model="editTimerValues.enabled"></label>
+			<label>Titel: 					<input type="text" name="timerTitel" ng-model="editTimerValues.name"></label>
+			<label>Comment: 				<input type="text" name="timerComment" ng-model="editTimerValues.comment"></label>
+			<label>DVR Configuration: 		<select id="timerConfig" ng-model="editTimerValues.config_name" ng-options="key for (key , value) in addRecordingConfigs"></select></label>
+			<label>Start:					<input type="text" name="timerStart" ng-model="editTimerValues.start"></label>
+			<label>Stop:				 	<input type="text" name="timerStop" ng-model="editTimerValues.stop"></label>
+			<label>Creator:					<input type="text" name="timerCreator" ng-model="editTimerValues.creator"></label>
+			<label>Owner:					<input type="text" name="timerOwner" ng-model="editTimerValues.owner"></label>
+			<label>Removal:					<input type="number" name="timerRemoval" ng-model="editTimerValues.removal" min="0"></label>
+			<label>Retention:				<input type="number" name="timerRetention" ng-model="editTimerValues.retention" min="0"></label>
+			<label>Priority: 				<select id="inputPriority" ng-model="editTimerValues.priority" ng-options="key for (key , value) in priorities"></select></label>
+			<label>RegEx:					<input type="text" name="inputTitel" ng-model="editTimerValues.title"></label>
+			<label>Days-of-week:			<input type="text" name="DaysOfWeek" ng-model="editTimerValues.weekdays"></label>
+			<label>Type:					
+				<label ng-class="{'badge-info': editTimerValues.type == 'epg', 'badge-primary': editTimerValues.type == 'time'}" 
+						class="badge badge_small ng-binding text-uppercase" style="width: 50%; float: right; width: 580px">{{editTimerValues.type}}</label>
+			</label>
+			<div id="recordingBottom">
+				<button id="editTimerAcceptButton" class="btn btn-outline-info" type="button" ng-click="editTimerAccept()">Accept</button>
+				<button id="editTimerCancelButton" class="btn btn-outline-info" type="button" ng-click="editTimerCancel()">Cancel</button>
+			</div>
+		</div>
+	</div>
+	<div id="overlayEditRecording" class="overlay" ng-controller="dvrEditingController">
 		<div id="overlay_recordingInner">
 			<h2>Edit Recording</h2>
 			<label>Enabled: 				<input type="checkbox" name="inputExtra" ng-model="editRecordingValues.enabled"></label>
@@ -19,15 +66,13 @@
 			</div>
 		</div>
 	</div>
-
-
-	<div id="overlayAddRecording" class="overlay" ng-controller="newRecordingController">
+	<div id="overlayAddRecording" class="overlay" ng-controller="dvrEditingController">
 		<div id="overlay_recordingInner">
 			<h2>Add New Recording</h2>
 			<label>Titel: <input type="text" name="inputTitel" ></label>
 			<label>Extra text: <input type="text" name="inputExtra"></label>
 			<label>Channel: <select id="inputChannel" ng-model="selectChannel" ng-options="key for (key , value) in addRecordingChannels"></select></label>
-			<form name="addRecordingStartForm" ng-controller="newRecordingController as dateCtrl">
+			<form name="addRecordingStartForm" ng-controller="dvrEditingController as dateCtrl">
 				<label>Start:
 					<input style="width: 285px" type="time" id="addRecordingStartTime" ng-model="addRecordingStartTime.value" placeholder="HH:mm" 
 							min="{{addRecordingStartTime.value | date:'HH:mm'}}"  ng-model-options="{ updateOn: 'default', timeSecondsFormat: '' }" required />
@@ -39,7 +84,7 @@
 					</div>
 				</label>
 			</form>
-			<form name="addRecordingStopForm" ng-controller="newRecordingController as dateCtrl">
+			<form name="addRecordingStopForm" ng-controller="dvrEditingController as dateCtrl">
 				<label>Start:
 					<input style="width: 285px" type="time" id="addRecordingStopTime" ng-model="addRecordingStopTime.value" placeholder="HH:mm" 
 							min="{{addRecordingStartTime.value | date:'HH:mm'}}" ng-model-options="{ updateOn: 'default', timeSecondsFormat: '' }" required />
@@ -62,8 +107,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<div id="overlayDetails" class="overlay" ng-click="hideDetails()">
 		<div id="overlay_detailsInner">
 			<img id="overlay_icon" src="{{ detailsData.icon }}" />
@@ -86,13 +129,92 @@
 		</div>
 	</div>
 
-	<div id="dvr_header">
-		<h1>Recordings</h1>
-	</div>
-
 	<div id="dvr_main">
+		<div class="dvr_header">
+			<h1>Timers</h1>
+		</div>
+		<div id="dvr_timers">
+			<div class="dvr_toolbar">
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" class="btn btn-sm btn-danger" ng-click="editTimerButton()"
+							ng-disabled="selectedTimers.length !== 1">
+						<i class="fas fa-edit mr-1" aria-hidden="true"></i>Edit
+					</button>
+					<button type="button" class="btn btn-sm btn-dark" ng-click="enableDisableTimerButton()"
+							ng-disabled="selectedTimers.length === 0">
+						<i class="fas fa-ban mr-1" aria-hidden="true"></i>Enable/Disable
+					</button>
+					<button type="button" class="btn btn-sm btn-dark" ng-click="deleteTimerButton()" 
+							ng-disabled="selectedTimers.length === 0">
+						<i class="fas fa-trash-alt mr-1" aria-hidden="true"></i>Delete
+					</button>
+				</div>
+				<button type="button" class="btn btn-sm btn-dark" ng-click="addTimerButton()">
+					<i class="fas fa-plus mr-1" aria-hidden="true"></i>Add timer
+				</button>
+			</div>
+			<table class="dvrTable table-hover">
+				<thead>
+				  <tr class="dvrTable">
+					<th style="width: 30px">
+						<input id="selectAllTimersCheckbox" type="checkbox" ng-model="selectAllTimers" ng-click="checkAllTimers()" />
+					</th>
+					<th>
+						<a ng-click="changeTimerSorting('name')">
+							Name
+							<i class="fas fa-sort-alpha-up" ng-show="sortTimers.column === 'name' && sortTimers.descending"></i>
+							<i class="fas fa-sort-alpha-down" ng-show="sortTimers.column === 'name' && !sortTimers.descending"></i>
+						</a>
+					</th>
+					<th>
+						<a ng-click="changeTimerSorting('status')">
+							Type
+							<i class="fas fa-sort-alpha-up" ng-show="sortTimers.column === 'status' && !sortTimers.descending"></i>
+							<i class="fas fa-sort-alpha-down" ng-show="sortTimers.column === 'status' && sortTimers.descending"></i>
+						</a>
+					</th>
+					<th>
+						<a>regEx</a>
+					</th>
+					<th>
+						<a ng-click="changeTimerSorting('channel')">
+							Channel
+							<i class="fas fa-sort-alpha-up" ng-show="sortTimers.column === 'channel' && sortTimers.descending"></i>
+							<i class="fas fa-sort-alpha-down" ng-show="sortTimers.column === 'channel' && !sortTimers.descending"></i>
+						</a>
+					</th>
+					<th>
+						<a>Days-of-Week</a>
+					</th>
+					<th>
+						<a>Time</a>
+					</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr ng-repeat="x in dvrTimers | orderBy:sortTimers.column:sortTimers.descending">
+					<td style="padding-top: 10px;">
+						<input class="dvrCheckbox" type="checkbox" ng-model="x.checked" ng-change="addSelectedTimer(x)" >
+					</td>
+					<td ng-class="{redText: !x.enabled}" ng-click="showDetails(x)">{{ x.name }}  {{ x.enabled ?  "" : " [DISABLED]" }}</td>
+					<td ng-class="{	'badge-primary'	: x.type == 'time', 'badge-info' : x.type == 'epg'}" class="badge badge_small" >{{ x.type | uppercase }}</td>
+					<td class="" >{{ x.title }}</td>
+					<td class="" >
+						<img class="dvrLogo" src="{{ (channelList | filter : { 'uuid': x.channel })[0].icon }}">
+						<b id="{{ x.uuid }}">{{ (channelList | filter : { 'uuid': x.channel })[0].name }}</b>
+					</td>
+					<td class="" >{{ x.weekdays | weekdays }}</td>
+					<td class="" >{{ x.start }} --> {{ x.stop }}</td>
+				  </tr>
+				</tbody>
+			</table>
+		</div>
 
-		<div id="dvr_toolbar">
+
+		<div class="dvr_header">
+			<h1>Recordings</h1>
+		</div>
+		<div class="dvr_toolbar">
 			<div class="btn-group" role="group" aria-label="...">
 				<button type="button" class="btn btn-sm btn-danger" ng-click="editButton()"
 						ng-disabled="selectedCat.scheduled + selectedCat.running + selectedCat.completed + selectedCat.timeMissed + selectedCat.fileMissing !== 1">
@@ -126,47 +248,49 @@
 
 		<div class="searchBar">
 			<i class="fa fa-search searchIcon" aria-hidden="true"></i>
-			<input type="text" class="searchInput ng-valid ng-touched ng-not-empty ng-dirty ng-valid-parse" ng-model="textFilter" ng-change="$ctrl.onTextFilterChange()" placeholder="Search..." auto-focus="" ng-model-options="{ debounce: 300 }">
+			<input type="text" class="searchInput ng-valid ng-touched ng-not-empty ng-dirty ng-valid-parse" ng-model="textFilter" ng-change="$ctrl.onTextFilterChange()" 
+					placeholder="Filter..." auto-focus="" ng-model-options="{ debounce: 300 }">
+			<a style="float: right; font-size:24px" ng-click="clearFilter()" class="fa fa-times-circle"></a>
 		</div>
 
 		<table class="dvrTable table-hover">
 			<thead>
 			  <tr class="dvrTable">
 				<th style="width: 30px">
-					<input type="checkbox" ng-model="selectAll" ng-click="checkAll()" />
+					<input id="selectAllRecordingsCheckbox" type="checkbox" ng-model="selectAllRecordings" ng-click="checkAllRecordings()" />
 				</th>
 				<th>
-					<a ng-click="changeSorting('disp_title')">
+					<a ng-click="changeRecSorting('disp_title')">
 						Title
-						<i class="fas fa-sort-alpha-up" ng-show="sort.column === 'disp_title' && sort.descending"></i>
-						<i class="fas fa-sort-alpha-down" ng-show="sort.column === 'disp_title' && !sort.descending"></i>
+						<i class="fas fa-sort-alpha-up" ng-show="sortRecordings.column === 'disp_title' && sortRecordings.descending"></i>
+						<i class="fas fa-sort-alpha-down" ng-show="sortRecordings.column === 'disp_title' && !sortRecordings.descending"></i>
 					</a>
 				</th>
 				<th>
-					<a ng-click="changeSorting('status')">
+					<a ng-click="changeRecSorting('status')">
 						Status
-						<i class="fas fa-sort-alpha-up" ng-show="sort.column === 'status' && sort.descending"></i>
-						<i class="fas fa-sort-alpha-down" ng-show="sort.column === 'status' && !sort.descending"></i>
+						<i class="fas fa-sort-alpha-up" ng-show="sortRecordings.column === 'status' && sortRecordings.descending"></i>
+						<i class="fas fa-sort-alpha-down" ng-show="sortRecordings.column === 'status' && !sortRecordings.descending"></i>
 					</a>
 				</th>
 				<th>
-					<a ng-click="changeSorting('channelname')">
+					<a ng-click="changeRecSorting('channelname')">
 						Channel
-						<i class="fas fa-sort-alpha-up" ng-show="sort.column === 'channelname' && sort.descending"></i>
-						<i class="fas fa-sort-alpha-down" ng-show="sort.column === 'channelname' && !sort.descending"></i>
+						<i class="fas fa-sort-alpha-up" ng-show="sortRecordings.column === 'channelname' && sortRecordings.descending"></i>
+						<i class="fas fa-sort-alpha-down" ng-show="sortRecordings.column === 'channelname' && !sortRecordings.descending"></i>
 					</a>
 				</th>
 				<th>
-					<a ng-click="changeSorting('start')">
+					<a ng-click="changeRecSorting('start')">
 						Time
-						<i class="fas fa-sort-numeric-up" ng-show="sort.column === 'start' && sort.descending"></i>
-						<i class="fas fa-sort-numeric-down" ng-show="sort.column === 'start' && !sort.descending"></i>
+						<i class="fas fa-sort-numeric-up" ng-show="sortRecordings.column === 'start' && sortRecordings.descending"></i>
+						<i class="fas fa-sort-numeric-down" ng-show="sortRecordings.column === 'start' && !sortRecordings.descending"></i>
 					</a>
 				</th>
 			  </tr>
 			</thead>
 			<tbody>
-			  <tr ng-repeat="x in dvrData | orderBy:sort.column:sort.descending | filter : textFilter">
+			  <tr ng-repeat="x in dvrData | orderBy:sortRecordings.column:sortRecordings.descending | filter : textFilter">
 				<td style="padding-top: 10px;">
 					<input class="dvrCheckbox" type="checkbox" ng-model="x.checked" ng-change="addSelectedItem(x)" >
 				</td>

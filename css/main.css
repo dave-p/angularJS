@@ -27,6 +27,10 @@ p {
 	width:				180px;
 }
 
+.badge_small {
+	width:				60px;
+}
+
 .badge-warning {
 	color:				white;
 }
@@ -50,7 +54,6 @@ p {
 .float-left {
 	float:				left;
 }
-
 
 .noneFoundDiv {
 	color:				white;
@@ -78,7 +81,7 @@ p {
 	top:				50%;
 	left:				50%;
 	width:				800px;
-	height:				550px;
+	height:				580px;
 	color:				maroon;
 	border:				3px solid maroon;
 	background-color:	#f3f3f3;
@@ -362,7 +365,14 @@ p {
 	border-top:			3px solid black;
 }
 
-#dvr_header {
+
+#dvr_timers {
+	border-bottom: 		1px solid #d2d1d1;
+	margin-bottom:		20px;
+}
+
+
+.dvr_header {
 	padding-left:		10px;
 	padding-right:		10px;
 	background-color:	#f3f3f3;
@@ -370,12 +380,12 @@ p {
 	height:				70px;
 }
 
-#dvr_header h1 {
+.dvr_header h1 {
 	padding-top:		10px;
 	padding-left:		10px;
 }
 
-#dvr_toolbar {
+.dvr_toolbar {
 	width:				650px;
 	margin-left:		50px;
 	margin-bottom:		20px;
@@ -394,7 +404,7 @@ p {
 	padding-left:		10px;
 	padding-right:		10px;
 	width:				100%;
-	min-height:			calc(100vh - 140px);
+	min-height:			calc(100vh - 70px);
 	background-color:	#f3f3f3;
 }
 
@@ -420,7 +430,7 @@ table.dvrTable tr {
 
 table.dvrTable th {
 	font-size:			20px;
-	padding:			8px;
+	padding:			5px;
 	padding-bottom:		10px;
 	border-bottom:		3px solid #ddd;
 }
@@ -451,7 +461,7 @@ table.dvrTable td {
 
 .searchInput {
 	border:				none;
-	width:				97%;
+	width:				95%;
 	background-color:	#f3f3f3;
 }
 

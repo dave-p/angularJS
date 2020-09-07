@@ -7,6 +7,7 @@ GENERAL
  - put common functions in separate .js-file
 
 
+
  
 Status-page:
 ----------------------------------------------------------------------------------------------
@@ -16,22 +17,14 @@ EPG-page:
 ----------------------------------------------------------------------------------------------
 
 
+Digital Video Recorder-page:
+----------------------------------------------------------------------------------------------
+
+
 About-page:
 ----------------------------------------------------------------------------------------------
 - Show correct build time
 - Show correct build parameters
-
-
-
-Digital Video Recorder-page:
-----------------------------------------------------------------------------------------------
- - Separate section for Autorecs / Timers (TABS?):
-
-
-
-
-
-
 
 
 Configuration-page:
@@ -40,6 +33,14 @@ Configuration-page:
 - set sort of Channels, write to configuration.json
 - Choose a default dvr-Configuration, skriv i configuration.json
 - tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
+
+
+
+
+
+
+
+
 
 
 
