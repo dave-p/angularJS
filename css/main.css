@@ -500,7 +500,8 @@ table.dvrTable td {
 	padding-left:		7px;
 	padding-top:		3px;
 	margin-top:			0px;
-	height:				100%;
+	height:				auto;
+	min-height:			100%;
 	float:				left;
 	transition:			.2s;
 	background-color:	maroon;
