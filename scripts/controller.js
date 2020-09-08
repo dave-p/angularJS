@@ -427,26 +427,42 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		.then(function (data)
 		{
 			var epgLine = [];
-			angular.forEach(data["data"]["entries"], function (row)
+			if (data["data"]["entries"].length == 0)
 			{
-				var duration = (row["stop"] - row["start"]) / 60;
-				if (angular.isDefined(row['genre']))
-					var col = genre_dict[ row['genre'][0].toString(16)[0] ][0];
-				else
-					var col = 'gray';
-				var calcWidth = (duration * 5) - 6;
+				row = [];
 				var record = {
-								color : col,
-								width : calcWidth,
+								color : 'gray',
+								width : 400,
 								data : row
 							 };
-				totalWidth += calcWidth;
-				row["start"] = getUniversalTime(row["start"]);
-				row["stop"] = getUniversalTime(row["stop"]);
-				if (angular.isDefined(row['dvrState']))
-					row['recStatus'] = getRecordingStatusIcon(row['dvrState']);
+				row["title"] = "No EPG found for this Channel";
 				epgLine.push(record);
-			})
+			}
+			else 
+			{
+				angular.forEach(data["data"]["entries"], function (row)
+				{
+					var duration = (row["stop"] - row["start"]) / 60;
+					if (angular.isDefined(row['genre']))
+						var col = genre_dict[ row['genre'][0].toString(16)[0] ][0];
+					else
+						var col = 'gray';
+					var calcWidth = (duration * 5) - 6;
+					var record = {
+									color : col,
+									width : calcWidth,
+									data : row
+								 };
+					totalWidth += calcWidth;
+					row["start"] = getUniversalTime(row["start"]);
+					row["stop"] = getUniversalTime(row["stop"]);
+					if (angular.isDefined(row['dvrState']))
+						row['recStatus'] = getRecordingStatusIcon(row['dvrState']);
+					epgLine.push(record);
+				})
+			}
+
+
 		// update maxEPGwidth and timeline
 		if (totalWidth > $scope.maxEpgWidth) {
 			$scope.maxEpgWidth = totalWidth;

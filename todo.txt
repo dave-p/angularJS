@@ -15,6 +15,9 @@ Status-page:
 
 EPG-page:
 ----------------------------------------------------------------------------------------------
+- icon check
+- epg line check
+
 
 
 Digital Video Recorder-page:
