@@ -130,8 +130,8 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	// fill out data on the bottom EPG display
 	$scope.fillBotomEPG = function(epgUnit) {
 		$scope.selectedEpgUnit = epgUnit;
+		$scope.selectedEpgUnit['show'] = true;
 		var bottomDiv = document.getElementById("epg_bottom");
-		angular.element(bottomDiv).css("visibility", "visible");
 		var objStart = new Date(epgUnit['data']['start']);
 		var objStop = new Date(epgUnit['data']['stop']);
 		var timeArray = [	(objStart.getHours()).toString(), 
@@ -151,26 +151,32 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		else
 			epgUnit['data']['genreText'] = '(unknown)';
 		// change button text
-		var recordButton = document.getElementById('recordProgram');
-		var recordSeriesButton = document.getElementById('recordSeries');
-		angular.element(recordButton).css("visibility", "visible");
-		angular.element(recordSeriesButton).css("visibility", "visible");
-		if (angular.isDefined(epgUnit['data']['dvrState']))
-		{
-			angular.element(recordSeriesButton).css("visibility", "hidden");
-			var status = epgUnit['data']['dvrState'];
-			if (status == 'scheduled')
-				recordButton.innerText = 'Cancel Recording';
-			else if (status == 'recording')
-				recordButton.innerText = 'Stop Recording';
-			var testActive = 1;
-		}
-		else {
-			recordButton.innerText = 'Record';
-			var now = new Date();
-			if (now.getTime() > epgUnit['data']['stop']) {
-				angular.element(recordButton).css("visibility", "hidden");
+		// Do not show if no data
+		if (epgUnit['data']['title'] != "No EPG found for this Channel") {
+			angular.element(bottomDiv).css("visibility", "visible");
+
+
+			var recordButton = document.getElementById('recordProgram');
+			var recordSeriesButton = document.getElementById('recordSeries');
+			angular.element(recordButton).css("visibility", "visible");
+			angular.element(recordSeriesButton).css("visibility", "visible");
+			if (angular.isDefined(epgUnit['data']['dvrState']))
+			{
 				angular.element(recordSeriesButton).css("visibility", "hidden");
+				var status = epgUnit['data']['dvrState'];
+				if (status == 'scheduled')
+					recordButton.innerText = 'Cancel Recording';
+				else if (status == 'recording')
+					recordButton.innerText = 'Stop Recording';
+				var testActive = 1;
+			}
+			else {
+				recordButton.innerText = 'Record';
+				var now = new Date();
+				if (now.getTime() > epgUnit['data']['stop']) {
+					angular.element(recordButton).css("visibility", "hidden");
+					angular.element(recordSeriesButton).css("visibility", "hidden");
+				}
 			}
 		}
 	}
@@ -436,6 +442,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 								data : row
 							 };
 				row["title"] = "No EPG found for this Channel";
+				row["channelIcon"] = "/static/angularJS/static/img/logosmall.png";
 				epgLine.push(record);
 			}
 			else 
