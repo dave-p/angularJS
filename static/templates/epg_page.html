@@ -4,16 +4,12 @@
 		<div class="epg_channels_header">
 			<a href="" ng-click=showHideChannelNames()><span class="channelHeaderIcon fas fa-exchange-alt"></span></a>
 		</div>
-
-
 		<div id="epg_channels_main">
 			<div class='channel' ng-repeat="channel in channelList">
-				<img class="channelLogo" src="{{channel['icon']}}" />
+				<img class="channelLogo" src="{{channel['icon']}}"  onerror="this.src='/static/angularJS/static/img/logosmall.png'" />
 				<p class="mt-2 text-truncate">{{channel['name']}}</p>
 			</div>
 		</div>
-
-
 	</div>
 	<div id='epg_data' ng-keydown="keyPress($event)" tabindex="0">
 		<li class='epg_row' style="width: {{maxEpgWidth + 1000}}px">
@@ -33,7 +29,7 @@
 	<div id='epg_bottom' style="visibility: hidden;">
 		<div class="row">
 			<div class="col-2 minimized">
-				<img id="epg_bottom_image" ng-src="{{selectedEpgUnit['data']['channelIcon']}}" />
+				<img id="epg_bottom_image" ng-src="{{selectedEpgUnit['data']['channelIcon']}}" onerror="this.src='/static/angularJS/static/img/logoChannel.png'" />
 			</div>
 			<div class="col-10 pl-4">
 				<div class="row">
