@@ -39,7 +39,15 @@ app.controller('dvrEditingController', function($scope, $http) {
 });
 
 
+// controller for loading a dvr-page
 app.controller('dvrController', function($scope, $http, $filter) {
+	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
+	var mainDiv = document.getElementsByClassName("main")[0];
+	if (sideNavDiv['className'] == "sidenav sidenav_small") 
+		angular.element(mainDiv).addClass("main_big");
+	else
+		angular.element(mainDiv).removeClass("main_big");
+
 
 	// loads or reloads the page data
 	loadDvrData = function(obj) {

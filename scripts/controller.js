@@ -80,7 +80,6 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	// ------------- set up variables -----------------------------------------------------------
 
 	$scope.timeLine = [];
-	$scope.configuration = [];
 	$scope.maxEpgWidth = 0;
 	var now = new Date();
 	var hour = now.getHours() - 2;
@@ -144,6 +143,19 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		if (timeArray[2].length == 1) {timeArray[2] = '0' + timeArray[2]}
 		if (timeArray[3].length == 1) {timeArray[3] = '0' + timeArray[3]}
 		epgUnit['data']['fromToTime'] = timeArray[0] + ':' + timeArray[1] + ' - ' + timeArray[2] + ':' + timeArray[3];
+
+
+
+		// hotfix for no description
+		if (!angular.isDefined(epgUnit['data']['description']))
+			if (!angular.isDefined(epgUnit['data']['summary']))
+				epgUnit['data']['description'] = epgUnit['data']['summary'];
+			else:
+				epgUnit['data']['description'] = '<no description available>';
+
+
+
+
 		if (angular.isDefined(epgUnit['data']['genre'])) {
 			var genreInt = epgUnit['data']['genre'][0];
 			epgUnit['data']['genreText'] = genre_dict[genreInt.toString(16)[0]][1];
@@ -335,7 +347,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	// record a specific program
 	$scope.recordProgram = function() {
 		var url = '/api/dvr/entry/create_by_event';
-		var data = http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": $scope.configuration['dvrConfig'] });
+		var data = http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": $scope.dvrConfig });
 		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
 		$http.post(url, data, headers)
 			.then(function (response)
@@ -360,7 +372,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	// create an autorec from a specific program, recording all programs like it
 	$scope.recordSeries = function() {
 		var url = '/api/dvr/autorec/create_by_series';
-		var data = http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": $scope.configuration['dvrConfig'] });
+		var data = http_build_query({ "event_id": $scope.selectedEpgUnit['data']['eventId'], "config_uuid": $scope.dvrConfig });
 		var headers = {headers: {'Content-Type': 'application/x-www-form-urlencoded'}};
 		$http.post(url, data, headers)
 			.then(function (response)
@@ -429,7 +441,7 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 	$scope.updateChannelEpg = function(index) {
 		var ID = $scope.channelList[index]['uuid'];
 		var totalWidth = 0;
-		$http.get("/api/epg/events/grid?limit=" + $scope.configuration['noOfEpgRecordsToGet'] + "&channel=" + ID)
+		$http.get("/api/epg/events/grid?limit=" + $scope.noOfEpgRecordsToGet + "&channel=" + ID)
 		.then(function (data)
 		{
 			var epgLine = [];
@@ -521,25 +533,27 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 
 	// MAIN: Program starts here
 	$scope.timeBoxHeigth = 15;
-	$http.get("configuration.json")
-		.then(function (configData)
+
+
+
+
+	$scope.noOfEpgRecordsToGet = 15;									// Get from cookie or use standard
+	$scope.dvrConfig = "381d7e78fd66381e1175fbbd74b28a4f";				// get from cookie or use standard
+
+
+
+
+	$http.get("/api/channel/grid")
+		.then(function (data)
 		{
-			angular.forEach(configData['data'], function (value, key)
+			$scope.channelList = data["data"]['entries'];
+			var rowIndex = 0;
+			angular.forEach($scope.channelList, function (row)
 			{
-				$scope.configuration[key] = value;
+				$scope.updateChannelEpg(rowIndex++);
+				$scope.timeBoxHeigth += 50;
 			})
-			$http.get("/api/channel/grid")
-				.then(function (data)
-				{
-					$scope.channelList = data["data"]['entries'];
-					var rowIndex = 0;
-					angular.forEach($scope.channelList, function (row)
-					{
-						$scope.updateChannelEpg(rowIndex++);
-						$scope.timeBoxHeigth += 50;
-					})
 //					console.log($scope.channelList);
-				})
 		})
 	}); // controller ends
 
@@ -555,11 +569,11 @@ app.config(function($routeProvider) {
 	})
 	.when("/dvr", {
 		templateUrl : "static/templates/dvr_page.html",
-		controller : "tempChangeController"
+		controller : "dvrController"
 	})
 	.when("/conf", {
 		templateUrl : "static/templates/conf_page.html",
-		controller : "tempChangeController"
+		controller : "configController"
 	})
 	.when("/status", {
 		templateUrl : "static/templates/status_page.html",
@@ -572,20 +586,6 @@ app.config(function($routeProvider) {
 });
 
 
-// controller for loading the EPG-page
-app.controller("epgController", function ($scope) {
-	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
-	var bottomDiv = document.getElementById("epg_bottom");
-	var mainDiv = document.getElementsByClassName("main")[0];
-	if (sideNavDiv['className'] == "sidenav sidenav_small") 
-		angular.element(mainDiv).addClass("main_big");
-	else
-		angular.element(mainDiv).removeClass("main_big");
-	var epgDataDiv = document.getElementById("epg_data");
-	if (epgDataDiv) { epgDataDiv.scrollLeft = $scope.timeBoxWidth - 100; }
-});
-
-
 // controller for loading a status-page
 app.controller("statusController", function ($scope, $http) {
 	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
@@ -594,7 +594,6 @@ app.controller("statusController", function ($scope, $http) {
 		angular.element(mainDiv).addClass("main_big");
 	else
 		angular.element(mainDiv).removeClass("main_big");
-
 	$http.get("/api/status/inputs")
 		.then(function (response) {	$scope.streamData = response.data.entries });
 	$http.get("/api/status/subscriptions")
@@ -603,7 +602,10 @@ app.controller("statusController", function ($scope, $http) {
 		.then(function (response) {	$scope.connectionsData = response.data.entries });
 	$http.get("/api/service/mapper/status")
 		.then(function (response) {	$scope.serviceMapperData = response.data });
-
+	$http.get("/api/serverinfo")
+		.then(function (response) {	$scope.serverInfo = response.data });
+	$http.get("/api/memoryinfo/grid")
+		.then(function (response) {	$scope.memoryInfo = response.data });
 	$scope.clearStreamStats = function(uuid) {
 		var url = '/api/status/inputclrstats';
 		var data = http_build_query({ "uuid": uuid });
@@ -650,22 +652,10 @@ app.controller("aboutController", function ($scope, $http) {
 		angular.element(mainDiv).addClass("main_big");
 	else
 		angular.element(mainDiv).removeClass("main_big");
-	$http.get("/api/serverinfo")
-	.then(function (reply)
-	{
-		$scope.softwareVersion = reply['data']['sw_version'];
-	})
+
 });
 
 
-// controller for loading a generic page
-app.controller("tempChangeController", function ($scope) {
-	var sideNavDiv = document.getElementsByClassName("sidenav")[0];
-	var mainDiv = document.getElementsByClassName("main")[0];
-	if (sideNavDiv['className'] == "sidenav sidenav_small") 
-		angular.element(mainDiv).addClass("main_big");
-	else
-		angular.element(mainDiv).removeClass("main_big");
-});
+
 
 

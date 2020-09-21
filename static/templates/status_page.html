@@ -1,4 +1,4 @@
-<div class='status_main'>
+<div class='subpage_main'>
 
 	<h5 class="mb-0">Streams:</h5>
 	<div class="noneFoundDiv" ng-hide="streamData.length">None</div>
@@ -108,6 +108,48 @@
 			<td> {{ serviceMapperData.ok }} </td>
 			<td> {{ serviceMapperData.fail }} </td>
 			<td> {{ serviceMapperData.total }} </td>
+		  </tr>
+		</tbody>
+	</table>		
+
+	<h5 class="mb-0">Memory Info:</h5>
+	<table class="table table-sm table-dark table-striped">
+		<thead>
+		  <tr>
+			<th>Name</td>
+			<th>Size</td>
+			<th>Peak Size</td>
+			<th>Count</td>
+			<th>Peak Count</td>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="x in memoryInfo.entries">
+			<td> {{ x.name }} </td>
+			<td> {{ x.size }} </td>
+			<td> {{ x.peak_size }} </td>
+			<td> {{ x.count }} </td>
+			<td> {{ x.peak_count }} </td>
+		  </tr>
+		</tbody>
+	</table>		
+
+	<h5 class="mb-0">Server Info:</h5>
+	<table class="table table-sm table-dark table-striped">
+		<thead>
+		  <tr>
+			<th>Name</td>
+			<th>API Version</td>
+			<th>Software Version</td>
+			<th>Capabilities</td>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr>
+			<td> {{ serverInfo.name }} </td>
+			<td> {{ serverInfo.api_version }} </td>
+			<td> {{ serverInfo.sw_version }} </td>
+			<td ng-repeat="x in serverInfo.capabilities"> {{ x }} </td>
 		  </tr>
 		</tbody>
 	</table>		

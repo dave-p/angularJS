@@ -13,6 +13,7 @@ Status-page:
 ----------------------------------------------------------------------------------------------
 
 
+
 EPG-page:
 ----------------------------------------------------------------------------------------------
 
@@ -22,10 +23,10 @@ Digital Video Recorder-page:
 ----------------------------------------------------------------------------------------------
 
 
+
 About-page:
 ----------------------------------------------------------------------------------------------
-- Show correct build time
-- Show correct build parameters
+
 
 
 Configuration-page:
@@ -33,6 +34,8 @@ Configuration-page:
 - set values in configuration.json
 - set sort of Channels, write to configuration.json
 - Choose a default dvr-Configuration, skriv i configuration.json
+	 - dvrConfig is loaded in config.json, but shouldn't be... just select one? Or select one as default?
+	 - should just select defeault config as default... but where?
 - tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
 
 

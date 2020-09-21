@@ -16,6 +16,10 @@ p {
     outline:			none;
 }
 
+.table {
+	margin-bottom:		3rem;
+}
+
 .redText {
 	color:				red;
 }
@@ -44,7 +48,7 @@ p {
 	font-size:			15px;	
 }
 
-.status_main {
+.subpage_main {
 	padding:			20px 5px 25px 5px;
 	margin:				7px; 
 	color:				lightgray;
@@ -74,6 +78,40 @@ p {
 	z-index:			2;
 	cursor:				pointer;
 }
+
+.config_header {
+	font-size:			x-large;
+}
+
+
+.config_section {
+	width:				100%;
+	background-color:	#4a2626;
+	border-style:		solid;
+	margin-top:			5px;
+	margin-bottom:		30px;
+	padding:			10px;
+}
+
+.config_section label {
+	font-weight:		bold;
+	width:				100%;	
+}
+
+.config_section input {
+	float:				right;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 #overlay_recordingInner {
 	position:			absolute;
@@ -357,6 +395,40 @@ p {
 	margin-top:			0px;
 	padding-top:		20px;
 }
+
+#aboutLogo {
+	float: left;
+	width: 750px;
+}
+
+#aboutInfo {
+	float:				right;
+	font-size:			20px;
+	width:				calc(100% - 750px);
+}
+
+#aboutInfo h4 {
+	color:				red;
+	margin-top:			30px;
+}
+
+
+#aboutInfo li {
+	font-weight:		bold;
+}
+
+#aboutInfo li span {
+	font-weight:		bold;
+	color:				white;
+}
+
+
+
+
+
+
+
+
 
 #dvrTable {
 	width:				100%;
