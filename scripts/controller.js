@@ -75,7 +75,7 @@ function getGridPosition() {
 }
 
 
-app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies) { 		// TODO : This is a controller for much, much more. Put into separate controllers
+app.controller("commonController", function ($scope, $http, $interval, $timeout, $cookies) { 		// TODO : This is a controller for much, much more. Put into separate controllers
 
 	// ------------- set up variables -----------------------------------------------------------
 
@@ -143,19 +143,13 @@ app.controller("getJson", function ($scope, $http, $interval, $timeout, $cookies
 		if (timeArray[2].length == 1) {timeArray[2] = '0' + timeArray[2]}
 		if (timeArray[3].length == 1) {timeArray[3] = '0' + timeArray[3]}
 		epgUnit['data']['fromToTime'] = timeArray[0] + ':' + timeArray[1] + ' - ' + timeArray[2] + ':' + timeArray[3];
-
-
-
 		// hotfix for no description
-		if (!angular.isDefined(epgUnit['data']['description']))
+		if (!angular.isDefined(epgUnit['data']['description'])) {
 			if (!angular.isDefined(epgUnit['data']['summary']))
 				epgUnit['data']['description'] = epgUnit['data']['summary'];
-			else:
+			else
 				epgUnit['data']['description'] = '<no description available>';
-
-
-
-
+		}
 		if (angular.isDefined(epgUnit['data']['genre'])) {
 			var genreInt = epgUnit['data']['genre'][0];
 			epgUnit['data']['genreText'] = genre_dict[genreInt.toString(16)[0]][1];
