@@ -8,7 +8,7 @@ GENERAL
 
 
 
- 
+
 Status-page:
 ----------------------------------------------------------------------------------------------
 
@@ -31,19 +31,25 @@ About-page:
 
 Configuration-page:
 ----------------------------------------------------------------------------------------------
-- set values in configuration.json
-- set sort of Channels, write to configuration.json
-- Choose a default dvr-Configuration, skriv i configuration.json
-	 - dvrConfig is loaded in config.json, but shouldn't be... just select one? Or select one as default?
-	 - should just select defeault config as default... but where?
+- option to sort Channels in User Interface configuration
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+NOTES:
+----------------------------------------------------------------------------------------------
 - tabs		( http://plnkr.co/edit/IZiEskpyprh3vt9TTUNd?p=preview&preview )
-
-
-
-
-
-
-
 
 
 

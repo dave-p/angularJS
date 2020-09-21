@@ -2,8 +2,9 @@
 
 	<h5 class="mb-0 config_header">User Interface:</h5>
 	<div class="config_section">
-		<label>Number of EPG-records to fetch for each channel:	<input max="99" style="width:60px" type="number" ng-change="noOfEpg_change()" name="NoOfEpgRecords" ng-model="noOfEpgRecordsToGet"></label>
-		<label>Prefered Recording Profile:	<input max="99" style="width:360px" type="text" ng-change="noOfEpg_change()" name="NoOfEpgRecords" ng-model="dvrConfig"></label>
+		<label>Number of EPG-records to fetch for each channel:	<input id="noOfEpg" max="99" style="width:60px" type="number" ng-change="noOfEpg_change()" name="NoOfEpgRecords" ng-model="noOfEpgRecordsToGet"></label>
+		<label>Prefered Recording Profile: <select id="prefRecProfile" style="width:200px" ng-change="dvrConfig_change()" ng-options="key for (key , value) in addRecordingConfigs" ng-model="dvrConfig" ></select></label>
+
 	</div>
 
 

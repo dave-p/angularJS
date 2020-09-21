@@ -81,6 +81,9 @@ app.controller("commonController", function ($scope, $http, $interval, $timeout,
 
 	$scope.timeLine = [];
 	$scope.maxEpgWidth = 0;
+	$scope.timeBoxHeigth = 15;
+	$scope.expireDate = new Date();
+	$scope.expireDate.setTime(2144232732000);
 	var now = new Date();
 	var hour = now.getHours() - 2;
 	var timeObj = new Date( now.toString().split(':')[0] + ":00:00" );
@@ -526,17 +529,16 @@ app.controller("commonController", function ($scope, $http, $interval, $timeout,
 
 
 	// MAIN: Program starts here
-	$scope.timeBoxHeigth = 15;
-
-
-
-
-	$scope.noOfEpgRecordsToGet = 15;									// Get from cookie or use standard
-	$scope.dvrConfig = "381d7e78fd66381e1175fbbd74b28a4f";				// get from cookie or use standard
-
-
-
-
+	var cookieA = $cookies.get('noOfEpgRecordsToGet');
+	if (!angular.isDefined(cookieA)) { cookieA = 15; }
+	$scope.noOfEpgRecordsToGet = parseInt(cookieA);
+	var cookieB = $cookies.get('preferedDvrConfig');
+	$scope.dvrConfig = $cookies.get('preferedDvrConfig');
+	if (!angular.isDefined($scope.dvrConfig)) { 
+		// load first available  config
+		$http.get("/api/dvr/config/grid")
+			.then(function (reply) 	{ $scope.dvrConfig = reply.data.entries[0].uuid; })
+	}
 	$http.get("/api/channel/grid")
 		.then(function (data)
 		{
