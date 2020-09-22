@@ -148,7 +148,7 @@ app.controller("commonController", function ($scope, $http, $interval, $timeout,
 		epgUnit['data']['fromToTime'] = timeArray[0] + ':' + timeArray[1] + ' - ' + timeArray[2] + ':' + timeArray[3];
 		// hotfix for no description
 		if (!angular.isDefined(epgUnit['data']['description'])) {
-			if (!angular.isDefined(epgUnit['data']['summary']))
+			if (angular.isDefined(epgUnit['data']['summary']))
 				epgUnit['data']['description'] = epgUnit['data']['summary'];
 			else
 				epgUnit['data']['description'] = '<no description available>';
